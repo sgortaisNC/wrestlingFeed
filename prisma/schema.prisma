@@ -1,0 +1,34 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Show {
+  id        Int        @id @default(autoincrement())
+  name      String     @unique
+  wrestlers Wrestler[]
+}
+
+model Wrestler {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  active   Boolean   @default(false)
+  show     Show?     @relation(fields: [showName], references: [name])
+  showName String?
+  lastSeen DateTime?
+  match    Match[]
+}
+
+model Match {
+  id         Int      @id @default(autoincrement())
+  wrestler   Wrestler @relation(fields: [wrestlerId], references: [id])
+  win        Boolean
+  loose      Boolean
+  draw       Boolean
+  date       DateTime
+  wrestlerId Int
+}

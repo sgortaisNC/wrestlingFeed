@@ -1,0 +1,46 @@
+.grid{
+  display: grid;
+  height: 100vh;
+  grid-template-rows: repeat(6,1fr);
+}
+
+.line{
+  display: grid;
+  align-items: center;
+  grid-template-columns: 150px 1fr;
+}
+
+.letter{
+  text-align: center;
+  font-size: 48px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--color);
+  small{
+    font-size: 33%;
+  }
+}
+
+.liste{
+  ul{
+    display: flex;
+    gap:10px;
+    flex-flow: row wrap;
+    list-style: none;
+    li{
+      background: white;
+      padding: 5px 10px;
+      color: black;
+      border-radius: 6px;
+    }
+  }
+}
+
+.infos{
+  position: absolute;
+  top: 0;
+  right: 0;
+}

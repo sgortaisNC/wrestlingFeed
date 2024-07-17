@@ -1,0 +1,141 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    background: #263238;
+    color: white;
+}
+
+.card {
+    display: grid;
+    height: 100%;
+    background: red;
+    place-items: center;
+    cursor: pointer;
+    border-radius: 16px;
+    box-shadow: 0 0 10px transparent;
+    transition: all 0.3s ease;
+
+    &:hover {
+        box-shadow: 0 0 20px white;
+    }
+}
+
+.grid {
+    display: grid;
+    gap: 30px;
+    height: 100vh;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    padding: 1rem;
+    text-align: center;
+}
+
+.NXT {
+    background: #cbb449;
+}
+
+.Raw {
+    background: #d90012;
+}
+
+.SmackDown {
+    background: #0072b8;
+}
+
+.PLE{
+    background: #595959;
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2;
+    display: grid;
+    align-items: start;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.5s ease;
+
+    &.active {
+        opacity: 1;
+        pointer-events: all;
+    }
+}
+
+.content {
+    border-radius: 16px;
+    background: white;
+    width: 100%;
+    text-align: left;
+    color: #263238;
+    padding: 20px 0;
+}
+
+.content ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    row-gap: 5px;
+}
+
+.backdrop {
+    background: rgba(0, 0, 0, 0.75);
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+}
+
+button.seen {
+    background: green;
+}
+
+.btn {
+    background: #263238;
+
+    position: relative;
+    &::before{
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        border-radius: 5px;
+        content: '';
+        top: 54%;
+        left: 8px;
+        transform: translate(-50%, -50%);
+    }
+
+    &.sameShow:before {
+        left: -15px;
+    }
+
+    &[data-roster="Raw"]:before {
+        background: #d90012;
+    }
+
+    &[data-roster="SmackDown"]:before {
+        background: #0072b8;
+    }
+
+    &[data-roster="NXT"]:before {
+        background: #cbb449;
+    }
+
+    color: white;
+    padding: 8px 10px 8px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background: #455a64;
+    }
+}
