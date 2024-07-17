@@ -25,6 +25,8 @@ async function getWrestlers() {
 }
 
 export const dynamic = 'force-dynamic'
+export const revalidate = 60 // revalidate the data at most every minutes
+
 
 export default async function Home() {
     const date = new Date('2024-04-07');
