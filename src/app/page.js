@@ -25,7 +25,7 @@ async function getWrestlers() {
 }
 
 export default async function Home() {
-    const date = new Date(process.env.DATE);
+    const date = new Date('2024-04-07');
     let yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 32);
 
