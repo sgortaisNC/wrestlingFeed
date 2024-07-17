@@ -24,6 +24,8 @@ async function getWrestlers() {
     return wrestlers;
 }
 
+export const dynamic = 'force-dynamic'
+
 export default async function Home() {
     const date = new Date('2024-04-07');
     let yesterday = new Date();
