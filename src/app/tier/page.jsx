@@ -1,6 +1,8 @@
 import css from "./style.module.scss";
 import {prisma} from "@/Utils/prisma";
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 60 // revalidate the data at most every minutes
 export default async function TierList() {
 
     let wrestlers = await prisma.wrestler.findMany({
