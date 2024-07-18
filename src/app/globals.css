@@ -87,6 +87,8 @@ html {
     grid-template-columns: repeat(6, 1fr);
     @media (orientation: portrait){
         grid-template-columns: 1fr;
+        overflow: auto;
+        max-height: 90vh;
     }
     gap: 15px;
     li{
