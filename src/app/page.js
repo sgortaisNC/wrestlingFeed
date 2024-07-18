@@ -24,12 +24,25 @@ async function getWrestlers() {
     return wrestlers;
 }
 
+async function getDate() {
+    const date = await prisma.options.findUnique({
+        where: {
+            key: "date"
+        }
+    })
+
+    return date.value;
+}
+
 export const dynamic = 'force-dynamic'
 export const revalidate = 60 // revalidate the data at most every minutes
 
 
 export default async function Home() {
-    const date = new Date('2024-04-07');
+
+    const fetchDate = await getDate();
+
+    const date = new Date(fetchDate);
     let yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 32);
 

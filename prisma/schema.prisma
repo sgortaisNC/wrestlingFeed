@@ -8,6 +8,11 @@ generator client {
   provider = "prisma-client-js"
 }
 
+model Options {
+  key   String @id
+  value String
+}
+
 model Show {
   id        Int        @id @default(autoincrement())
   name      String     @unique
