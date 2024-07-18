@@ -28,6 +28,7 @@ function addWrestler(e) {
         }
     }).then(response => response.json()).then(data => {
         console.log(data);
+        e.target.reset()
     });
 }
 
@@ -60,13 +61,6 @@ export const Show = ({show, className, allWrestlers}) => {
                 <div className="backdrop" onClick={closeModal}></div>
                 <div className="content">
                     <div className="header">
-                        <div className="filters">
-                            <button onClick={() => {filter('Tous')}}>Tous</button>
-                            <button onClick={() => {filter('Raw')}}>Raw</button>
-                            <button onClick={() => {filter('SmackDown')}}>SmackDown</button>
-                            <button onClick={() => {filter('NXT')}}>NXT</button>
-                            <button onClick={() => {filter('old')}}>👻</button>
-                        </div>
                         <form action="#" onSubmit={addWrestler}>
                             <input type="text" name={"name"} placeholder={"Name"} title={"Name"}/>
                             <input type="hidden" value={show.title === "PLE" ? "Free" : show.title} name={"showName"}/>
@@ -76,7 +70,7 @@ export const Show = ({show, className, allWrestlers}) => {
                     </div>
                     <ul>
                         {wrestlers && wrestlers.map((wrestler,id) => (
-                            <li key={id}>
+                            <li key={id} data-wrestler={wrestler.id}>
                                 <Wrestler wrestler={wrestler} show={show} key={id}/>
                             </li>
                         ))}

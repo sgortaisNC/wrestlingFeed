@@ -84,8 +84,19 @@ html {
 .content ul {
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    row-gap: 5px;
+    grid-template-columns: repeat(6, 1fr);
+    @media (orientation: portrait){
+        grid-template-columns: 1fr;
+    }
+    gap: 15px;
+    li{
+        display: flex;
+        justify-content: space-between;
+        padding-right: 15px;
+        .cta{
+            height: 100%;
+        }
+    }
 }
 
 .backdrop {
