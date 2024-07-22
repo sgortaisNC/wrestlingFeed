@@ -71,6 +71,14 @@ export default async function Home() {
             date: "2024-7-6",
         }, {
             date: "2024-8-31",
+        },{
+            date: "2024-9-1",
+        },{
+            date: "2024-10-5",
+        },{
+            date: "2024-10-27",
+        },{
+            date: "2024-11-2",
         }
     ]
     while (date.getTime() < yesterday.getTime()) {
