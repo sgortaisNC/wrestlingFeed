@@ -41,10 +41,9 @@ function showSeen(date){
     })
 }
 
-export const Show = ({show, className, allWrestlers}) => {
+export const Show = ({show, className}) => {
 
-    const [wrestlers, setWrestlers] = useState(allWrestlers.filter(w => w.matches === 0 || w.match.pop()?.date.toISOString() !== show.date));
-    console.log(wrestlers.length)
+    const [wrestlers, setWrestlers] = useState(show.wrestlers);
     if (!wrestlers) return;
 
     return (
@@ -71,7 +70,7 @@ export const Show = ({show, className, allWrestlers}) => {
 
                     <ul>
                     {wrestlers && wrestlers.map((wrestler,id) => (
-                            <li key={wrestler.id} data-wrestler={wrestler.id}>
+                            <li key={id} data-wrestler={wrestler.id}>
                                 <Wrestler wrestler={wrestler} show={show} key={id}/>
                             </li>
                         ))}

@@ -3,25 +3,16 @@ import {prisma} from "@/Utils/prisma";
 import DomElements from "@/components/DomElements/DomElements";
 
 async function getWrestlers() {
-    const wrestlers = await prisma.wrestler.findMany({
+    return prisma.wrestler.findMany({
         orderBy: [
             {
                 name: 'asc',
-            },
+            }
         ],
-        where: {
-            active: true,
-        },
         include: {
             match: true,
         },
     });
-
-    for (const wrestler of wrestlers) {
-        wrestler.matches = wrestler.match.length;
-        wrestler.wins = wrestler.match.filter(match => match.win).length;
-    }
-    return wrestlers;
 }
 
 async function getDate() {
@@ -45,10 +36,6 @@ export default async function Home() {
     const date = new Date(fetchDate);
     let yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 32);
-
-    let maxShows = 0;
-
-    const wrestlers = await getWrestlers();
     const shows = [];
     const ple = [
         {
@@ -71,50 +58,61 @@ export default async function Home() {
             date: "2024-7-6",
         }, {
             date: "2024-8-31",
-        },{
+        }, {
             date: "2024-9-1",
-        },{
+        }, {
             date: "2024-10-5",
-        },{
+        }, {
             date: "2024-10-27",
-        },{
+        }, {
             date: "2024-11-2",
         }
     ]
+
+    let allWrestlers = await getWrestlers();
+
     while (date.getTime() < yesterday.getTime()) {
+        let timeWresler = allWrestlers.filter(w => w.match.length === 0 || w.match.at(-1)?.date.toISOString() !== date.toISOString())
         date.setDate(date.getDate() + 1);
+
+
         let checkPLE = ple.filter((p) => p.date === (date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()))
         if (checkPLE.length > 0) {
             shows.push({
                 date: date.toISOString(),
-                title: "PLE"
+                title: "PLE",
+                wrestlers: allWrestlers
             });
         }
+
+
         if (date.getDay() === 5) {
             shows.push({
                 date: date.toISOString(),
-                title: 'SmackDown'
+                title: 'SmackDown',
+                wrestlers: timeWresler
             });
         } else if (date.getDay() === 2) {
             shows.push({
                 date: date.toISOString(),
-                title: 'NXT'
+                title: 'NXT',
+                wrestlers: timeWresler
             });
         } else if (date.getDay() === 1) {
             shows.push({
                 date: date.toISOString(),
-                title: 'Raw'
+                title: 'Raw',
+                wrestlers: timeWresler
             });
         }
     }
 
     return (
         <>
-            <DomElements />
-            {date.toISOString()}
+            <DomElements/>
             <div className="grid">
                 {shows.map(show => (
-                    <Show allWrestlers={wrestlers} show={show} key={show.date} className={"card " + show.title}/>
+                    <Show show={show} key={show.date} className={"card " + show.title}/>
                 ))}
             </div>
         </>
