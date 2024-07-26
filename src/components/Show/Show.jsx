@@ -32,24 +32,20 @@ function addWrestler(e) {
     });
 }
 
+function showSeen(date){
+    fetch('/api/seen-show',{
+        method: 'POST',
+        body: JSON.stringify({
+            date: date
+        }),
+    })
+}
+
 export const Show = ({show, className, allWrestlers}) => {
 
-    const [wrestlers, setWrestlers] = useState(allWrestlers);
+    const [wrestlers, setWrestlers] = useState(allWrestlers.filter(w => w.matches === 0 || w.match.pop()?.date.toISOString() !== show.date));
+    console.log(wrestlers.length)
     if (!wrestlers) return;
-
-    function filter(string = null){
-        if (!string) return;
-
-        switch (string){
-            case "Raw":
-            case "SmackDown":
-            case "NXT":
-                setWrestlers(allWrestlers.filter((w) => {return w.showName === string}))
-                break;
-            default:
-                setWrestlers(allWrestlers)
-        }
-    }
 
     return (
         <>
@@ -67,10 +63,15 @@ export const Show = ({show, className, allWrestlers}) => {
                             <input type="hidden" value={show.date} name={"lastSeen"}/>
                             <button>Add</button>
                         </form>
+                        <button onClick={() => {
+                            showSeen(show.date.substring(0, 10))
+                        }}>✅
+                        </button>
                     </div>
+
                     <ul>
-                        {wrestlers && wrestlers.map((wrestler,id) => (
-                            <li key={id} data-wrestler={wrestler.id}>
+                    {wrestlers && wrestlers.map((wrestler,id) => (
+                            <li key={wrestler.id} data-wrestler={wrestler.id}>
                                 <Wrestler wrestler={wrestler} show={show} key={id}/>
                             </li>
                         ))}

@@ -10,7 +10,7 @@ async function getWrestlers() {
             },
         ],
         where: {
-            active: true
+            active: true,
         },
         include: {
             match: true,

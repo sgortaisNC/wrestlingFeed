@@ -1,5 +1,5 @@
 ## Todo list
-- [ ] Add Button "seen" for each Show
+- [x] Add Button "seen" for each Show
 - [ ] Wrestlers List to edit them
 - [ ] Filters Wreslters in show
 - [ ] Hide Wrestlers who already fight 
