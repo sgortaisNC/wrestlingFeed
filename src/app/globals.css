@@ -90,11 +90,10 @@ html {
         overflow: auto;
         max-height: 90vh;
     }
-    gap: 15px;
+    gap: 5px;
     li{
         display: flex;
         justify-content: space-between;
-        padding-right: 15px;
         .cta{
             height: 100%;
         }
@@ -128,7 +127,7 @@ button.seen {
     }
 
     &.sameShow:before {
-        left: -15px;
+        left: -7px;
     }
 
     &[data-roster="Raw"]:before {
@@ -147,7 +146,7 @@ button.seen {
     padding: 8px 10px 8px 15px;
     border: none;
     border-radius: 5px;
-    font-size: 13px;
+    font-size: 10px;
     cursor: pointer;
     transition: all 0.3s ease;
 
