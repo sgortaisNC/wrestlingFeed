@@ -102,13 +102,13 @@ export const Wrestler = ({wrestler, show}) => {
                 <button onClick={(e) => {
                     win(wrestler.id,showDate);
                     document.querySelector(`.modal.active li[data-wrestler="${wrestler.id}"]`).remove();
-                }} className={"cta"}> Win
+                }} className={"cta"}> W
                 </button>
                 &nbsp;
                 <button onClick={(e) => {
                     loose(wrestler.id,showDate);
                     document.querySelector(`.modal.active li[data-wrestler="${wrestler.id}"]`).remove();
-                }} className={"cta"}> Loose
+                }} className={"cta"}> L
                 </button>
             </div>
         </div>
