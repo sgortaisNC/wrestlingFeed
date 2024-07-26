@@ -80,7 +80,7 @@ export default async function Home() {
         if (checkPLE.length > 0) {
             shows.push({
                 date: date.toISOString(),
-                title: "PLE "+ allWrestlers.length,
+                title: "PLE",
                 wrestlers: allWrestlers
             });
         }
@@ -89,19 +89,19 @@ export default async function Home() {
         if (date.getDay() === 5) {
             shows.push({
                 date: date.toISOString(),
-                title: 'SmackDown ' + timeWresler.length,
+                title: 'SmackDown',
                 wrestlers: timeWresler
             });
         } else if (date.getDay() === 2) {
             shows.push({
                 date: date.toISOString(),
-                title: 'NXT ' + timeWresler.length,
+                title: 'NXT',
                 wrestlers: timeWresler
             });
         } else if (date.getDay() === 1) {
             shows.push({
                 date: date.toISOString(),
-                title: 'Raw ' + timeWresler.length,
+                title: 'Raw',
                 wrestlers: timeWresler
             });
         }
