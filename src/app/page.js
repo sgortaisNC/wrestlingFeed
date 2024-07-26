@@ -111,6 +111,7 @@ export default async function Home() {
     return (
         <>
             <DomElements />
+            {date.toISOString()}
             <div className="grid">
                 {shows.map(show => (
                     <Show allWrestlers={wrestlers} show={show} key={show.date} className={"card " + show.title}/>
