@@ -67,7 +67,7 @@ export const Wrestler = ({wrestler, show}) => {
     const showDate = show.date;
 
     let icon = '👻';
-    if (lastSeenDelta(lastSeen, showDate) < 60) icon = '🚑';
+    if (lastSeenDelta(lastSeen, showDate) < 45) icon = '🚑';
     if (lastSeenDelta(lastSeen, showDate) < 30) icon = '😴';
     if (lastSeenDelta(lastSeen, showDate) <= 7) icon = '🔥';
 
