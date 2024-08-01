@@ -2,7 +2,7 @@ import css from "./style.module.scss";
 
 export default async function TierList() {
 
-    const base_url = process.env.BASE_URL;
+    const base_url = await process.env.BASE_URL;
 
     let tierList = await fetch(base_url+'api/tier',{ next: { revalidate: 120 } }).then((res) => res.json());
 
