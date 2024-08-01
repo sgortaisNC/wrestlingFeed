@@ -19,8 +19,11 @@
     "sass": "^1.77.6"
   },
   "devDependencies": {
+    "@types/node": "22.0.2",
+    "@types/react": "18.3.3",
     "eslint": "^8",
     "eslint-config-next": "14.1.4",
-    "prisma": "^5.13.0"
+    "prisma": "^5.13.0",
+    "typescript": "5.5.4"
   }
 }
