@@ -54,7 +54,7 @@ export async function GET() {
         }
     )
 
-    const bdd = await getMatchBeforeDate(new Date(date.value));
+    const bdd = await getMatchBeforeDate();
     let totalMatch = 0;
     let returnable = []
     bdd.map(w => {
