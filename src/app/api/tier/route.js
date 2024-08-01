@@ -44,16 +44,6 @@ async function getMatchBeforeDate(date = false){
 }
 
 export async function GET() {
-    const date = await prisma.options.findUnique({
-            select: {
-                value: true
-            },
-            where: {
-                key: "date"
-            }
-        }
-    )
-
     const bdd = await getMatchBeforeDate();
     let totalMatch = 0;
     let returnable = []
