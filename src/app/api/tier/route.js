@@ -59,9 +59,13 @@ export async function GET() {
         returnable.push({
             name: w.name,
             tier: getTier(w.match),
-            pts: w.match.filter(m => m.win).length - w.match.filter(m => m.loose).length
+            pts: w.match.filter(m => m.win).length - w.match.filter(m => m.loose).length,
+            matches: w.match.length
         })
     } );
+
+    returnable = returnable.filter(w => w.matches > (totalMatch/bdd.length) - 1);
+    console.log(returnable)
 
     return NextResponse.json({
         avg: totalMatch/bdd.length,
