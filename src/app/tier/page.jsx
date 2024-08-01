@@ -1,73 +1,17 @@
 import css from "./style.module.scss";
-import {prisma} from "@/Utils/prisma";
 
-export const dynamic = 'force-dynamic'
-export const revalidate = 60 // revalidate the data at most every minutes
 export default async function TierList() {
 
-    let wrestlers = await prisma.wrestler.findMany({
-        where: {
-            active: true
-        },
-        include: {
-            match: true,
-        },
-    });
+    const base_url = process.env.BASE_URL;
 
-    let allMatches = 0;
-    wrestlers.map((w) => {allMatches += w.match.length});
+    let tierList = await fetch(base_url+'api/tier',{ next: { revalidate: 120 } }).then((res) => res.json());
 
-    let avgMatches = allMatches / wrestlers.length;
-    wrestlers = wrestlers.filter((w) => {
-        return w.match.length > avgMatches
-    })
-
-    wrestlers.map(w => {
-        w.wins = w.match.filter(match => {
-            return match.win
-        }).length;
-        w.draws = w.match.filter(match => {
-            return match.draw
-        }).length
-        w.looses = w.match.filter(match => {
-            return match.loose
-        }).length
-        w.winrate = (100 * w.wins / (w.draws + w.looses + w.wins));
-    })
-
-    wrestlers.sort((w1, w2) => {
-        if (w1.winrate < w2.winrate) return 1;
-        if (w1.winrate > w2.winrate) return -1;
-        if (w1.wins < w2.wins) return 1;
-        if (w1.wins > w2.wins) return -1;
-        if (w1.looses > w2.looses) return 1;
-        if (w1.looses < w2.looses) return -1;
-    });
-
-    let splus = wrestlers.filter(w => {
-        return w.winrate === 100
-    });
-    let s = wrestlers.filter(w => {
-        return w.winrate < 100 && w.winrate >= 75
-    });
-    let a = wrestlers.filter(w => {
-        return w.winrate < 75 && w.winrate > 50
-    });
-    let b = wrestlers.filter(w => {
-        return w.winrate <= 50 && w.winrate > 25
-    });
-    let c = wrestlers.filter(w => {
-        return w.winrate <= 25 && w.winrate > 0
-    });
-    let d = wrestlers.filter(w => {
-        return w.winrate === 0
-    });
 
     return (
         <>
             <div className={css.grid}>
                 <div className={css.infos}>
-                    Moyenne de match  : {avgMatches.toFixed(2)}
+                    Moyenne de match  : {tierList.avg.toFixed(2)}
                 </div>
                 <div className={css.line}>
                     <div className={css.letter} style={{"--color": "#287cb0"}}>
@@ -75,7 +19,7 @@ export default async function TierList() {
                     </div>
                     <div className={css.liste}>
                         <ul>
-                            {splus.map((w, index) => {
+                            {tierList.tier.filter(w => w.tier === "S+").map((w, index) => {
                                 return (
                                     <li key={index}>
                                         {w.name}
@@ -91,7 +35,7 @@ export default async function TierList() {
                     </div>
                     <div className={css.liste}>
                         <ul>
-                            {s.map((w, index) => {
+                            {tierList.tier.filter(w => w.tier === "S").map((w, index) => {
                                 return (
                                     <li key={index}>{w.name}</li>
                                 )
@@ -106,7 +50,7 @@ export default async function TierList() {
                     </div>
                     <div className={css.liste}>
                         <ul>
-                            {a.map((w, index) => {
+                            {tierList.tier.filter(w => w.tier === "A").map((w, index) => {
                                 return (
                                     <li key={index}>{w.name}</li>
                                 )
@@ -120,7 +64,7 @@ export default async function TierList() {
                     </div>
                     <div className={css.liste}>
                         <ul>
-                            {b.map((w, index) => {
+                            {tierList.tier.filter(w => w.tier === "B").map((w, index) => {
                                 return (
                                     <li key={index}>{w.name}</li>
                                 )
@@ -134,7 +78,7 @@ export default async function TierList() {
                     </div>
                     <div className={css.liste}>
                         <ul>
-                            {c.map((w, index) => {
+                            {tierList.tier.filter(w => w.tier === "C").map((w, index) => {
                                 return (
                                     <li key={index}>{w.name}</li>
                                 )
@@ -148,7 +92,7 @@ export default async function TierList() {
                     </div>
                     <div className={css.liste}>
                         <ul>
-                            {d.map((w, index) => {
+                            {tierList.tier.filter(w => w.tier === "D").map((w, index) => {
                                 return (
                                     <li key={index}>{w.name}</li>
                                 )
