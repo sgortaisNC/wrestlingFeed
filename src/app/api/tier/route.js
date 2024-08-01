@@ -15,29 +15,32 @@ function getTier(matches){
     if (p < 75) return "A";
     return "S";
 }
-async function getMatchBeforeDate(date = new Date()){
-   return prisma.wrestler.findMany({
-       select: {
-           id: true,
-           name: true,
-           match: {
-               select: {
-                   date: true,
-                   win: true,
-                   loose: true,
-               },
-           }
-       },
-       where:{
-           match: {
-               some: {
-                   date: {
-                       lt: date
-                   },
-               }
-           }
-       }
-   });
+async function getMatchBeforeDate(date = false){
+    let args = {
+        select: {
+            id: true,
+            name: true,
+            match: {
+                select: {
+                    date: true,
+                    win: true,
+                    loose: true,
+                },
+            }
+        },
+    }
+    if (date){
+        args.where = {
+            match: {
+                some: {
+                    date: {
+                        lte: date
+                    },
+                }
+            }
+        }
+    }
+   return prisma.wrestler.findMany(args);
 }
 
 export async function GET() {
