@@ -1,5 +1,5 @@
 import {NextResponse} from "next/server";
-import {prisma} from "@/Utils/prisma";
+import {prisma} from "@/utils/prisma";
 
 function percent(matches){
     let wins = matches.filter(m => m.win).length;

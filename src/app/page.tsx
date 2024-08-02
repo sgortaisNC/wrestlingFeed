@@ -1,5 +1,5 @@
 import {Show} from "@/components/Show/Show";
-import {prisma} from "@/Utils/prisma";
+import {prisma} from "@/utils/prisma";
 import DomElements from "@/components/DomElements/DomElements";
 
 async function getWrestlers() {
