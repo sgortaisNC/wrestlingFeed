@@ -54,6 +54,8 @@ export default async function Home() {
             date: "2024-5-4",
         },{
             date: "2024-5-25",
+        },{
+            date: "2024-6-9",
         }, {
             date: "2024-6-15",
         }, {
