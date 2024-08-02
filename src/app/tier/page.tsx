@@ -7,7 +7,6 @@ export default async function TierList() {
 
     let tierList = await fetch(base_url+'api/tier',{ next: { revalidate: 120 } }).then((res) => res.json());
 
-    console.log(tierList.dateAPI)
     return (
         <>
             <div className={css.grid}>

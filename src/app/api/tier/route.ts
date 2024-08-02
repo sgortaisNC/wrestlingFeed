@@ -41,6 +41,7 @@ async function getMatchBeforeDate(date = false) {
     return prisma.wrestler.findMany(args);
 }
 
+export const dynamic = 'force-dynamic'
 export async function GET() {
     const bdd = await getMatchBeforeDate();
     let totalMatch = 0;
