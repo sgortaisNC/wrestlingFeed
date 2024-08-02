@@ -1,12 +1,14 @@
 import {NextResponse} from "next/server";
 import {prisma} from "@/utils/prisma";
+import {Match} from ".prisma/client";
 
-function percent(matches){
+function percent(matches: Match[]) : number {
     let wins = matches.filter(m => m.win).length;
     let looses = matches.filter(m => m.loose).length;
-    return 100 * (wins / (wins+looses));
+    return 100 * (wins / (wins + looses));
 }
-function getTier(matches){
+
+function getTier(matches: Match[]) : string {
     const p = percent(matches);
     if (p === 100) return "S+";
     if (p === 0) return "D";
@@ -15,22 +17,17 @@ function getTier(matches){
     if (p < 75) return "A";
     return "S";
 }
-async function getMatchBeforeDate(date = false){
+
+async function getMatchBeforeDate(date = false) {
     let args = {
         select: {
             id: true,
             name: true,
-            match: {
-                select: {
-                    date: true,
-                    win: true,
-                    loose: true,
-                },
-            }
+            match: true,
         },
         where: {},
     }
-    if (date){
+    if (date) {
         args.where = {
             match: {
                 some: {
@@ -41,7 +38,7 @@ async function getMatchBeforeDate(date = false){
             }
         }
     }
-   return prisma.wrestler.findMany(args);
+    return prisma.wrestler.findMany(args);
 }
 
 export async function GET() {
@@ -56,13 +53,13 @@ export async function GET() {
             pts: w.match.filter(m => m.win).length - w.match.filter(m => m.loose).length,
             matches: w.match.length
         })
-    } );
+    });
 
-    returnable = returnable.filter(w => w.matches > (totalMatch/bdd.length) - 1);
-    console.log(returnable)
-
+    returnable = returnable.filter(w => w.matches > (totalMatch / bdd.length) - 1);
+    const now = new Date();
     return NextResponse.json({
-        avg: totalMatch/bdd.length,
+        dateAPI: now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds(),
+        avg: totalMatch / bdd.length,
         tier: returnable.sort((a, b) => b.pts - a.pts),
     });
 }

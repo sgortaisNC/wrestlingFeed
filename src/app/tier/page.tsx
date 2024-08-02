@@ -7,12 +7,12 @@ export default async function TierList() {
 
     let tierList = await fetch(base_url+'api/tier',{ next: { revalidate: 120 } }).then((res) => res.json());
 
-
+    console.log(tierList.dateAPI)
     return (
         <>
             <div className={css.grid}>
                 <div className={css.infos}>
-                    Moyenne de match  : {tierList.avg.toFixed(2)}
+                    Moyenne de match  : {tierList.avg.toFixed(2)} / {tierList.dateAPI}
                 </div>
                 <div className={css.line}>
                     <div className={css.letter + " " + css.ss}>
