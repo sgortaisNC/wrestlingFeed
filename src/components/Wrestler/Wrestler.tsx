@@ -12,7 +12,7 @@ function remove(e) {
         .then(response => response.json())
         .then(data => {
             console.log('Success:', data);
-            e.target.parentNode.remove();
+            e.target.parentNode.parentNode.remove();
         })
         .catch((error) => {
             console.error('Error:', error);
