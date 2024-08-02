@@ -15,7 +15,7 @@ export default async function TierList() {
                     Moyenne de match  : {tierList.avg.toFixed(2)}
                 </div>
                 <div className={css.line}>
-                    <div className={css.letter} style={{"--color": "#287cb0"}}>
+                    <div className={css.letter + " " + css.ss}>
                         S+ <br/> <small>100%</small>
                     </div>
                     <div className={css.liste}>
@@ -31,7 +31,7 @@ export default async function TierList() {
                     </div>
                 </div>
                 <div className={css.line}>
-                    <div className={css.letter} style={{"--color": "#15adb2"}}>
+                    <div className={css.letter + " " + css.s}>
                         S <small> {">= 75%"} </small>
                     </div>
                     <div className={css.liste}>
@@ -45,7 +45,7 @@ export default async function TierList() {
                     </div>
                 </div>
                 <div className={css.line}>
-                    <div className={css.letter} style={{"--color": "#3abb3c"}}>
+                    <div className={css.letter + " " + css.a}>
                         A
                         <small> {"> 50%"} </small>
                     </div>
@@ -60,7 +60,7 @@ export default async function TierList() {
                     </div>
                 </div>
                 <div className={css.line}>
-                    <div className={css.letter} style={{"--color": "#bbb53a"}}>
+                    <div className={css.letter + " " + css.b}>
                         B <small> {">= 25%"} </small>
                     </div>
                     <div className={css.liste}>
@@ -74,7 +74,7 @@ export default async function TierList() {
                     </div>
                 </div>
                 <div className={css.line}>
-                    <div className={css.letter} style={{"--color": "#da8345"}}>
+                    <div className={css.letter + " " + css.c} >
                         C <small> {" > 0%"} </small>
                     </div>
                     <div className={css.liste}>
@@ -88,7 +88,7 @@ export default async function TierList() {
                     </div>
                 </div>
                 <div className={css.line}>
-                    <div className={css.letter} style={{"--color": "#F00"}}>
+                    <div className={css.letter + " " + css.d}>
                         D <small> {"0%"} </small>
                     </div>
                     <div className={css.liste}>

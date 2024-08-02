@@ -28,6 +28,7 @@ async function getMatchBeforeDate(date = false){
                 },
             }
         },
+        where: {},
     }
     if (date){
         args.where = {
