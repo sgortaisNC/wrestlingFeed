@@ -77,7 +77,10 @@ export default async function Home() {
 
     while (date.getTime() < yesterday.getTime()) {
         date.setDate(date.getDate() + 1);
-        let timeWresler = allWrestlers.filter(w => w.match.length === 0 || w.match.at(-1)?.date.toISOString() !== date.toISOString())
+
+        let timeWresler = allWrestlers.filter((w) => {
+            return w.match.length === 0 || w.match.at(-1)?.date.toISOString() !== date.toISOString()
+        });
 
 
         let checkPLE = ple.filter((p) => p.date === (date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()))
@@ -85,7 +88,7 @@ export default async function Home() {
             shows.push({
                 date: date.toISOString(),
                 title: "PLE",
-                wrestlers: allWrestlers
+                wrestlers: timeWresler
             });
         }
 
