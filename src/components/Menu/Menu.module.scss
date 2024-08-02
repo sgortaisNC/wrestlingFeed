@@ -1,0 +1,25 @@
+.menu{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: white;
+  right: 0;
+  ul{
+    display: flex;
+    padding-left: 0;
+    justify-content: space-around;
+    li{
+      display: grid;
+      flex: 1;
+      height: 100%;
+    }
+    a{
+      text-decoration: none;
+      color: black;
+      display: grid;
+      place-items: center;
+      height: 100%;
+      width: 100%;
+    }
+  }
+}
