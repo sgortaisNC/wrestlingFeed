@@ -1,4 +1,3 @@
-import {NextResponse} from "next/server";
 import {prisma} from "@/utils/prisma";
 import {Match} from ".prisma/client";
 
@@ -42,6 +41,7 @@ async function getMatchBeforeDate(date = false) {
 }
 
 export const dynamic = 'force-dynamic'
+export const revalidate = 120
 export async function GET() {
     const bdd = await getMatchBeforeDate();
     let totalMatch = 0;
@@ -58,7 +58,7 @@ export async function GET() {
 
     returnable = returnable.filter(w => w.matches > (totalMatch / bdd.length) - 1);
     const now = new Date();
-    return NextResponse.json({
+    return Response.json({
         dateAPI: now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds(),
         avg: totalMatch / bdd.length,
         tier: returnable.sort((a, b) => b.pts - a.pts),
