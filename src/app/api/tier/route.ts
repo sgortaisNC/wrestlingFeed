@@ -49,7 +49,7 @@ export async function GET() {
     bdd.map(w => {
         totalMatch += w.match.length
         returnable.push({
-            name: `${w.name} - ${w.match.filter(m => m.win).length - w.match.filter(m => m.loose).length}pts - ${w.match.length}m`,
+            name: `${w.name}`,
             tier: getTier(w.match),
             pts: w.match.filter(m => m.win).length - w.match.filter(m => m.loose).length,
             matches: w.match.length
