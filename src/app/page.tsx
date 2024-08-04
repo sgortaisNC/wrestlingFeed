@@ -116,7 +116,6 @@ export default async function Home() {
 
     return (
         <>
-            <DomElements/>
             <div className="grid">
                 {shows.map(show => (
                     <Show show={show} key={show.date} className={"card " + show.title}/>

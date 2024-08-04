@@ -38,7 +38,9 @@ export default async function TierList() {
                         <ul>
                             {tierList.tier.filter(w => w.tier === "S").map((w, index) => {
                                 return (
-                                    <li key={index}>{w.name}</li>
+                                    <li key={index}>
+                                        {w.name}
+                                    </li>
                                 )
                             })}
                         </ul>
@@ -53,7 +55,9 @@ export default async function TierList() {
                         <ul>
                             {tierList.tier.filter(w => w.tier === "A").map((w, index) => {
                                 return (
-                                    <li key={index}>{w.name}</li>
+                                    <li key={index}>
+                                        {w.name}
+                                    </li>
                                 )
                             })}
                         </ul>
@@ -67,7 +71,9 @@ export default async function TierList() {
                         <ul>
                             {tierList.tier.filter(w => w.tier === "B").map((w, index) => {
                                 return (
-                                    <li key={index}>{w.name}</li>
+                                    <li key={index}>
+                                        {w.name}
+                                    </li>
                                 )
                             })}
                         </ul>
@@ -81,7 +87,9 @@ export default async function TierList() {
                         <ul>
                             {tierList.tier.filter(w => w.tier === "C").map((w, index) => {
                                 return (
-                                    <li key={index}>{w.name}</li>
+                                    <li key={index}>
+                                        {w.name}
+                                    </li>
                                 )
                             })}
                         </ul>
@@ -95,7 +103,9 @@ export default async function TierList() {
                         <ul>
                             {tierList.tier.filter(w => w.tier === "D").map((w, index) => {
                                 return (
-                                    <li key={index}>{w.name}</li>
+                                    <li key={index}>
+                                        {w.name}
+                                    </li>
                                 )
                             })}
                         </ul>
