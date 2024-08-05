@@ -1,6 +1,6 @@
 .grid{
   display: grid;
-  height: 100vh;
+  height: calc(100vh - 54px);
   grid-template-rows: repeat(6,1fr);
 }
 
