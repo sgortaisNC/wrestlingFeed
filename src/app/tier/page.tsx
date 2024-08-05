@@ -2,6 +2,7 @@ import {TL} from '@/utils/types';
 import css from "./style.module.scss";
 
 export const dynamic = "force-dynamic";
+
 export default async function TierList() {
 
     const base_url = process.env.BASE_URL;
