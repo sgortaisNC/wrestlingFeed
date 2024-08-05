@@ -1,6 +1,5 @@
 import {Show} from "@/components/Show/Show";
 import {prisma} from "@/utils/prisma";
-import DomElements from "@/components/DomElements/DomElements";
 
 async function getWrestlers() {
     return prisma.wrestler.findMany({
