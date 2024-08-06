@@ -1,29 +1,6 @@
 import React, {useState} from "react";
 import {Toast} from "@/components/Toast/Toast";
 
-function remove(e: React.MouseEvent<HTMLButtonElement>) {
-    e.preventDefault();
-    
-    const domClickedElement : HTMLElement = e.target as HTMLElement;
-    const domParentElement = domClickedElement.parentElement.parentElement;
-    
-    fetch('/api/delete', {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({id: domClickedElement.dataset.wrestler}),
-    })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-            domParentElement.remove();
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
-}
-
 function win(id: number, date: string){
     fetch('/api/match', {
         method: 'POST',
@@ -95,6 +72,27 @@ export const Wrestler = ({wrestler, show}) => {
             setLastSeen(showDate);
             setToastMessage(`${wrestler.name} was here !` )
         })
+    }
+    function remove(e: React.MouseEvent<HTMLButtonElement>) {
+        e.preventDefault();
+
+        const domClickedElement : HTMLElement = e.target as HTMLElement;
+        const domParentElement = domClickedElement.parentElement.parentElement;
+
+        fetch('/api/delete', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({id: domClickedElement.dataset.wrestler}),
+        })
+            .then(response => response.json())
+            .then(data => {
+                setToastMessage(`${data.wrestler.name} and ${data.nbMatchRemove} matches removed.`)
+                setTimeout(() => {
+                    domParentElement.remove();
+                },6000)
+            });
     }
 
     return (

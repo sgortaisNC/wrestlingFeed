@@ -14,6 +14,8 @@ export async function DELETE(request) {
     const bdd = await prisma.wrestler.delete({
         where: {id: parseInt(body.id)}
     });
-
-    return NextResponse.json(bdd);
+    return NextResponse.json({
+        nbMatchRemove: deleteMatches.count,
+        wrestler: bdd
+    });
 }
