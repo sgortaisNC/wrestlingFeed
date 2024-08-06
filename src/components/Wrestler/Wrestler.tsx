@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {Toast} from "@/components/Toast/Toast";
 
 function remove(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
@@ -68,6 +69,7 @@ function lastSeenDelta(date1: string, date2: string) {
 export const Wrestler = ({wrestler, show}) => {
 
     const [lastSeen, setLastSeen] = useState(wrestler.lastSeen);
+    const [toastMessage, setToastMessage] = useState('');
     const showDate = show.date;
 
     let icon = '👻';
@@ -91,6 +93,7 @@ export const Wrestler = ({wrestler, show}) => {
         }).then(response => response.json()).then(() => {
             target.classList.add('seen');
             setLastSeen(showDate);
+            setToastMessage(`${wrestler.name} was here !` )
         })
     }
 
@@ -118,6 +121,7 @@ export const Wrestler = ({wrestler, show}) => {
                 }} className={"cta"}> L
                 </button>
             </div>
+            {toastMessage !== "" && <Toast text={toastMessage} />}
         </div>
     );
 }

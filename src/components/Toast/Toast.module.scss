@@ -1,0 +1,46 @@
+.toast {
+  position: fixed;
+  overflow: hidden;
+  width: 450px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9;
+  height: 75px;
+  top: 15px;
+  right: 15px;
+  border-radius: 8px;
+  background: #3aba3c;
+  color: white;
+  font-weight: bold;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.25s opacity ease-in-out;
+  &::after{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #FFF;
+    z-index: 9;
+    opacity: 0.8;
+    animation: rtl 5s forwards;
+  }
+}
+
+
+.active{
+  opacity: 1;
+}
+
+@keyframes rtl {
+  0%{
+    right: 0;
+  }
+  100%{
+    right: 100%;
+  }
+
+}

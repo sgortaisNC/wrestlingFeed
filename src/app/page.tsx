@@ -1,5 +1,6 @@
 import {Show} from "@/components/Show/Show";
 import {prisma} from "@/utils/prisma";
+import {Toast} from "@/components/Toast/Toast";
 
 async function getWrestlers() {
     return prisma.wrestler.findMany({
@@ -115,6 +116,7 @@ export default async function Home() {
 
     return (
         <>
+            <Toast text={"Test"} />
             <div className="grid">
                 {shows.map(show => (
                     <Show show={show} key={show.date} className={"card " + show.title}/>
