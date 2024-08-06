@@ -116,7 +116,6 @@ export default async function Home() {
 
     return (
         <>
-            <Toast text={"Test"} />
             <div className="grid">
                 {shows.map(show => (
                     <Show show={show} key={show.date} className={"card " + show.title}/>
