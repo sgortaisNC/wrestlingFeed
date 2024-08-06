@@ -44,6 +44,15 @@ export const dynamic = 'force-dynamic'
 export const revalidate = 120
 export async function GET() {
     const bdd = await getMatchBeforeDate();
+    const lastDayMatch = (await prisma.match.findFirst({
+        select: {
+            date: true,
+        },
+        orderBy:{
+            date: "desc"
+        }
+    })).date
+
     let totalMatch = 0;
     let returnable = []
     bdd.map(w => {
@@ -52,7 +61,10 @@ export async function GET() {
             name: `${w.name}`,
             tier: getTier(w.match),
             pts: w.match.filter(m => m.win).length - w.match.filter(m => m.loose).length,
-            matches: w.match.length
+            matches: w.match.length,
+            isActive: w.match.some((m) => {
+                return m.date.toUTCString() === lastDayMatch.toUTCString()
+            }),
         })
     });
 

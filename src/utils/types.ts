@@ -7,6 +7,7 @@ export type TL = {
         name: string,
         tier: string,
         pts: number,
-        matches: Match[]
+        matches: Match[],
+        isActive: boolean
     }[],
 }

@@ -8,7 +8,7 @@ export default async function TierList() {
     const base_url = process.env.BASE_URL;
 
     let tierList: TL = await fetch(base_url+'api/tier',{ next: { revalidate: 120 } }).then((res) => res.json());
-
+    
     return (
         <>
             <div className={css.grid}>
@@ -23,7 +23,7 @@ export default async function TierList() {
                         <ul>
                             {tierList.tier.filter(w => w.tier === "S+").map((w, index) => {
                                 return (
-                                    <li key={index}>
+                                    <li key={index} className={w.isActive ? css.active: ""}>
                                         {w.name}
                                     </li>
                                 )
@@ -39,7 +39,7 @@ export default async function TierList() {
                         <ul>
                             {tierList.tier.filter(w => w.tier === "S").map((w, index) => {
                                 return (
-                                    <li key={index}>
+                                    <li key={index} className={w.isActive ? css.active: ""}>
                                         {w.name}
                                     </li>
                                 )
@@ -56,7 +56,7 @@ export default async function TierList() {
                         <ul>
                             {tierList.tier.filter(w => w.tier === "A").map((w, index) => {
                                 return (
-                                    <li key={index}>
+                                    <li key={index} className={w.isActive ? css.active: ""}>
                                         {w.name}
                                     </li>
                                 )
@@ -72,7 +72,7 @@ export default async function TierList() {
                         <ul>
                             {tierList.tier.filter(w => w.tier === "B").map((w, index) => {
                                 return (
-                                    <li key={index}>
+                                    <li key={index} className={w.isActive ? css.active: ""}>
                                         {w.name}
                                     </li>
                                 )
@@ -88,7 +88,7 @@ export default async function TierList() {
                         <ul>
                             {tierList.tier.filter(w => w.tier === "C").map((w, index) => {
                                 return (
-                                    <li key={index}>
+                                    <li key={index} className={w.isActive ? css.active: ""}>
                                         {w.name}
                                     </li>
                                 )
@@ -104,7 +104,7 @@ export default async function TierList() {
                         <ul>
                             {tierList.tier.filter(w => w.tier === "D").map((w, index) => {
                                 return (
-                                    <li key={index}>
+                                    <li key={index} className={w.isActive ? css.active: ""}>
                                         {w.name}
                                     </li>
                                 )
