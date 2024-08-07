@@ -8,6 +8,7 @@ export type TL = {
         tier: string,
         pts: number,
         matches: Match[],
-        isActive: boolean
+        isActive: boolean,
+        lastResult: "Loose"|"Win"
     }[],
 }

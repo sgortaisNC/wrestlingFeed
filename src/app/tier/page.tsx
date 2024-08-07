@@ -23,7 +23,7 @@ export default async function TierList() {
                         <ul>
                             {tierList.tier.filter(w => w.tier === "S+").map((w, index) => {
                                 return (
-                                    <li key={index} className={w.isActive ? css.active: ""}>
+                                    <li key={index} className={w.isActive ? css.active + " " + (w.lastResult === "Win" ? css.win : css.loss) : ""}>
                                         {w.name}
                                     </li>
                                 )
@@ -39,7 +39,8 @@ export default async function TierList() {
                         <ul>
                             {tierList.tier.filter(w => w.tier === "S").map((w, index) => {
                                 return (
-                                    <li key={index} className={w.isActive ? css.active: ""}>
+                                    <li key={index}
+                                        className={w.isActive ? css.active + " " + (w.lastResult === "Win" ? css.win : css.loss) : ""}>
                                         {w.name}
                                     </li>
                                 )
@@ -56,7 +57,8 @@ export default async function TierList() {
                         <ul>
                             {tierList.tier.filter(w => w.tier === "A").map((w, index) => {
                                 return (
-                                    <li key={index} className={w.isActive ? css.active: ""}>
+                                    <li key={index}
+                                        className={w.isActive ? css.active + " " + (w.lastResult === "Win" ? css.win : css.loss) : ""}>
                                         {w.name}
                                     </li>
                                 )
@@ -72,7 +74,8 @@ export default async function TierList() {
                         <ul>
                             {tierList.tier.filter(w => w.tier === "B").map((w, index) => {
                                 return (
-                                    <li key={index} className={w.isActive ? css.active: ""}>
+                                    <li key={index}
+                                        className={w.isActive ? css.active + " " + (w.lastResult === "Win" ? css.win : css.loss) : ""}>
                                         {w.name}
                                     </li>
                                 )
@@ -88,7 +91,8 @@ export default async function TierList() {
                         <ul>
                             {tierList.tier.filter(w => w.tier === "C").map((w, index) => {
                                 return (
-                                    <li key={index} className={w.isActive ? css.active: ""}>
+                                    <li key={index}
+                                        className={w.isActive ? css.active + " " + (w.lastResult === "Win" ? css.win : css.loss) : ""}>
                                         {w.name}
                                     </li>
                                 )
@@ -104,7 +108,8 @@ export default async function TierList() {
                         <ul>
                             {tierList.tier.filter(w => w.tier === "D").map((w, index) => {
                                 return (
-                                    <li key={index} className={w.isActive ? css.active: ""}>
+                                    <li key={index}
+                                        className={w.isActive ? css.active + " " + (w.lastResult === "Win" ? css.win : css.loss) : ""}>
                                         {w.name}
                                     </li>
                                 )

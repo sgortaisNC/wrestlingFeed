@@ -65,6 +65,7 @@ export async function GET() {
             isActive: w.match.some((m) => {
                 return m.date.toUTCString() === lastDayMatch.toUTCString()
             }),
+            lastResult: w.match[w.match.length - 1].win ? "Win" : "Loose",
         })
     });
 
