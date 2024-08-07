@@ -60,6 +60,8 @@ export default async function Home() {
             date: "2024-6-15",
         }, {
             date: "2024-7-6",
+        },{
+            date: "2024-7-4",
         }, {
             date: "2024-8-31",
         }, {
