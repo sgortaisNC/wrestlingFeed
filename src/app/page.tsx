@@ -61,7 +61,9 @@ export default async function Home() {
         }, {
             date: "2024-7-6",
         },{
-            date: "2024-7-4",
+            date: "2024-7-7",
+        }, {
+            date: "2024-8-3",
         }, {
             date: "2024-8-31",
         }, {
@@ -72,6 +74,18 @@ export default async function Home() {
             date: "2024-10-27",
         }, {
             date: "2024-11-2",
+        }, {
+            date: "2024-11-30",
+        }, {
+            date: "2025-2-1",
+        }, {
+            date: "2025-4-19",
+        }, {
+            date: "2025-4-20",
+        }, {
+            date: "2026-8-1",
+        }, {
+            date: "2026-8-2",
         }
     ]
 
