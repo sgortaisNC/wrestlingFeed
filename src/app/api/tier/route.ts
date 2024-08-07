@@ -56,7 +56,7 @@ export async function GET() {
     let totalMatch = 0;
     let returnable = []
     bdd.map(w => {
-        totalMatch += w.match.length
+        totalMatch += w.match.length;
         returnable.push({
             name: `${w.name}`,
             tier: getTier(w.match),
@@ -65,7 +65,7 @@ export async function GET() {
             isActive: w.match.some((m) => {
                 return m.date.toUTCString() === lastDayMatch.toUTCString()
             }),
-            lastResult: w.match[w.match.length - 1].win ? "Win" : "Loose",
+            lastResult: w.match[w.match.length - 1]?.win ? "Win" : "Loose"
         })
     });
 
