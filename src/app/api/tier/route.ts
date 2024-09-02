@@ -54,9 +54,11 @@ export async function GET() {
     })).date
 
     let totalMatch = 0;
+    let maxMatch = 0;
     let returnable = []
     bdd.map(w => {
         totalMatch += w.match.length;
+        maxMatch = Math.max(maxMatch, w.match.length);
         returnable.push({
             name: `${w.name}`,
             tier: getTier(w.match),
@@ -75,5 +77,6 @@ export async function GET() {
         dateAPI: now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds(),
         avg: totalMatch / bdd.length,
         tier: returnable.sort((a, b) => b.pts - a.pts),
+        maxMatches: maxMatch
     });
 }

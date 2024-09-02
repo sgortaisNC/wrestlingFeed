@@ -12,9 +12,6 @@ export default async function TierList() {
     return (
         <>
             <div className={css.grid}>
-                <div className={css.infos}>
-                    Moyenne de match  : {tierList.avg.toFixed(2)} / {tierList.dateAPI}
-                </div>
                 <div className={css.line}>
                     <div className={css.letter + " " + css.ss}>
                         S+ <br/> <small>100%</small>
@@ -24,7 +21,7 @@ export default async function TierList() {
                             {tierList.tier.filter(w => w.tier === "S+").map((w, index) => {
                                 return (
                                     <li key={index} className={w.isActive ? css.active + " " + (w.lastResult === "Win" ? css.win : css.loss) : ""}>
-                                        {w.name}
+                                        {w.name} {w.matches === tierList.maxMatches ? "🥇"  : ""}
                                     </li>
                                 )
                             })}
@@ -41,7 +38,7 @@ export default async function TierList() {
                                 return (
                                     <li key={index}
                                         className={w.isActive ? css.active + " " + (w.lastResult === "Win" ? css.win : css.loss) : ""}>
-                                        {w.name}
+                                        {w.name} {w.matches === tierList.maxMatches ? "🥇"  : ""}
                                     </li>
                                 )
                             })}
@@ -59,7 +56,7 @@ export default async function TierList() {
                                 return (
                                     <li key={index}
                                         className={w.isActive ? css.active + " " + (w.lastResult === "Win" ? css.win : css.loss) : ""}>
-                                        {w.name}
+                                        {w.name} {w.matches === tierList.maxMatches ? "🥇"  : ""}
                                     </li>
                                 )
                             })}
@@ -76,7 +73,7 @@ export default async function TierList() {
                                 return (
                                     <li key={index}
                                         className={w.isActive ? css.active + " " + (w.lastResult === "Win" ? css.win : css.loss) : ""}>
-                                        {w.name}
+                                        {w.name} {w.matches === tierList.maxMatches ? "🥇"  : ""}
                                     </li>
                                 )
                             })}
@@ -93,7 +90,7 @@ export default async function TierList() {
                                 return (
                                     <li key={index}
                                         className={w.isActive ? css.active + " " + (w.lastResult === "Win" ? css.win : css.loss) : ""}>
-                                        {w.name}
+                                        {w.name} {w.matches === tierList.maxMatches ? "🥇"  : ""}
                                     </li>
                                 )
                             })}
@@ -110,7 +107,7 @@ export default async function TierList() {
                                 return (
                                     <li key={index}
                                         className={w.isActive ? css.active + " " + (w.lastResult === "Win" ? css.win : css.loss) : ""}>
-                                        {w.name}
+                                        {w.name} {w.matches === tierList.maxMatches ? "🥇"  : ""}
                                     </li>
                                 )
                             })}
