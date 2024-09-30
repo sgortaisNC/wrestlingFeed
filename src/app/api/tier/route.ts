@@ -53,6 +53,8 @@ export async function GET() {
         }
     })).date
 
+    console.log(lastDayMatch)
+
     let totalMatch = 0;
     let maxMatch = 0;
     let returnable = []
@@ -71,7 +73,6 @@ export async function GET() {
         })
     });
 
-    returnable = returnable.filter(w => w.matches > (totalMatch / bdd.length) - 1);
     const now = new Date();
     return Response.json({
         dateAPI: now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds(),
