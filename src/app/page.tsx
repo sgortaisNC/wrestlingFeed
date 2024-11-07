@@ -39,22 +39,6 @@ export default async function Home() {
     const shows = [];
     const ple = [
         {
-            date: "2024-1-27",
-        }, {
-            date: "2024-2-4",
-        },
-        {
-            date: "2024-2-24",
-        }, {
-            date: "2024-4-6",
-        },
-        {
-            date: "2024-4-7",
-        }, {
-            date: "2024-5-4",
-        },{
-            date: "2024-5-25",
-        },{
             date: "2024-6-9",
         }, {
             date: "2024-6-15",

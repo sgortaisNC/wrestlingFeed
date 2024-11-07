@@ -1,20 +1,20 @@
 import {prisma} from "@/utils/prisma";
 import {Match} from ".prisma/client";
 
-function percent(matches: Match[]) : number {
+function percent(matches: Match[]): number {
     let wins = matches.filter(m => m.win).length;
     let looses = matches.filter(m => m.loose).length;
     return 100 * (wins / (wins + looses));
 }
 
-function getTier(matches: Match[]) : string {
+function getTier(matches: Match[]): string {
     const p = percent(matches);
-    if (p === 100) return "S+";
-    if (p === 0) return "D";
-    if (p < 25) return "C";
-    if (p < 50) return "B";
-    if (p < 75) return "A";
-    return "S";
+    if (p < 90) return "S+";
+    if (p < 70) return "S";
+    if (p < 50) return "A";
+    if (p < 30) return "B";
+    if (p < 10) return "C";
+    return "D";
 }
 
 async function getMatchBeforeDate(date = false) {
@@ -42,13 +42,14 @@ async function getMatchBeforeDate(date = false) {
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 120
+
 export async function GET() {
     const bdd = await getMatchBeforeDate();
     const lastDayMatch = (await prisma.match.findFirst({
         select: {
             date: true,
         },
-        orderBy:{
+        orderBy: {
             date: "desc"
         }
     })).date

@@ -14,7 +14,7 @@ export default async function TierList() {
             <div className={css.grid}>
                 <div className={css.line}>
                     <div className={css.letter + " " + css.ss}>
-                        S+ <br/> <small>100%</small>
+                        S+
                     </div>
                     <div className={css.liste}>
                         <ul>
@@ -30,7 +30,7 @@ export default async function TierList() {
                 </div>
                 <div className={css.line}>
                     <div className={css.letter + " " + css.s}>
-                        S <small> {">= 75%"} </small>
+                        S
                     </div>
                     <div className={css.liste}>
                         <ul>
@@ -48,7 +48,6 @@ export default async function TierList() {
                 <div className={css.line}>
                     <div className={css.letter + " " + css.a}>
                         A
-                        <small> {"> 50%"} </small>
                     </div>
                     <div className={css.liste}>
                         <ul>
@@ -65,7 +64,7 @@ export default async function TierList() {
                 </div>
                 <div className={css.line}>
                     <div className={css.letter + " " + css.b}>
-                        B <small> {">= 25%"} </small>
+                        B
                     </div>
                     <div className={css.liste}>
                         <ul>
@@ -82,7 +81,7 @@ export default async function TierList() {
                 </div>
                 <div className={css.line}>
                     <div className={css.letter + " " + css.c} >
-                        C <small> {" > 0%"} </small>
+                        C
                     </div>
                     <div className={css.liste}>
                         <ul>
@@ -99,7 +98,7 @@ export default async function TierList() {
                 </div>
                 <div className={css.line}>
                     <div className={css.letter + " " + css.d}>
-                        D <small> {"0%"} </small>
+                        D
                     </div>
                     <div className={css.liste}>
                         <ul>
