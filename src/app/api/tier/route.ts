@@ -9,11 +9,11 @@ function percent(matches: Match[]): number {
 
 function getTier(matches: Match[]): string {
     const p = percent(matches);
-    if (p < 90) return "S+";
-    if (p < 70) return "S";
-    if (p < 50) return "A";
-    if (p < 30) return "B";
-    if (p < 10) return "C";
+    if (p > 90) return "S+";
+    if (p > 70) return "S";
+    if (p > 50) return "A";
+    if (p > 30) return "B";
+    if (p > 10) return "C";
     return "D";
 }
 
