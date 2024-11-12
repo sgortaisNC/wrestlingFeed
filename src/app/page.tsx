@@ -35,7 +35,6 @@ export default async function Home() {
 
     const date = new Date(fetchDate);
     let yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 32);
     const shows = [];
     const ple = [
         {
