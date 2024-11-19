@@ -1,6 +1,5 @@
 import {Show} from "@/components/Show/Show";
 import {prisma} from "@/utils/prisma";
-import {Toast} from "@/components/Toast/Toast";
 
 async function getWrestlers() {
     return prisma.wrestler.findMany({
@@ -35,7 +34,7 @@ export default async function Home() {
 
     const date = new Date(fetchDate);
     let yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
+    yesterday.setDate(yesterday.getDate() - 2);
     const shows = [];
     const ple = [
         {
