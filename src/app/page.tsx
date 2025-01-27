@@ -37,9 +37,7 @@ export default async function Home() {
     yesterday.setDate(yesterday.getDate() - 2);
     const shows = [];
     const ple = [{
-        date: "2024-12-7",
-    },{
-        date: "2024-12-14",
+        date: "2025-1-25",
     }, {
         date: "2025-2-1",
     }, {
