@@ -1,5 +1,5 @@
 import {prisma} from "@/utils/prisma";
-import {Match} from ".prisma/client";
+import {Match} from "@prisma/client";
 
 function percent(matches: Match[]): number {
     let wins = matches.filter(m => m.win).length;

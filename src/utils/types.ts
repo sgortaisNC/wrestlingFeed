@@ -1,4 +1,4 @@
-import {Match} from ".prisma/client";
+import {Match} from "@prisma/client";
 
 export type TL = {
     dateAPI: string,
