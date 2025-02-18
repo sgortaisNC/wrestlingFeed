@@ -56,7 +56,7 @@ export const Wrestler = ({wrestler, show}) => {
 
     function present(e: React.MouseEvent<HTMLButtonElement>) {
 
-        const target = e.target as HTMLElement;
+        const target = e.target as HTMLButtonElement;
 
         const wrestlerId = target.getAttribute('data-wrestler');
         const date = target.getAttribute('data-date');

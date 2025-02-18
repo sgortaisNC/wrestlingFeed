@@ -1,8 +1,13 @@
 ## Todo list
 - [x] Add Button "seen" for each Show
 - [x] Hide Wrestlers who already fight 
-- [ ] Menu
+- [x] Menu
 - [ ] Filters Wreslters in show
-- [ ] Toast system
+- [x] Toast system
 - [ ] Wrestlers List to edit them
 - [ ] Evolution in tier list based on 7 days before
+- [ ] UI for matches
+- [ ] Form style in show
+- [ ] Ranking by Show
+- [ ] Momentum calc
+- [ ] Ui to add PLE

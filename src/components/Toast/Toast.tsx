@@ -3,7 +3,7 @@
 import {useEffect, useState} from "react";
 import css from "./Toast.module.scss";
 
-export const Toast = ({text}) => {
+export const Toast = ({text}: {text: string}) => {
 
     const [active, setActive] = useState(true)
     const [removed, setRemoved] = useState(false);
