@@ -1,12 +1,13 @@
 import {TL} from '@/utils/types';
 import css from "./style.module.scss";
+import { log } from 'console';
 
 export const dynamic = "force-dynamic";
 
 export default async function TierList() {
 
     const base_url = process.env.BASE_URL;
-
+    console.log(base_url+'api/tier');
     let tierList: TL = await fetch(base_url+'api/tier',{ next: { revalidate: 120 } }).then((res) => res.json());
     
     return (
