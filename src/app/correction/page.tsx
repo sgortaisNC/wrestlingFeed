@@ -38,7 +38,7 @@ export default function CorrectionPage() {
   const handleCorrection = async (matchId: number, correction: { win?: boolean; loose?: boolean; draw?: boolean }) => {
     try {
       const response = await fetch(`/api/matches/${matchId}`, {
-        method: 'PATCH',
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
