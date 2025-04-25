@@ -6,6 +6,7 @@ export async function POST(request) {
     const bdd = await prisma.wrestler.create({
         data: {
             name: body.name,
+            gender: body.gender || "male",
             show: {
                 connect: {
                     name: body.showName

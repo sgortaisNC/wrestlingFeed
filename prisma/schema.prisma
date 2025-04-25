@@ -23,6 +23,7 @@ model Wrestler {
   id       Int       @id @default(autoincrement())
   name     String    @unique
   active   Boolean   @default(false)
+  gender   String    @default("male")
   show     Show?     @relation(fields: [showName], references: [name])
   showName String?
   lastSeen DateTime?

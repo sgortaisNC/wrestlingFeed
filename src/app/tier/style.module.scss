@@ -25,6 +25,18 @@
 }
 
 .liste{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+  
+  .male, .female {
+    h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+  }
+  
   ul{
     display: flex;
     gap:10px;

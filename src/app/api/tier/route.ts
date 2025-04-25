@@ -89,6 +89,7 @@ export async function GET() {
             const lastMatch = w.match[0]; // Le premier match est le plus récent grâce au orderBy
             returnable.push({
                 name: `${w.name}`,
+                gender: w.gender || "male", // Valeur par défaut au cas où le champ est absent
                 tier: getTier(w.match),
                 pts: w.match.filter(m => m.win).length - w.match.filter(m => m.loose).length,
                 matches: w.match.length,

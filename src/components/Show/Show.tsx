@@ -16,12 +16,14 @@ function addWrestler(e) {
     const name = e.target.name.value;
     const date = e.target.lastSeen.value;
     const showName = e.target.showName.value;
+    const gender = e.target.gender.value;
     fetch('/api/add', {
         method: 'POST',
         body: JSON.stringify({
             name: name,
             showName: showName,
-            lastSeen: date
+            lastSeen: date,
+            gender: gender
         }),
         headers: {
             'Content-Type': 'application/json'
@@ -64,6 +66,10 @@ export const Show = ({show, className}) => {
                     <div className="header">
                         <form action="#" onSubmit={addWrestler}>
                             <input type="text" name={"name"} placeholder={"Name"} title={"Name"}/>
+                            <select name="gender" title="Genre">
+                                <option value="male">Homme</option>
+                                <option value="female">Femme</option>
+                            </select>
                             <input type="hidden" value={show.title === "PLE" ? "Free" : show.title} name={"showName"}/>
                             <input type="hidden" value={show.date} name={"lastSeen"}/>
                             <button>Add</button>
