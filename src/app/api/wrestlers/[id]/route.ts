@@ -3,11 +3,11 @@ import { prisma } from '@/utils/prisma';
 
 export async function PUT(
     request: Request,
-    { params }: { params: { id: string } }
+    context: { params: { id: string } }
 ) {
     try {
         const { name, show } = await request.json();
-        const id = parseInt(params.id);
+        const id = parseInt(context.params.id);
 
         const updatedWrestler = await prisma.wrestler.update({
             where: { id },
