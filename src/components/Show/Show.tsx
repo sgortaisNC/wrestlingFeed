@@ -64,22 +64,12 @@ export const Show = ({show, className}) => {
                 <div className="backdrop" onClick={closeModal}></div>
                 <div className="content">
                     <div className="header">
-                        <form action="#" onSubmit={addWrestler}>
-                            <input type="text" name={"name"} placeholder={"Name"} title={"Name"}/>
-                            <select name="gender" title="Genre">
-                                <option value="male">Homme</option>
-                                <option value="female">Femme</option>
-                            </select>
-                            <input type="hidden" value={show.title === "PLE" ? "Free" : show.title} name={"showName"}/>
-                            <input type="hidden" value={show.date} name={"lastSeen"}/>
-                            <button>Add</button>
-                        </form>
                         <button onClick={() => {
                             showSeen(show.date.substring(0, 10))
                         }}>✅
                         </button>
                     </div>
-
+<br />
                     <ul>
                     {filteredWrestlers && filteredWrestlers.map((wrestler,id) => (
                             <li key={id} data-wrestler={wrestler.id}>
