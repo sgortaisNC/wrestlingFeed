@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { Toast } from '@/components/Toast/Toast';
 import { useRouter } from 'next/navigation';
+import {prisma} from "@/utils/prisma";
+
 
 interface WrestlerModalProps {
   isOpen: boolean;
@@ -18,7 +20,11 @@ export const WrestlerModal = ({ isOpen, onClose }: WrestlerModalProps) => {
     const name = e.target.name.value;
     const showName = e.target.showName.value;
     const gender = e.target.gender.value;
-    const date = new Date("2025-03-01").toISOString();
+    const date = await prisma.options.findUnique({
+      where: {
+          key: "date"
+      }
+  })
 
     try {
       const response = await fetch('/api/add', {
@@ -26,7 +32,7 @@ export const WrestlerModal = ({ isOpen, onClose }: WrestlerModalProps) => {
         body: JSON.stringify({
           name,
           showName,
-          lastSeen: date,
+          lastSeen: date.value,
           gender
         }),
         headers: {
