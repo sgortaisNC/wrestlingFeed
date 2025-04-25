@@ -193,7 +193,7 @@ button.seen {
 }
 
 .cta {
-  background-color: var(--primary-color, #4CAF50);
+  background-color: #000;
   color: white;
   border: none;
   padding: 8px 12px;
