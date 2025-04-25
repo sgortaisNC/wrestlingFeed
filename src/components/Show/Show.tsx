@@ -46,6 +46,12 @@ export const Show = ({show, className}) => {
     const [wrestlers, setWrestlers] = useState(show.wrestlers);
     if (!wrestlers) return;
 
+    const filteredWrestlers = wrestlers.filter((wrestler) => {
+        const lastMatch = wrestler.match.find((match) => match.date.toLocaleDateString() === new Date(show.date).toLocaleDateString());
+        return lastMatch === undefined;
+    });
+        
+
     return (
         <>
             <div className={className} onClick={openModal}>
@@ -69,7 +75,7 @@ export const Show = ({show, className}) => {
                     </div>
 
                     <ul>
-                    {wrestlers && wrestlers.map((wrestler,id) => (
+                    {filteredWrestlers && filteredWrestlers.map((wrestler,id) => (
                             <li key={id} data-wrestler={wrestler.id}>
                                 <Wrestler wrestler={wrestler} show={show} key={id}/>
                             </li>
