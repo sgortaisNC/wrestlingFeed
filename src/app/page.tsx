@@ -87,6 +87,13 @@ export default async function Home() {
                 title: 'NXT',
                 wrestlers: timeWresler
             });
+            
+        } else if (date.getDay() === 3) {
+            shows.push({
+                date: date.toISOString(),
+                title: 'Evolve',
+                wrestlers: timeWresler
+            });
         } else if (date.getDay() === 1) {
             shows.push({
                 date: date.toISOString(),
