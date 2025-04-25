@@ -112,7 +112,7 @@ export const WrestlerModal = ({ isOpen, onClose }: WrestlerModalProps) => {
               <option value="Raw">Raw</option>
               <option value="SmackDown">SmackDown</option>
               <option value="NXT">NXT</option>
-              <option value="Free">Free Agent</option>
+              <option value="Evolve">Evolve</option>
             </select>
           </div>
           
