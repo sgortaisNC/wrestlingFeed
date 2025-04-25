@@ -18,7 +18,7 @@ export const WrestlerModal = ({ isOpen, onClose }: WrestlerModalProps) => {
     const name = e.target.name.value;
     const showName = e.target.showName.value;
     const gender = e.target.gender.value;
-    const date = new Date().toISOString();
+    const date = new Date("2025-03-01").toISOString();
 
     try {
       const response = await fetch('/api/add', {
