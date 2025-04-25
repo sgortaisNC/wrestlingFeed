@@ -14,14 +14,14 @@ export default function WikiPage() {
           
           <div>
             <div className={css.contentBlock}>
-              <h3 className={css.blockTitle}>Page d'accueil</h3>
+              <h3 className={css.blockTitle}>Page d&apos;accueil</h3>
               <p className={css.text}>
-                La page d'accueil affiche tous les shows de wrestling programmés jusqu'à la date actuelle.
+                La page d&apos;accueil affiche tous les shows de wrestling programmés jusqu&apos;à la date actuelle.
                 Les shows incluent Raw (lundi), NXT (mardi), SmackDown (vendredi) et les PLE (Premium Live Events).
                 Pour chaque show, on peut voir les lutteurs disponibles.
               </p>
               <p className={css.text}>
-                Le système filtre les lutteurs qui n'ont pas encore participé à un match à la date du show.
+                Le système filtre les lutteurs qui n&apos;ont pas encore participé à un match à la date du show.
               </p>
             </div>
             
@@ -52,14 +52,14 @@ export default function WikiPage() {
               <h3 className={css.blockTitle}>Show</h3>
               <p className={css.text}>
                 Ce composant affiche un show individuel avec sa date, son titre et la liste des lutteurs disponibles.
-                Il est utilisé sur la page d'accueil pour afficher chaque événement.
+                Il est utilisé sur la page d&apos;accueil pour afficher chaque événement.
               </p>
             </div>
             
             <div className={css.contentBlock}>
               <h3 className={css.blockTitle}>Wrestler</h3>
               <p className={css.text}>
-                Ce composant affiche les informations d'un lutteur, potentiellement avec des fonctionnalités 
+                Ce composant affiche les informations d&apos;un lutteur, potentiellement avec des fonctionnalités 
                 pour voir et gérer ses matchs.
               </p>
             </div>
@@ -67,14 +67,14 @@ export default function WikiPage() {
             <div className={css.contentBlock}>
               <h3 className={css.blockTitle}>Menu</h3>
               <p className={css.text}>
-                Le menu de navigation principal de l'application permettant d'accéder aux différentes sections.
+                Le menu de navigation principal de l&apos;application permettant d&apos;accéder aux différentes sections.
               </p>
             </div>
             
             <div className={css.contentBlock}>
               <h3 className={css.blockTitle}>Toast</h3>
               <p className={css.text}>
-                Composant pour afficher des notifications temporaires à l'utilisateur.
+                Composant pour afficher des notifications temporaires à l&apos;utilisateur.
               </p>
             </div>
           </div>
@@ -88,7 +88,7 @@ export default function WikiPage() {
             <div className={css.contentBlock}>
               <h3 className={css.blockTitle}>Base de données</h3>
               <p className={css.text}>
-                L'application utilise Prisma comme ORM pour interagir avec la base de données.
+                L&apos;application utilise Prisma comme ORM pour interagir avec la base de données.
                 Les principales entités sont:
               </p>
               <ul className={css.list}>
@@ -101,7 +101,7 @@ export default function WikiPage() {
             <div className={css.contentBlock}>
               <h3 className={css.blockTitle}>Frontend</h3>
               <p className={css.text}>
-                L'application est construite avec Next.js, utilisant les App Router pour la navigation.
+                L&apos;application est construite avec Next.js, utilisant les App Router pour la navigation.
                 Les pages sont construites en combinant des composants réutilisables.
               </p>
             </div>
@@ -116,7 +116,7 @@ export default function WikiPage() {
             <div className={css.contentBlock}>
               <h3 className={css.blockTitle}>Wrestlers</h3>
               <p className={css.text}>
-                Gestion des lutteurs dans l'application.
+                Gestion des lutteurs dans l&apos;application.
               </p>
               <ul className={css.list}>
                 <li><code>GET /api/wrestlers</code> - Récupérer tous les lutteurs</li>
@@ -167,7 +167,7 @@ export default function WikiPage() {
       
       <div className={css.footer}>
         <Link href="/" className={css.button}>
-          Retour à l'accueil
+          Retour à l&apos;accueil
         </Link>
       </div>
     </div>
