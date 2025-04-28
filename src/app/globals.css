@@ -109,8 +109,8 @@ a {
   
   @media (max-width: 768px) {
     padding-bottom: 70px; /* Espace pour le menu fixe en bas */
-    padding-left: 20px; /* Marge gauche de 20px */
-    padding-right: 20px; /* Marge droite de 20px */
+    padding-left: 50px; /* Marge gauche augmentée à 50px */
+    padding-right: 50px; /* Marge droite augmentée à 50px */
     align-items: center;
   }
 }
@@ -119,7 +119,7 @@ a {
   border-radius: 16px;
   background: white;
   width: 100%;
-  max-width: calc(100% - 50px); /* Assurer qu'il y a toujours 20px de marge de chaque côté */
+  max-width: calc(100% - 100px); /* Assurer qu'il y a toujours 50px de marge de chaque côté */
   max-height: 80vh; /* Limite la hauteur à 80% de la hauteur de la fenêtre */
   overflow-y: auto; /* Permet le défilement vertical si nécessaire */
   text-align: left;
@@ -654,14 +654,14 @@ button.seen {
   }
 }
 
-/* Mises à jour pour les petits écrans */
+/* Mises à jour pour les très petits écrans */
 @media (max-width: 480px) {
   .modal {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 20px; /* Marges réduites sur très petits écrans */
+    padding-right: 20px;
   }
   
   .content {
-    max-width: 100%;
+    max-width: calc(100% - 40px); /* Ajusté pour les très petits écrans */
   }
 }
