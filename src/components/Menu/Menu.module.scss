@@ -67,6 +67,19 @@
         width: 30px;
       }
       
+      // Style pour le lien actif
+      .activeLink {
+        color: #4CAF50;
+        
+        svg {
+          color: #4CAF50;
+        }
+        
+        &::after {
+          width: 30px;
+        }
+      }
+      
       button {
         background-color: #4CAF50;
         color: white;
@@ -120,6 +133,78 @@
       }
     }
   }
+  
+  // Classe pour indiquer quand le menu est scrollable
+  .scrollable {
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 20px;
+      background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.95) 70%);
+      pointer-events: none;
+      z-index: 1;
+      animation: pulseRight 1.5s infinite;
+    }
+  }
+  
+  // Media queries pour améliorer le rendu mobile
+  @media (max-width: 768px) {
+    ul {
+      padding: 8px 0;
+      
+      li {
+        a, button {
+          font-size: 0.7rem;
+          padding: 8px 8px;
+          
+          svg {
+            width: 20px;
+            height: 20px;
+          }
+        }
+      }
+    }
+  }
+  
+  // Pour les très petits écrans
+  @media (max-width: 480px) {
+    ul {
+      overflow-x: auto;
+      justify-content: flex-start;
+      scrollbar-width: none; // Firefox
+      -ms-overflow-style: none; // IE and Edge
+      
+      &::-webkit-scrollbar {
+        display: none; // Chrome, Safari, Opera
+      }
+      
+      li {
+        flex-shrink: 0;
+        
+        a, button {
+          padding: 8px 12px;
+          font-size: 0.65rem;
+        }
+      }
+    }
+  }
+}
+
+// Style global pour le lien actif
+.activeLink {
+  color: #4CAF50 !important;
+  
+  svg {
+    color: #4CAF50 !important;
+  }
+  
+  &::after {
+    width: 30px !important;
+  }
 }
 
 @keyframes ripple {
@@ -143,5 +228,14 @@
   }
   100% {
     transform: rotate(90deg);
+  }
+}
+
+@keyframes pulseRight {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
   }
 }
