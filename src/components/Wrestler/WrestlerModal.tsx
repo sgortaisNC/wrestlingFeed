@@ -64,90 +64,100 @@ export const WrestlerModal = ({ isOpen, onClose }: WrestlerModalProps) => {
   return (
     <div className={`modal ${isOpen ? 'active' : ''}`}>
       <div className="backdrop" onClick={onClose}></div>
-      <div className="content">
-        <div className="header" style={{ padding: '0 20px', marginBottom: '20px' }}>
-          <h3 style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>Ajouter un nouveau Wrestler</h3>
+      <div className="content wrestler-modal-content">
+        <div className="header">
+          <h3>Ajouter un nouveau Wrestler</h3>
+          <div className="header-actions">
+            <button 
+              onClick={onClose} 
+              className="modal-close-btn"
+              aria-label="Fermer"
+              title="Fermer"
+            ></button>
+          </div>
         </div>
-        <form action="#" onSubmit={addWrestler} style={{ padding: '0 20px' }}>
-          <div style={{ marginBottom: '15px' }}>
-            <label htmlFor="name" style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Nom</label>
-            <input 
-              type="text" 
-              id="name" 
-              name="name" 
-              placeholder="Nom du wrestler" 
-              required 
-              style={{ 
-                width: '100%', 
-                padding: '8px', 
-                borderRadius: '5px', 
-                border: '1px solid #ccc' 
-              }}
-            />
-          </div>
-          
-          <div style={{ marginBottom: '15px' }}>
-            <label htmlFor="gender" style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Genre</label>
-            <select 
-              name="gender" 
-              id="gender" 
-              title="Genre" 
-              required
-              style={{ 
-                width: '100%', 
-                padding: '8px', 
-                borderRadius: '5px', 
-                border: '1px solid #ccc' 
-              }}
-            >
-              <option value="male">Homme</option>
-              <option value="female">Femme</option>
-            </select>
-          </div>
-          
-          <div style={{ marginBottom: '15px' }}>
-            <label htmlFor="showName" style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Show</label>
-            <select 
-              name="showName" 
-              id="showName" 
-              title="Show" 
-              required
-              style={{ 
-                width: '100%', 
-                padding: '8px', 
-                borderRadius: '5px', 
-                border: '1px solid #ccc' 
-              }}
-            >
-              <option value="Raw">Raw</option>
-              <option value="SmackDown">SmackDown</option>
-              <option value="NXT">NXT</option>
-              <option value="Evolve">Evolve</option>
-            </select>
-          </div>
-          
-          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', marginTop: '20px', marginBottom: '20px' }}>
-            <button 
-              type="button" 
-              onClick={onClose}
-              style={{
-                padding: '8px 16px',
-                borderRadius: '5px',
-                background: '#f2f2f2',
-                border: 'none',
-                cursor: 'pointer'
-              }}
-            >
-              Annuler
-            </button>
-            <button 
-              type="submit"
-              className="cta"
-            >
-              Ajouter
-            </button>
-          </div>
-        </form>
+        <div className="modal-content-body">
+          <form action="#" onSubmit={addWrestler}>
+            <div style={{ marginBottom: '15px' }}>
+              <label htmlFor="name" style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Nom</label>
+              <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                placeholder="Nom du wrestler" 
+                required 
+                style={{ 
+                  width: '100%', 
+                  padding: '8px', 
+                  borderRadius: '5px', 
+                  border: '1px solid #ccc' 
+                }}
+              />
+            </div>
+            
+            <div style={{ marginBottom: '15px' }}>
+              <label htmlFor="gender" style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Genre</label>
+              <select 
+                name="gender" 
+                id="gender" 
+                title="Genre" 
+                required
+                style={{ 
+                  width: '100%', 
+                  padding: '8px', 
+                  borderRadius: '5px', 
+                  border: '1px solid #ccc' 
+                }}
+              >
+                <option value="male">Homme</option>
+                <option value="female">Femme</option>
+              </select>
+            </div>
+            
+            <div style={{ marginBottom: '15px' }}>
+              <label htmlFor="showName" style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Show</label>
+              <select 
+                name="showName" 
+                id="showName" 
+                title="Show" 
+                required
+                style={{ 
+                  width: '100%', 
+                  padding: '8px', 
+                  borderRadius: '5px', 
+                  border: '1px solid #ccc' 
+                }}
+              >
+                <option value="Raw">Raw</option>
+                <option value="SmackDown">SmackDown</option>
+                <option value="NXT">NXT</option>
+                <option value="Evolve">Evolve</option>
+              </select>
+            </div>
+            
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', marginTop: '20px', marginBottom: '20px' }}>
+              <button 
+                type="button" 
+                onClick={onClose}
+                style={{
+                  padding: '8px 16px',
+                  borderRadius: '5px',
+                  background: '#f2f2f2',
+                  border: 'none',
+                  cursor: 'pointer'
+                }}
+              >
+                Annuler
+              </button>
+              <button 
+                type="submit"
+                className="cta"
+              >
+                Ajouter
+              </button>
+            </div>
+          </form>
+        </div>
         {toastMessage && <Toast text={toastMessage} />}
       </div>
     </div>

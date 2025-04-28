@@ -96,7 +96,7 @@ a {
   inset: 0;
   z-index: 2;
   display: grid;
-  align-items: start;
+  align-items: center;
   opacity: 0;
   pointer-events: none;
   transition: all 0.5s ease;
@@ -106,16 +106,95 @@ a {
     pointer-events: all;
     animation: fadeIn 0.3s forwards;
   }
+  
+  @media (max-width: 768px) {
+    padding-bottom: 70px; /* Espace pour le menu fixe en bas */
+    padding-left: 20px; /* Marge gauche de 20px */
+    padding-right: 20px; /* Marge droite de 20px */
+    align-items: center;
+  }
 }
 
 .content {
   border-radius: 16px;
   background: white;
   width: 100%;
+  max-width: calc(100% - 50px); /* Assurer qu'il y a toujours 20px de marge de chaque côté */
+  max-height: 80vh; /* Limite la hauteur à 80% de la hauteur de la fenêtre */
+  overflow-y: auto; /* Permet le défilement vertical si nécessaire */
   text-align: left;
   color: #263238;
-  padding: 20px 0;
+  padding: 0 0 20px 0; /* Modifier le padding pour que le header soit bien aligné */
   animation: slideIn 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Ajouter une ombre plus prononcée */
+  
+  @media (max-width: 768px) {
+    max-height: 80vh; /* Assure que cette contrainte est aussi appliquée sur mobile */
+    overflow-y: auto;
+    width: 100%; /* Pleine largeur moins les marges du conteneur parent */
+    margin: 0 auto;
+  }
+}
+
+.content .header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+  background-color: #f5f5f5;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  
+  div {
+    display: flex;
+    align-items: center;
+  }
+  
+  @media (max-width: 768px) {
+    padding: 15px;
+    position: sticky;
+    top: 0;
+    background: #f5f5f5;
+    z-index: 10;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    
+    h3 {
+      font-size: 1rem;
+      max-width: 70%;
+    }
+  }
+}
+
+/* Assurer que les boutons dans le header sont toujours visibles */
+.content .header button {
+  position: relative;
+  z-index: 11;
+}
+
+/* Amélioration du contraste du header pour plus de visibilité */
+.modal.active .content .header {
+  animation: fadeInHeader 0.5s ease forwards;
+}
+
+@keyframes fadeInHeader {
+  from {
+    opacity: 0.7;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .content ul {
@@ -126,6 +205,11 @@ a {
     grid-template-columns: 1fr;
     overflow: auto;
     max-height: 90vh;
+    
+    @media (max-width: 768px) {
+      max-height: calc(90vh - 70px); /* Ajuste la hauteur pour tenir compte du menu */
+      padding-bottom: 10px; /* Ajoute un peu d'espace en bas */
+    }
   }
   gap: 5px 15px;
   li{
@@ -138,11 +222,12 @@ a {
 }
 
 .backdrop {
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(0, 0, 0, 0.65);
   position: absolute;
   inset: 0;
   z-index: -1;
   animation: backdropIn 0.4s forwards;
+  backdrop-filter: blur(3px); /* Effet de flou pour un rendu plus moderne */
 }
 
 button.seen {
@@ -219,18 +304,26 @@ button.seen {
 }
 
 @keyframes backdropIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from { 
+    opacity: 0; 
+    backdrop-filter: blur(0px);
+  }
+  to { 
+    opacity: 1; 
+    backdrop-filter: blur(3px);
+  }
 }
 
 @keyframes slideIn {
   from { 
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
   }
   to { 
     opacity: 1;
     transform: translateY(0);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   }
 }
 
@@ -266,5 +359,309 @@ button.seen {
   
   .menu ul span {
     font-size: 0.8rem;
+  }
+}
+
+/* Bouton de fermeture pour les modales sur mobile */
+.modal-close-btn {
+  display: none;
+  
+  @media (max-width: 768px) {
+    display: block;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 30px;
+    height: 30px;
+    background: rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      width: 15px;
+      height: 2px;
+      background: #555;
+      top: 50%;
+      left: 50%;
+      transition: background 0.3s ease;
+    }
+    
+    &::before {
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+    
+    &::after {
+      transform: translate(-50%, -50%) rotate(-45deg);
+    }
+    
+    &:hover {
+      background: rgba(0, 0, 0, 0.2);
+      
+      &::before,
+      &::after {
+        background: #333;
+      }
+    }
+  }
+}
+
+.modal-content-body {
+  padding: 0 20px;
+  
+  @media (max-width: 768px) {
+    padding: 0 15px 15px;
+  }
+}
+
+.no-wrestlers {
+  text-align: center;
+  padding: 30px 0;
+  color: #777;
+  font-style: italic;
+}
+
+.seen-btn {
+  background: transparent;
+  border: 2px solid #4CAF50;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+  margin-right: 10px;
+  font-size: 18px;
+  position: relative;
+  
+  &:hover {
+    background: rgba(76, 175, 80, 0.2);
+    transform: scale(1.1);
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+  
+  /* Effet de pulsation pour attirer l'attention */
+  &::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border: 2px solid #4CAF50;
+    border-radius: 50%;
+    opacity: 0;
+    animation: pulse-border 2s infinite;
+  }
+  
+  @media (max-width: 768px) {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+}
+
+/* Animation de pulsation pour le bouton seen */
+@keyframes pulse-border {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  70% {
+    transform: scale(1.1);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* Assure que le menu n'interfère pas avec les modales */
+@media (max-width: 768px) {
+  body {
+    padding-bottom: 80px; /* Légèrement plus grand que la hauteur du menu */
+  }
+}
+
+/* Styles spécifiques pour la modale des wrestlers */
+.wrestler-modal-content {
+  max-width: 500px;
+  margin: 0 auto;
+  
+  @media (max-width: 768px) {
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .modal-content-body form {
+    padding: 0 20px;
+  }
+  
+  /* Ajustements pour que les boutons de soumission restent visibles */
+  @media (max-width: 768px) {
+    .modal-content-body {
+      padding-bottom: 20px;
+    }
+    
+    form > div:last-child {
+      position: sticky;
+      bottom: 0;
+      background: white;
+      padding: 15px 0;
+      margin-bottom: 0;
+      z-index: 2;
+      box-shadow: 0 -5px 10px rgba(255,255,255,0.9);
+    }
+  }
+}
+
+/* Assure que le toast ne soit pas caché par le menu */
+.Toast {
+  @media (max-width: 768px) {
+    bottom: 80px !important;
+  }
+}
+
+/* Message de confirmation après avoir marqué un show comme vu */
+.confirmation-message {
+  background-color: rgba(76, 175, 80, 0.1);
+  border-left: 4px solid #4CAF50;
+  padding: 10px 20px;
+  margin: 0 20px 15px;
+  color: #4CAF50;
+  font-weight: 500;
+  animation: fadeIn 0.3s ease-in;
+}
+
+/* Style pour le bouton lorsqu'il est cliqué */
+.seen-btn.marked-as-seen {
+  background-color: #4CAF50;
+  color: white;
+  transform: scale(1);
+  animation: success-pulse 0.5s ease-in-out;
+}
+
+@keyframes success-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Variation du style du bouton pour le rendre plus visible */
+.header .seen-btn {
+  z-index: 10;
+  /* Ajouter un effet d'ombre pour plus de profondeur */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Personnalisation supplémentaire pour s'assurer que le bouton est bien visible */
+@media (max-width: 768px) {
+  .confirmation-message {
+    margin: 5px 15px 10px;
+    padding: 8px 15px;
+    font-size: 14px;
+  }
+  
+  .header div {
+    position: relative;
+    z-index: 15;
+  }
+}
+
+/* Styles améliorés pour le header des modales */
+.show-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 4px;
+  color: white;
+  font-weight: 600;
+  margin-right: 5px;
+}
+
+.show-badge.Raw {
+  background-color: #d90012;
+}
+
+.show-badge.SmackDown {
+  background-color: #0072b8;
+}
+
+.show-badge.NXT {
+  background-color: #cbb449;
+}
+
+.show-badge.Evolve {
+  background-color: #4801cf;
+}
+
+.show-badge.PLE {
+  background-color: #595959;
+}
+
+.date-separator {
+  margin: 0 5px;
+  color: #777;
+}
+
+.show-date {
+  font-weight: 500;
+  color: #333;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+}
+
+/* Ajustement spécifique pour les modales de type show */
+.modal.active .content {
+  transform: translateY(0);
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+/* Style spécifique pour le bouton de fermeture */
+.modal-close-btn {
+  opacity: 0.6;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  
+  &:hover {
+    opacity: 1;
+    transform: rotate(90deg);
+  }
+}
+
+/* Mises à jour pour les petits écrans */
+@media (max-width: 480px) {
+  .modal {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  
+  .content {
+    max-width: 100%;
   }
 }
