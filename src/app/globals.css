@@ -124,6 +124,7 @@ a {
   overflow-y: auto; /* Permet le défilement vertical si nécessaire */
   text-align: left;
   color: #263238;
+  margin: 0 auto 80px;
   padding: 0 0 20px 0; /* Modifier le padding pour que le header soit bien aligné */
   animation: slideIn 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Ajouter une ombre plus prononcée */
