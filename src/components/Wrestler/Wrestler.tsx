@@ -50,8 +50,8 @@ export const Wrestler = ({wrestler, show}) => {
     const showDate = show.date;
 
     let icon = '👻';
-    if (lastSeenDelta(lastSeen, showDate) < 45) icon = '🚑';
-    if (lastSeenDelta(lastSeen, showDate) < 30) icon = '😴';
+    if (lastSeenDelta(lastSeen, showDate) < 35) icon = '🚑';
+    if (lastSeenDelta(lastSeen, showDate) < 14) icon = '😴';
     if (lastSeenDelta(lastSeen, showDate) <= 7) icon = '🔥';
 
     function present(e: React.MouseEvent<HTMLButtonElement>) {
