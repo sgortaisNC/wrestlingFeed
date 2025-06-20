@@ -1,5 +1,5 @@
-import {Show} from "@/components/Show/Show";
-import {prisma} from "@/utils/prisma";
+import { Show } from "@/components/Show/Show";
+import { prisma } from "@/utils/prisma";
 
 async function getWrestlers() {
     return prisma.wrestler.findMany({
@@ -37,22 +37,12 @@ export default async function Home() {
     yesterday.setDate(yesterday.getDate() - 2);
     const shows = [];
     const ple = [{
-        date: "2025-3-1",
-    },{
-        date: "2025-4-19",
-    }, {
-        date: "2025-4-20",
-    }, {
-        date: "2025-5-10",
-    },{
-        date: "2025-5-24",
-    },{
-        date: "2025-5-25",
-    },{
         date: "2025-6-7",
-    },{
+    }, {
         date: "2025-6-28",
-    },{
+    }, {
+        date: "2026-7-12",
+    }, {
         date: "2026-8-2",
     }, {
         date: "2026-8-3",
@@ -93,7 +83,7 @@ export default async function Home() {
                 title: 'NXT',
                 wrestlers: timeWresler
             });
-            
+
         } else if (date.getDay() === 3) {
             shows.push({
                 date: date.toISOString(),
@@ -113,7 +103,7 @@ export default async function Home() {
         <>
             <div className="grid">
                 {shows.map(show => (
-                    <Show show={show} key={show.date} className={"card " + show.title}/>
+                    <Show show={show} key={show.date} className={"card " + show.title} />
                 ))}
             </div>
         </>
