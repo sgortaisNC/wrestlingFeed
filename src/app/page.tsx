@@ -37,18 +37,16 @@ export default async function Home() {
     yesterday.setDate(yesterday.getDate() - 2);
     const shows = [];
     const ple = [{
-        date: "2025-6-7",
+        date: "2025-7-12",
     }, {
-        date: "2025-6-28",
+        date: "2025-7-13",
     }, {
-        date: "2026-7-12",
+        date: "2025-8-2",
     }, {
-        date: "2026-8-2",
+        date: "2025-8-3",
     }, {
-        date: "2026-8-3",
-    }, {
-        date: "2026-8-31",
-    }
+        date: "2025-8-31",
+    }            
     ]
 
     let allWrestlers = await getWrestlers();
