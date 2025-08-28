@@ -1,6 +1,7 @@
 import { Nunito } from "next/font/google";
 import "./globals.css";
 import {Menu} from "@/components/Menu/Menu";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Nunito({ subsets: ["latin"] });
 
@@ -15,6 +16,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         {children}
         <Menu />
+        <SpeedInsights />
       </body>
     </html>
   );
