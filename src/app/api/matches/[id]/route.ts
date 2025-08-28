@@ -60,4 +60,27 @@ export async function PUT(
       { status: 500 }
     );
   }
+}
+
+export async function DELETE(
+  _request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { id } = await params;
+    
+    const match = await prisma.match.delete({
+      where: {
+        id: parseInt(id),
+      },
+    });
+
+    return Response.json({ message: 'Match supprimé avec succès' });
+  } catch (error) {
+    console.error('Erreur lors de la suppression du match:', error);
+    return Response.json(
+      { error: 'Erreur lors de la suppression du match' },
+      { status: 500 }
+    );
+  }
 } 

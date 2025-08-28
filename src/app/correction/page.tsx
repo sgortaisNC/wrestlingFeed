@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Match, Wrestler } from '@prisma/client';
+import styles from './correction.module.scss';
 
 type MatchWithWrestler = Match & {
   wrestler: Wrestler;
@@ -53,52 +54,70 @@ export default function CorrectionPage() {
     }
   };
 
+  const handleDelete = async (matchId: number) => {
+    if (confirm('Êtes-vous sûr de vouloir supprimer ce match ?')) {
+      try {
+        const response = await fetch(`/api/matches/${matchId}`, {
+          method: 'DELETE',
+        });
+
+        if (response.ok) {
+          fetchMatches();
+        }
+      } catch (error) {
+        console.error('Erreur lors de la suppression:', error);
+      }
+    }
+  };
+
   if (loading) {
-    return <div className="p-4">Chargement...</div>;
+    return <div className={styles.loading}>Chargement...</div>;
   }
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Correction des Matches</h1>
-      <div className="overflow-x-auto">
-        <table className="min-w-full bg-white border border-gray-300">
+    <div className={styles.container}>
+      <h1 className={styles.title}>Correction des Matches</h1>
+      <div className={styles.tableContainer}>
+        <table className={styles.table}>
           <thead>
-            <tr className="bg-gray-100">
-              <th className="px-4 py-2 border">Date</th>
-              <th className="px-4 py-2 border">Catcheur</th>
-              <th className="px-4 py-2 border">Résultat</th>
-              <th className="px-4 py-2 border">Actions</th>
+            <tr className={styles.header}>
+              <th className={styles.headerCell}>Date</th>
+              <th className={styles.headerCell}>Catcheur</th>
+              <th className={styles.headerCell}>Résultat</th>
+              <th className={styles.headerCell}>Actions</th>
             </tr>
           </thead>
           <tbody>
             {matches.map((match) => (
-              <tr key={match.id} className="hover:bg-gray-50">
-                <td className="px-4 py-2 border">
+              <tr key={match.id} className={styles.row}>
+                <td className={styles.cell}>
                   {formatDate(match.date)}
                 </td>
-                <td className="px-4 py-2 border">{match.wrestler.name}</td>
-                <td className="px-4 py-2 border">
+                <td className={styles.cell}>{match.wrestler.name}</td>
+                <td className={styles.cell}>
                   {match.win ? 'Victoire' : match.loose ? 'Défaite' : 'Match nul'}
                 </td>
-                <td className="px-4 py-2 border">
-                  <div className="flex gap-2">
+                <td className={styles.cell}>
+                  <div className={styles.buttonContainer}>
+                    <div className={styles.actionButtons}>
+                      <button
+                        onClick={() => handleCorrection(match.id, { win: true, loose: false, draw: false })}
+                        className={`${styles.button} ${match.win ? styles.win : styles.default}`}
+                      >
+                        Victoire
+                      </button>
+                      <button
+                        onClick={() => handleCorrection(match.id, { win: false, loose: true, draw: false })}
+                        className={`${styles.button} ${match.loose ? styles.lose : styles.default}`}
+                      >
+                        Défaite
+                      </button>
+                    </div>
                     <button
-                      onClick={() => handleCorrection(match.id, { win: true, loose: false, draw: false })}
-                      className={`px-2 py-1 rounded ${match.win ? 'bg-green-500 text-white' : 'bg-gray-200'}`}
+                      onClick={() => handleDelete(match.id)}
+                      className={`${styles.button} ${styles.delete}`}
                     >
-                      Victoire
-                    </button>
-                    <button
-                      onClick={() => handleCorrection(match.id, { win: false, loose: true, draw: false })}
-                      className={`px-2 py-1 rounded ${match.loose ? 'bg-red-500 text-white' : 'bg-gray-200'}`}
-                    >
-                      Défaite
-                    </button>
-                    <button
-                      onClick={() => handleCorrection(match.id, { win: false, loose: false, draw: true })}
-                      className={`px-2 py-1 rounded ${match.draw ? 'bg-yellow-500 text-white' : 'bg-gray-200'}`}
-                    >
-                      Match nul
+                      Supprimer
                     </button>
                   </div>
                 </td>

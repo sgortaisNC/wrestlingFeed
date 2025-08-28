@@ -1,0 +1,113 @@
+.container {
+  padding: 1rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.tableContainer {
+  overflow-x: auto;
+}
+
+.table {
+  min-width: 100%;
+  background-color: white;
+  border: 1px solid #d1d5db;
+}
+
+.header {
+  background-color: #f3f4f6;
+}
+
+.headerCell {
+  padding: 0.5rem 1rem;
+  border: 1px solid #d1d5db;
+  text-align: left;
+  font-weight: 600;
+}
+
+.row {
+  &:hover {
+    background-color: #f9fafb;
+  }
+}
+
+.cell {
+  padding: 0.5rem 1rem;
+  border: 1px solid #d1d5db;
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.button {
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  border: none;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background-color 0.2s;
+
+  &.win {
+    background-color: #10b981;
+    color: white;
+
+    &:hover {
+      background-color: #059669;
+    }
+  }
+
+  &.lose {
+    background-color: #ef4444;
+    color: white;
+
+    &:hover {
+      background-color: #dc2626;
+    }
+  }
+
+  &.draw {
+    background-color: #eab308;
+    color: white;
+
+    &:hover {
+      background-color: #ca8a04;
+    }
+  }
+
+  &.default {
+    background-color: #e5e7eb;
+    color: #374151;
+
+    &:hover {
+      background-color: #d1d5db;
+    }
+  }
+
+  &.delete {
+    background-color: #dc2626;
+    color: white;
+
+    &:hover {
+      background-color: #b91c1c;
+    }
+  }
+}
+
+.loading {
+  padding: 1rem;
+  font-size: 1rem;
+  color: #6b7280;
+}
