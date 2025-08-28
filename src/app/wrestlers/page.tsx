@@ -9,7 +9,7 @@ interface Wrestler {
     show: string;
 }
 
-const SHOWS = ["Raw", "SmackDown", "NXT"] as const;
+const SHOWS = ["Raw", "SmackDown", "NXT", "Evolve"] as const;
 type Show = typeof SHOWS[number];
 
 const normalizeShowName = (show: string | null | undefined): Show => {

@@ -153,24 +153,12 @@
             background: rgba(16, 185, 129, 0.3);
             border-color: rgba(16, 185, 129, 0.4);
             box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
-            
-            &::after {
-              content: '🏆';
-              margin-left: 0.5rem;
-              font-size: 1rem;
-            }
           }
           
           &.loss {
             background: rgba(239, 68, 68, 0.3);
             border-color: rgba(239, 68, 68, 0.4);
             box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2);
-            
-            &::after {
-              content: '💔';
-              margin-left: 0.5rem;
-              font-size: 1rem;
-            }
           }
         }
       }
