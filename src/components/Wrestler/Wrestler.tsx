@@ -43,10 +43,107 @@ function lastSeenDelta(date1: string, date2: string) {
     return diffEnMs / (1000 * 3600 * 24);
 }
 
+const wrestlerStyles = {
+    container: {
+        display: 'flex',
+        width: "100%",
+        justifyContent: "space-between",
+        alignItems: 'center',
+        gap: '0.75rem'
+    },
+    btn: {
+        background: 'rgba(255, 255, 255, 0.1)',
+        borderTopWidth: '1px',
+        borderTopStyle: 'solid',
+        borderTopColor: 'rgba(255, 255, 255, 0.2)',
+        borderRightWidth: '1px',
+        borderRightStyle: 'solid',
+        borderRightColor: 'rgba(255, 255, 255, 0.2)',
+        borderBottomWidth: '1px',
+        borderBottomStyle: 'solid',
+        borderBottomColor: 'rgba(255, 255, 255, 0.2)',
+        borderLeftWidth: '3px',
+        borderLeftStyle: 'solid',
+        borderLeftColor: 'rgba(74, 144, 226, 0.6)',
+        borderRadius: '12px',
+        padding: '0.75rem 1rem',
+        color: 'white',
+        fontSize: '0.9rem',
+        fontWeight: '500',
+        cursor: 'pointer',
+        transition: 'all 0.3s ease',
+        backdropFilter: 'blur(10px)',
+        WebkitBackdropFilter: 'blur(10px)',
+        position: 'relative' as const,
+        overflow: 'hidden',
+        textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)',
+        flex: 1
+    },
+    btnHover: {
+        background: 'rgba(255, 255, 255, 0.15)',
+        borderTopColor: 'rgba(255, 255, 255, 0.3)',
+        borderRightColor: 'rgba(255, 255, 255, 0.3)',
+        borderBottomColor: 'rgba(255, 255, 255, 0.3)',
+        transform: 'translateY(-2px)',
+        boxShadow: '0 4px 15px rgba(255, 255, 255, 0.1)'
+    },
+    btnSeen: {
+        background: 'rgba(16, 185, 129, 0.3)',
+        borderTopColor: 'rgba(16, 185, 129, 0.4)',
+        borderRightColor: 'rgba(16, 185, 129, 0.4)',
+        borderBottomColor: 'rgba(16, 185, 129, 0.4)',
+        color: '#10b981'
+    },
+    btnSameShow: {
+        borderLeftColor: 'rgba(255, 105, 180, 0.6)'
+    },
+    cta: {
+        background: 'rgba(255, 255, 255, 0.1)',
+        borderTopWidth: '1px',
+        borderTopStyle: 'solid',
+        borderTopColor: 'rgba(255, 255, 255, 0.2)',
+        borderRightWidth: '1px',
+        borderRightStyle: 'solid',
+        borderRightColor: 'rgba(255, 255, 255, 0.2)',
+        borderBottomWidth: '1px',
+        borderBottomStyle: 'solid',
+        borderBottomColor: 'rgba(255, 255, 255, 0.2)',
+        borderLeftWidth: '1px',
+        borderLeftStyle: 'solid',
+        borderLeftColor: 'rgba(255, 255, 255, 0.2)',
+        borderRadius: '8px',
+        padding: '0.5rem 0.75rem',
+        color: 'white',
+        fontSize: '0.8rem',
+        fontWeight: '600',
+        cursor: 'pointer',
+        transition: 'all 0.3s ease',
+        backdropFilter: 'blur(10px)',
+        WebkitBackdropFilter: 'blur(10px)',
+        textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)',
+        minWidth: '32px'
+    },
+    ctaHover: {
+        background: 'rgba(255, 255, 255, 0.2)',
+        borderTopColor: 'rgba(255, 255, 255, 0.3)',
+        borderRightColor: 'rgba(255, 255, 255, 0.3)',
+        borderBottomColor: 'rgba(255, 255, 255, 0.3)',
+        borderLeftColor: 'rgba(255, 255, 255, 0.3)',
+        transform: 'translateY(-1px)',
+        boxShadow: '0 2px 8px rgba(255, 255, 255, 0.1)'
+    },
+    actionsContainer: {
+        display: 'flex',
+        gap: '0.5rem'
+    }
+};
+
 export const Wrestler = ({wrestler, show}) => {
 
     const [lastSeen, setLastSeen] = useState(wrestler.lastSeen);
     const [toastMessage, setToastMessage] = useState('');
+    const [btnHovered, setBtnHovered] = useState(false);
+    const [ctaHovered, setCtaHovered] = useState({ win: false, lose: false });
     const showDate = show.date;
 
     let icon = '👻';
@@ -95,28 +192,61 @@ export const Wrestler = ({wrestler, show}) => {
             });
     }
 
+    const btnStyle = {
+        ...wrestlerStyles.btn,
+        ...(btnHovered && wrestlerStyles.btnHover),
+        ...(lastSeenDelta(lastSeen, showDate) < 1 && wrestlerStyles.btnSeen),
+        ...(wrestler.showName === show.title && wrestlerStyles.btnSameShow)
+    };
+
     return (
-        <div style={{display: 'flex',width:"100%", justifyContent: "space-between"}}>
+        <div style={wrestlerStyles.container}>
             <button
-                className={(lastSeenDelta(lastSeen, showDate) < 1 ? 'btn seen' : 'btn') + (wrestler.showName === show.title ? ' sameShow' : '')}
-                data-wrestler={wrestler.id} data-date={showDate}
+                style={btnStyle}
+                data-wrestler={wrestler.id} 
+                data-date={showDate}
                 data-roster={wrestler.showName}
                 onContextMenu={(e) => {remove(e)}}
                 onClick={present}
+                onMouseEnter={() => setBtnHovered(true)}
+                onMouseLeave={() => setBtnHovered(false)}
             >
                 {wrestler.name.substring(0, 20)} {icon}
             </button>
-            <div>
-                <button onClick={() => {
-                    win(wrestler.id,showDate);
-                    document.querySelector(`.modal.active li[data-wrestler="${wrestler.id}"]`).remove();
-                }} className={"cta"}> W
+            <div style={wrestlerStyles.actionsContainer}>
+                <button 
+                    style={{
+                        ...wrestlerStyles.cta,
+                        ...(ctaHovered.win && wrestlerStyles.ctaHover),
+                        background: ctaHovered.win ? 'rgba(16, 185, 129, 0.2)' : 'rgba(255, 255, 255, 0.1)',
+                        borderColor: ctaHovered.win ? 'rgba(16, 185, 129, 0.3)' : 'rgba(255, 255, 255, 0.2)',
+                        color: ctaHovered.win ? '#10b981' : 'white'
+                    }}
+                    onClick={() => {
+                        win(wrestler.id,showDate);
+                        document.querySelector(`.modal.active li[data-wrestler="${wrestler.id}"]`).remove();
+                    }}
+                    onMouseEnter={() => setCtaHovered(prev => ({ ...prev, win: true }))}
+                    onMouseLeave={() => setCtaHovered(prev => ({ ...prev, win: false }))}
+                > 
+                    W
                 </button>
-                &nbsp;
-                <button onClick={() => {
-                    loose(wrestler.id,showDate);
-                    document.querySelector(`.modal.active li[data-wrestler="${wrestler.id}"]`).remove();
-                }} className={"cta"}> L
+                <button 
+                    style={{
+                        ...wrestlerStyles.cta,
+                        ...(ctaHovered.lose && wrestlerStyles.ctaHover),
+                        background: ctaHovered.lose ? 'rgba(239, 68, 68, 0.2)' : 'rgba(255, 255, 255, 0.1)',
+                        borderColor: ctaHovered.lose ? 'rgba(239, 68, 68, 0.3)' : 'rgba(255, 255, 255, 0.2)',
+                        color: ctaHovered.lose ? '#ef4444' : 'white'
+                    }}
+                    onClick={() => {
+                        loose(wrestler.id,showDate);
+                        document.querySelector(`.modal.active li[data-wrestler="${wrestler.id}"]`).remove();
+                    }}
+                    onMouseEnter={() => setCtaHovered(prev => ({ ...prev, lose: true }))}
+                    onMouseLeave={() => setCtaHovered(prev => ({ ...prev, lose: false }))}
+                > 
+                    L
                 </button>
             </div>
             {toastMessage !== "" && <Toast text={toastMessage} />}

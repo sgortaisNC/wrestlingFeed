@@ -1,15 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --primary-color: #4CAF50;
-  --primary-dark: #45a049;
-  --text-color: #333;
-  --light-text: #777;
-  --background: #263238;
-  --card-bg: #fff;
-  --border-color: rgba(0, 0, 0, 0.1);
-  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --primary-color: #667eea;
+  --primary-dark: #764ba2;
+  --text-color: #ffffff;
+  --light-text: rgba(255, 255, 255, 0.8);
+  --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --card-bg: rgba(255, 255, 255, 0.1);
+  --border-color: rgba(255, 255, 255, 0.2);
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
 }
 
 * {
@@ -24,12 +26,26 @@ body {
   overflow-x: hidden;
   font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  background-color: var(--background);
+  background: var(--background);
   color: var(--text-color);
+  min-height: 100vh;
+  position: relative;
+}
+
+html::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+  pointer-events: none;
+  z-index: -1;
 }
 
 html {
-  background: #263238;
+  background: var(--background);
   color: white;
 }
 
@@ -45,16 +61,50 @@ a {
 .card {
   display: grid;
   height: 100%;
-  background: red;
   place-items: center;
   cursor: pointer;
-  border-radius: 16px;
-  box-shadow: 0 0 10px transparent;
-  transition: all 0.3s ease;
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s;
+  }
   
   &:hover {
-    box-shadow: 0 0 20px white;
     transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    
+    &::before {
+      left: 100%;
+    }
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    font-weight: 300;
   }
 }
 
@@ -72,597 +122,296 @@ a {
 }
 
 .NXT {
-  background: #cbb449;
+  background: linear-gradient(135deg, rgba(203, 180, 73, 0.2) 0%, rgba(203, 180, 73, 0.3) 100%);
+  border-color: rgba(203, 180, 73, 0.4);
+  
+  &:hover {
+    background: linear-gradient(135deg, rgba(203, 180, 73, 0.3) 0%, rgba(203, 180, 73, 0.4) 100%);
+    border-color: rgba(203, 180, 73, 0.6);
+  }
 }
 
 .Raw {
-  background: #d90012;
+  background: linear-gradient(135deg, rgba(217, 0, 18, 0.2) 0%, rgba(217, 0, 18, 0.3) 100%);
+  border-color: rgba(217, 0, 18, 0.4);
+  
+  &:hover {
+    background: linear-gradient(135deg, rgba(217, 0, 18, 0.3) 0%, rgba(217, 0, 18, 0.4) 100%);
+    border-color: rgba(217, 0, 18, 0.6);
+  }
 }
 
 .SmackDown {
-  background: #0072b8;
+  background: linear-gradient(135deg, rgba(0, 114, 184, 0.2) 0%, rgba(0, 114, 184, 0.3) 100%);
+  border-color: rgba(0, 114, 184, 0.4);
+  
+  &:hover {
+    background: linear-gradient(135deg, rgba(0, 114, 184, 0.3) 0%, rgba(0, 114, 184, 0.4) 100%);
+    border-color: rgba(0, 114, 184, 0.6);
+  }
 }
 
 .Evolve {
-  background: #4801cf;
+  background: linear-gradient(135deg, rgba(72, 1, 207, 0.2) 0%, rgba(72, 1, 207, 0.3) 100%);
+  border-color: rgba(72, 1, 207, 0.4);
+  
+  &:hover {
+    background: linear-gradient(135deg, rgba(72, 1, 207, 0.3) 0%, rgba(72, 1, 207, 0.4) 100%);
+    border-color: rgba(72, 1, 207, 0.6);
+  }
 }
 
 .PLE{
-  background: #595959;
+  background: linear-gradient(135deg, rgba(89, 89, 89, 0.2) 0%, rgba(89, 89, 89, 0.3) 100%);
+  border-color: rgba(89, 89, 89, 0.4);
+  
+  &:hover {
+    background: linear-gradient(135deg, rgba(89, 89, 89, 0.3) 0%, rgba(89, 89, 89, 0.4) 100%);
+    border-color: rgba(89, 89, 89, 0.6);
+  }
 }
 
 .modal {
   position: fixed;
   inset: 0;
-  z-index: 2;
+  z-index: 1000;
   display: grid;
   align-items: center;
   opacity: 0;
-  pointer-events: none;
-  transition: all 0.5s ease;
+  visibility: hidden;
+  transition: all 0.3s ease;
   
   &.active {
     opacity: 1;
-    pointer-events: all;
-    animation: fadeIn 0.3s forwards;
-  }
-  
-  @media (max-width: 768px) {
-    padding-bottom: 70px; /* Espace pour le menu fixe en bas */
-    padding-left: 50px; /* Marge gauche augmentée à 50px */
-    padding-right: 50px; /* Marge droite augmentée à 50px */
-    align-items: center;
-  }
-}
-
-.content {
-  border-radius: 16px;
-  background: white;
-  width: 100%;
-  max-width: calc(100% - 100px); /* Assurer qu'il y a toujours 50px de marge de chaque côté */
-  max-height: 80vh; /* Limite la hauteur à 80% de la hauteur de la fenêtre */
-  overflow-y: auto; /* Permet le défilement vertical si nécessaire */
-  text-align: left;
-  color: #263238;
-  margin: 0 auto 80px;
-  padding: 0 0 20px 0; /* Modifier le padding pour que le header soit bien aligné */
-  animation: slideIn 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Ajouter une ombre plus prononcée */
-  
-  @media (max-width: 768px) {
-    max-height: 80vh; /* Assure que cette contrainte est aussi appliquée sur mobile */
-    overflow-y: auto;
-    width: 100%; /* Pleine largeur moins les marges du conteneur parent */
-    margin: 0 auto;
-  }
-}
-
-.content .header {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  margin-bottom: 15px;
-  background-color: #f5f5f5;
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
-  
-  h3 {
-    font-size: 1.2rem;
-    font-weight: 600;
-  }
-  
-  div {
-    display: flex;
-    align-items: center;
-  }
-  
-  @media (max-width: 768px) {
-    padding: 15px;
-    position: sticky;
-    top: 0;
-    background: #f5f5f5;
-    z-index: 10;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    
-    h3 {
-      font-size: 1rem;
-      max-width: 70%;
-    }
-  }
-}
-
-/* Assurer que les boutons dans le header sont toujours visibles */
-.content .header button {
-  position: relative;
-  z-index: 11;
-}
-
-/* Amélioration du contraste du header pour plus de visibilité */
-.modal.active .content .header {
-  animation: fadeInHeader 0.5s ease forwards;
-}
-
-@keyframes fadeInHeader {
-  from {
-    opacity: 0.7;
-    transform: translateY(-5px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.content ul {
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  @media (orientation: portrait){
-    grid-template-columns: 1fr;
-    overflow: auto;
-    max-height: 90vh;
-    
-    @media (max-width: 768px) {
-      max-height: calc(90vh - 70px); /* Ajuste la hauteur pour tenir compte du menu */
-      padding-bottom: 10px; /* Ajoute un peu d'espace en bas */
-    }
-  }
-  gap: 5px 15px;
-  li{
-    display: flex;
-    justify-content: space-between;
-    .cta{
-      height: 100%;
-    }
+    visibility: visible;
   }
 }
 
 .backdrop {
-  background: rgba(0, 0, 0, 0.65);
   position: absolute;
   inset: 0;
-  z-index: -1;
-  animation: backdropIn 0.4s forwards;
-  backdrop-filter: blur(3px); /* Effet de flou pour un rendu plus moderne */
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
-button.seen {
-  background: green;
-}
-
-.btn {
-  background: #263238;
+.content {
   position: relative;
-  &::before{
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    border-radius: 5px;
-    content: '';
-    top: 54%;
-    left: 8px;
-    transform: translate(-50%, -50%);
-  }
-
-  &.sameShow:before {
-    left: -7px;
-  }
-
-  &[data-roster="Raw"]:before {
-    background: #d90012;
-  }
-
-  &[data-roster="SmackDown"]:before {
-    background: #0072b8;
-  }
-
-  &[data-roster="NXT"]:before {
-    background: #cbb449;
-  }
-
-  color: white;
-  padding: 8px 10px 8px 15px;
-  border: none;
-  border-radius: 5px;
-  font-size: 12px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-
-  &:hover {
-    background: #455a64;
-  }
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  max-width: calc(100vw - 3rem);
+  max-height: calc(100vh - 3rem);
+  overflow: hidden;
+  margin: 1.5rem;
+  animation: modalSlideIn 0.3s ease;
 }
 
-.cta {
-  background-color: #000;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  
-  &:hover {
-    background-color: var(--primary-dark, #45a049);
-    transform: translateY(-2px);
-  }
-  
-  &:active {
-    transform: translateY(0);
-  }
-}
-
-/* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes backdropIn {
-  from { 
-    opacity: 0; 
-    backdrop-filter: blur(0px);
-  }
-  to { 
-    opacity: 1; 
-    backdrop-filter: blur(3px);
-  }
-}
-
-@keyframes slideIn {
-  from { 
+@keyframes modalSlideIn {
+  from {
     opacity: 0;
-    transform: translateY(30px);
-    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    transform: translateY(-20px) scale(0.95);
   }
-  to { 
+  to {
     opacity: 1;
-    transform: translateY(0);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transform: translateY(0) scale(1);
   }
 }
 
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  
+  h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    color: white;
   }
 }
 
-/* Media queries */
-@media (max-width: 768px) {
-  .grid {
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    padding: 15px;
+.show-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  
+  &.Raw {
+    background: rgba(217, 0, 18, 0.3);
+    color: #ff6b6b;
+    border: 1px solid rgba(217, 0, 18, 0.4);
   }
   
-  .card {
-    padding: 15px;
+  &.SmackDown {
+    background: rgba(0, 114, 184, 0.3);
+    color: #74b9ff;
+    border: 1px solid rgba(0, 114, 184, 0.4);
+  }
+  
+  &.NXT {
+    background: rgba(203, 180, 73, 0.3);
+    color: #fdcb6e;
+    border: 1px solid rgba(203, 180, 73, 0.4);
+  }
+  
+  &.Evolve {
+    background: rgba(72, 1, 207, 0.3);
+    color: #a29bfe;
+    border: 1px solid rgba(72, 1, 207, 0.4);
+  }
+  
+  &.PLE {
+    background: rgba(89, 89, 89, 0.3);
+    color: #b2bec3;
+    border: 1px solid rgba(89, 89, 89, 0.4);
   }
 }
 
-@media (max-width: 480px) {
-  .grid {
-    grid-template-columns: 1fr;
-    padding: 10px;
+.date-separator {
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 300;
+}
+
+.show-date {
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 400;
+}
+
+.header-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.seen-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: white;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
   }
   
-  .menu ul span {
-    font-size: 0.8rem;
+  &.marked-as-seen {
+    background: rgba(16, 185, 129, 0.3);
+    border-color: rgba(16, 185, 129, 0.4);
+    color: #10b981;
   }
 }
 
-/* Bouton de fermeture pour les modales sur mobile */
-.modal-close-btn {
-  display: none;
-  
-  @media (max-width: 768px) {
-    display: block;
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    width: 30px;
-    height: 30px;
-    background: rgba(0, 0, 0, 0.1);
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    
-    &::before,
-    &::after {
-      content: '';
-      position: absolute;
-      width: 15px;
-      height: 2px;
-      background: #555;
-      top: 50%;
-      left: 50%;
-      transition: background 0.3s ease;
-    }
-    
-    &::before {
-      transform: translate(-50%, -50%) rotate(45deg);
-    }
-    
-    &::after {
-      transform: translate(-50%, -50%) rotate(-45deg);
-    }
-    
-    &:hover {
-      background: rgba(0, 0, 0, 0.2);
-      
-      &::before,
-      &::after {
-        background: #333;
-      }
-    }
-  }
+.confirmation-message {
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  margin: 0 1.5rem;
+  color: #10b981;
+  font-weight: 500;
+  text-align: center;
+  animation: fadeInOut 2s ease;
+}
+
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0; transform: translateY(-10px); }
+  20%, 80% { opacity: 1; transform: translateY(0); }
 }
 
 .modal-content-body {
-  padding: 0 20px;
+  padding: 1.5rem;
+  max-height: 60vh;
+  overflow-y: auto;
   
-  @media (max-width: 768px) {
-    padding: 0 15px 15px;
+  ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+  }
+  
+  li {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+  }
+}
+
+/* Responsive design pour les modales */
+@media (max-width: 1024px) {
+  .modal-content-body ul {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
+  }
+  
+  .modal-content-body li {
+    padding: 0.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .modal-content-body {
+    padding: 1rem;
+    
+    ul {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+    
+    li {
+      padding: 0.75rem;
+    }
   }
 }
 
 .no-wrestlers {
   text-align: center;
-  padding: 30px 0;
-  color: #777;
+  color: rgba(255, 255, 255, 0.6);
   font-style: italic;
+  padding: 2rem;
 }
 
-.seen-btn {
-  background: transparent;
-  border: 2px solid #4CAF50;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  padding: 0;
-  margin-right: 10px;
-  font-size: 18px;
-  position: relative;
-  
-  &:hover {
-    background: rgba(76, 175, 80, 0.2);
-    transform: scale(1.1);
-  }
-  
-  &:active {
-    transform: scale(0.95);
-  }
-  
-  /* Effet de pulsation pour attirer l'attention */
-  &::after {
-    content: '';
-    position: absolute;
-    top: -4px;
-    left: -4px;
-    right: -4px;
-    bottom: -4px;
-    border: 2px solid #4CAF50;
-    border-radius: 50%;
-    opacity: 0;
-    animation: pulse-border 2s infinite;
-  }
-  
-  @media (max-width: 768px) {
-    width: 36px;
-    height: 36px;
-    font-size: 16px;
-  }
+/* Scrollbar personnalisée */
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-/* Animation de pulsation pour le bouton seen */
-@keyframes pulse-border {
-  0% {
-    transform: scale(1);
-    opacity: 0.7;
-  }
-  70% {
-    transform: scale(1.1);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1.2);
-    opacity: 0;
-  }
-}
-
-/* Assure que le menu n'interfère pas avec les modales */
-@media (max-width: 768px) {
-  body {
-    padding-bottom: 80px; /* Légèrement plus grand que la hauteur du menu */
-  }
-}
-
-/* Styles spécifiques pour la modale des wrestlers */
-.wrestler-modal-content {
-  max-width: 500px;
-  margin: 0 auto;
-  
-  @media (max-width: 768px) {
-    width: 90%;
-    max-height: 80vh;
-    overflow-y: auto;
-  }
-  
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .modal-content-body form {
-    padding: 0 20px;
-  }
-  
-  /* Ajustements pour que les boutons de soumission restent visibles */
-  @media (max-width: 768px) {
-    .modal-content-body {
-      padding-bottom: 20px;
-    }
-    
-    form > div:last-child {
-      position: sticky;
-      bottom: 0;
-      background: white;
-      padding: 15px 0;
-      margin-bottom: 0;
-      z-index: 2;
-      box-shadow: 0 -5px 10px rgba(255,255,255,0.9);
-    }
-  }
-}
-
-/* Assure que le toast ne soit pas caché par le menu */
-.Toast {
-  @media (max-width: 768px) {
-    bottom: 80px !important;
-  }
-}
-
-/* Message de confirmation après avoir marqué un show comme vu */
-.confirmation-message {
-  background-color: rgba(76, 175, 80, 0.1);
-  border-left: 4px solid #4CAF50;
-  padding: 10px 20px;
-  margin: 0 20px 15px;
-  color: #4CAF50;
-  font-weight: 500;
-  animation: fadeIn 0.3s ease-in;
-}
-
-/* Style pour le bouton lorsqu'il est cliqué */
-.seen-btn.marked-as-seen {
-  background-color: #4CAF50;
-  color: white;
-  transform: scale(1);
-  animation: success-pulse 0.5s ease-in-out;
-}
-
-@keyframes success-pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-/* Variation du style du bouton pour le rendre plus visible */
-.header .seen-btn {
-  z-index: 10;
-  /* Ajouter un effet d'ombre pour plus de profondeur */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-/* Personnalisation supplémentaire pour s'assurer que le bouton est bien visible */
-@media (max-width: 768px) {
-  .confirmation-message {
-    margin: 5px 15px 10px;
-    padding: 8px 15px;
-    font-size: 14px;
-  }
-  
-  .header div {
-    position: relative;
-    z-index: 15;
-  }
-}
-
-/* Styles améliorés pour le header des modales */
-.show-badge {
-  display: inline-block;
-  padding: 3px 8px;
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 4px;
-  color: white;
-  font-weight: 600;
-  margin-right: 5px;
 }
 
-.show-badge.Raw {
-  background-color: #d90012;
-}
-
-.show-badge.SmackDown {
-  background-color: #0072b8;
-}
-
-.show-badge.NXT {
-  background-color: #cbb449;
-}
-
-.show-badge.Evolve {
-  background-color: #4801cf;
-}
-
-.show-badge.PLE {
-  background-color: #595959;
-}
-
-.date-separator {
-  margin: 0 5px;
-  color: #777;
-}
-
-.show-date {
-  font-weight: 500;
-  color: #333;
-}
-
-.header-actions {
-  display: flex;
-  align-items: center;
-}
-
-/* Ajustement spécifique pour les modales de type show */
-.modal.active .content {
-  transform: translateY(0);
-  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-}
-
-/* Style spécifique pour le bouton de fermeture */
-.modal-close-btn {
-  opacity: 0.6;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
   
   &:hover {
-    opacity: 1;
-    transform: rotate(90deg);
-  }
-}
-
-/* Mises à jour pour les très petits écrans */
-@media (max-width: 480px) {
-  .modal {
-    padding-left: 20px; /* Marges réduites sur très petits écrans */
-    padding-right: 20px;
-  }
-  
-  .content {
-    max-width: calc(100% - 40px); /* Ajusté pour les très petits écrans */
+    background: rgba(255, 255, 255, 0.5);
   }
 }

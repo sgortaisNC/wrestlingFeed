@@ -1,48 +1,111 @@
 .container {
-  padding: 1rem;
+  padding: 2rem;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    pointer-events: none;
+  }
 }
 
 .title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
+  font-size: 2.5rem;
+  font-weight: 300;
+  margin-bottom: 2rem;
+  color: white;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
 }
 
 .tableContainer {
   overflow-x: auto;
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  position: relative;
+  z-index: 1;
 }
 
 .table {
   min-width: 100%;
-  background-color: white;
-  border: 1px solid #d1d5db;
+  border-collapse: collapse;
+  background: transparent;
 }
 
 .header {
-  background-color: #f3f4f6;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .headerCell {
-  padding: 0.5rem 1rem;
-  border: 1px solid #d1d5db;
+  padding: 1rem 1.5rem;
+  border: none;
   text-align: left;
-  font-weight: 600;
+  font-weight: 500;
+  color: white;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  
+  &:first-child {
+    border-top-left-radius: 20px;
+  }
+  
+  &:last-child {
+    border-top-right-radius: 20px;
+  }
 }
 
 .row {
+  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  
   &:hover {
-    background-color: #f9fafb;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  &:last-child {
+    .cell:first-child {
+      border-bottom-left-radius: 20px;
+    }
+    
+    .cell:last-child {
+      border-bottom-right-radius: 20px;
+    }
   }
 }
 
 .cell {
-  padding: 0.5rem 1rem;
-  border: 1px solid #d1d5db;
+  padding: 1rem 1.5rem;
+  border: none;
+  color: white;
+  font-weight: 300;
+  transition: all 0.3s ease;
 }
 
 .buttonContainer {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.75rem;
   justify-content: space-between;
   align-items: center;
 }
@@ -53,61 +116,114 @@
 }
 
 .button {
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   cursor: pointer;
   font-size: 0.875rem;
-  transition: background-color 0.2s;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+  
+  &:hover::before {
+    left: 100%;
+  }
 
   &.win {
-    background-color: #10b981;
-    color: white;
+    background: rgba(16, 185, 129, 0.25);
+    color: #ffffff;
+    border-color: rgba(16, 185, 129, 0.4);
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
 
     &:hover {
-      background-color: #059669;
+      background: rgba(16, 185, 129, 0.4);
+      border-color: rgba(16, 185, 129, 0.6);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
     }
   }
 
   &.lose {
-    background-color: #ef4444;
-    color: white;
+    background: rgba(239, 68, 68, 0.25);
+    color: #ffffff;
+    border-color: rgba(239, 68, 68, 0.4);
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
 
     &:hover {
-      background-color: #dc2626;
+      background: rgba(239, 68, 68, 0.4);
+      border-color: rgba(239, 68, 68, 0.6);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
     }
   }
 
   &.draw {
-    background-color: #eab308;
-    color: white;
+    background: rgba(234, 179, 8, 0.25);
+    color: #ffffff;
+    border-color: rgba(234, 179, 8, 0.4);
+    box-shadow: 0 2px 8px rgba(234, 179, 8, 0.2);
 
     &:hover {
-      background-color: #ca8a04;
+      background: rgba(234, 179, 8, 0.4);
+      border-color: rgba(234, 179, 8, 0.6);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(234, 179, 8, 0.4);
     }
   }
 
   &.default {
-    background-color: #e5e7eb;
-    color: #374151;
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
     &:hover {
-      background-color: #d1d5db;
+      background: rgba(255, 255, 255, 0.25);
+      border-color: rgba(255, 255, 255, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
     }
   }
 
   &.delete {
-    background-color: #dc2626;
-    color: white;
+    background: rgba(220, 38, 38, 0.25);
+    color: #ffffff;
+    border-color: rgba(220, 38, 38, 0.4);
+    box-shadow: 0 2px 8px rgba(220, 38, 38, 0.2);
 
     &:hover {
-      background-color: #b91c1c;
+      background: rgba(220, 38, 38, 0.4);
+      border-color: rgba(220, 38, 38, 0.6);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
     }
   }
 }
 
 .loading {
-  padding: 1rem;
-  font-size: 1rem;
-  color: #6b7280;
+  padding: 2rem;
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
