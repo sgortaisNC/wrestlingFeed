@@ -62,7 +62,7 @@ const wrestlerStyles = {
         borderBottomWidth: '1px',
         borderBottomStyle: 'solid' as const,
         borderBottomColor: 'rgba(255, 255, 255, 0.2)',
-        borderLeftWidth: '3px',
+        borderLeftWidth: '1px',
         borderLeftStyle: 'solid' as const,
         borderLeftColor: 'rgba(255, 255, 255, 0.2)',
         borderRadius: '12px',
@@ -95,6 +95,7 @@ const wrestlerStyles = {
         color: '#10b981'
     },
     btnSameShow: {
+        borderLeftWidth: '3px',
         borderLeftColor: 'rgba(255, 105, 180, 0.6)'
     },
     cta: {
