@@ -64,7 +64,7 @@ const wrestlerStyles = {
         borderBottomColor: 'rgba(255, 255, 255, 0.2)',
         borderLeftWidth: '3px',
         borderLeftStyle: 'solid' as const,
-        borderLeftColor: 'rgba(74, 144, 226, 0.6)',
+        borderLeftColor: 'rgba(255, 255, 255, 0.2)',
         borderRadius: '12px',
         padding: '0.75rem 1rem',
         color: 'white',
