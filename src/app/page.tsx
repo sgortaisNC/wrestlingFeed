@@ -39,6 +39,8 @@ export default async function Home() {
     const ple = [{
         date: "2025-8-2",
     },{
+        date: "2025-9-21",
+    },{
         date: "2025-8-24",
     }, {
         date: "2025-8-31",
