@@ -44,7 +44,9 @@ export default async function Home() {
         date: "2025-8-24",
     }, {
         date: "2025-8-31",
-    }            
+    },{
+        date: "2025-9-28",
+    }
     ]
 
     let allWrestlers = await getWrestlers();
