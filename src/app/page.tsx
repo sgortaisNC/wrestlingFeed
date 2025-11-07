@@ -36,10 +36,11 @@ export default async function Home() {
     let yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 2);
     const shows = [];
-    const ple = [{
-        date: "2025-10-11"
-    }
-    ]
+    const ple = [
+    { date: "2025-10-11", event: "WWE Crown Jewel 2025 - Perth" },
+    { date: "2025-11-29", event: "Survivor Series 2025 - San Diego, CA" }
+    ];
+
 
     let allWrestlers = await getWrestlers();
 
