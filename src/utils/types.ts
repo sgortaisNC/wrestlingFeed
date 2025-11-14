@@ -10,7 +10,8 @@ export type TL = {
         pts: number,
         matches: number,
         isActive: boolean,
-        lastResult: "Loose"|"Win"
+        lastResult: "Loose"|"Win"|"Draw",
+        isLegacy: boolean,
     }[],
     maxMatches: number,
 }

@@ -23,7 +23,7 @@ export default async function TierList() {
                                 {tierList.tier.filter(w => w.tier === "S+" && w.gender === "male").map((w, index) => {
                                     return (
                                         <li key={index} className={w.isActive ? css.active + " " + (w.lastResult === "Win" ? css.win : css.loss) : ""}>
-                                            {w.name} {w.matches === tierList.maxMatches ? "🥇"  : ""}
+                                            {w.name} {w.matches === tierList.maxMatches ? "🥇"  : ""} {w.isLegacy ? "👴" : ""}
                                         </li>
                                     )
                                 })}
@@ -34,7 +34,7 @@ export default async function TierList() {
                                 {tierList.tier.filter(w => w.tier === "S+" && w.gender === "female").map((w, index) => {
                                     return (
                                         <li key={index} className={w.isActive ? css.active + " " + (w.lastResult === "Win" ? css.win : css.loss) : ""}>
-                                            {w.name} {w.matches === tierList.maxMatches ? "🥇"  : ""}
+                                            {w.name} {w.matches === tierList.maxMatches ? "🥇"  : ""} {w.isLegacy ? "👴" : ""}
                                         </li>
                                     )
                                 })}
@@ -53,7 +53,7 @@ export default async function TierList() {
                                     return (
                                         <li key={index}
                                             className={w.isActive ? css.active + " " + (w.lastResult === "Win" ? css.win : css.loss) : ""}>
-                                            {w.name} {w.matches === tierList.maxMatches ? "🥇"  : ""}
+                                            {w.name} {w.matches === tierList.maxMatches ? "🥇"  : ""} {w.isLegacy ? "👴" : ""}
                                         </li>
                                     )
                                 })}
@@ -65,7 +65,7 @@ export default async function TierList() {
                                     return (
                                         <li key={index}
                                             className={w.isActive ? css.active + " " + (w.lastResult === "Win" ? css.win : css.loss) : ""}>
-                                            {w.name} {w.matches === tierList.maxMatches ? "🥇"  : ""}
+                                            {w.name} {w.matches === tierList.maxMatches ? "🥇"  : ""} {w.isLegacy ? "👴" : ""}
                                         </li>
                                     )
                                 })}
@@ -84,7 +84,7 @@ export default async function TierList() {
                                     return (
                                         <li key={index}
                                             className={w.isActive ? css.active + " " + (w.lastResult === "Win" ? css.win : css.loss) : ""}>
-                                            {w.name} {w.matches === tierList.maxMatches ? "🥇"  : ""}
+                                            {w.name} {w.matches === tierList.maxMatches ? "🥇"  : ""} {w.isLegacy ? "👴" : ""}
                                         </li>
                                     )
                                 })}
@@ -96,7 +96,7 @@ export default async function TierList() {
                                     return (
                                         <li key={index}
                                             className={w.isActive ? css.active + " " + (w.lastResult === "Win" ? css.win : css.loss) : ""}>
-                                            {w.name} {w.matches === tierList.maxMatches ? "🥇"  : ""}
+                                            {w.name} {w.matches === tierList.maxMatches ? "🥇"  : ""} {w.isLegacy ? "👴" : ""}
                                         </li>
                                     )
                                 })}
@@ -115,7 +115,7 @@ export default async function TierList() {
                                     return (
                                         <li key={index}
                                             className={w.isActive ? css.active + " " + (w.lastResult === "Win" ? css.win : css.loss) : ""}>
-                                            {w.name} {w.matches === tierList.maxMatches ? "🥇"  : ""}
+                                            {w.name} {w.matches === tierList.maxMatches ? "🥇"  : ""} {w.isLegacy ? "👴" : ""}
                                         </li>
                                     )
                                 })}
@@ -127,7 +127,7 @@ export default async function TierList() {
                                     return (
                                         <li key={index}
                                             className={w.isActive ? css.active + " " + (w.lastResult === "Win" ? css.win : css.loss) : ""}>
-                                            {w.name} {w.matches === tierList.maxMatches ? "🥇"  : ""}
+                                            {w.name} {w.matches === tierList.maxMatches ? "🥇"  : ""} {w.isLegacy ? "👴" : ""}
                                         </li>
                                     )
                                 })}
@@ -146,7 +146,7 @@ export default async function TierList() {
                                     return (
                                         <li key={index}
                                             className={w.isActive ? css.active + " " + (w.lastResult === "Win" ? css.win : css.loss) : ""}>
-                                            {w.name} {w.matches === tierList.maxMatches ? "🥇"  : ""}
+                                            {w.name} {w.matches === tierList.maxMatches ? "🥇"  : ""} {w.isLegacy ? "👴" : ""}
                                         </li>
                                     )
                                 })}
@@ -158,7 +158,7 @@ export default async function TierList() {
                                     return (
                                         <li key={index}
                                             className={w.isActive ? css.active + " " + (w.lastResult === "Win" ? css.win : css.loss) : ""}>
-                                            {w.name} {w.matches === tierList.maxMatches ? "🥇"  : ""}
+                                            {w.name} {w.matches === tierList.maxMatches ? "🥇"  : ""} {w.isLegacy ? "👴" : ""}
                                         </li>
                                     )
                                 })}
@@ -177,7 +177,7 @@ export default async function TierList() {
                                     return (
                                         <li key={index}
                                             className={w.isActive ? css.active + " " + (w.lastResult === "Win" ? css.win : css.loss) : ""}>
-                                            {w.name} {w.matches === tierList.maxMatches ? "🥇"  : ""}
+                                            {w.name} {w.matches === tierList.maxMatches ? "🥇"  : ""} {w.isLegacy ? "👴" : ""}
                                         </li>
                                     )
                                 })}
@@ -189,7 +189,7 @@ export default async function TierList() {
                                     return (
                                         <li key={index}
                                             className={w.isActive ? css.active + " " + (w.lastResult === "Win" ? css.win : css.loss) : ""}>
-                                            {w.name} {w.matches === tierList.maxMatches ? "🥇"  : ""}
+                                            {w.name} {w.matches === tierList.maxMatches ? "🥇"  : ""} {w.isLegacy ? "👴" : ""}
                                         </li>
                                     )
                                 })}

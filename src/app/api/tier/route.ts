@@ -64,20 +64,31 @@ export const revalidate = 120
 export async function GET() {
     try {
         const bdd = await getMatchBeforeDate();
-        const lastMatch = await prisma.match.findFirst({
-            select: {
-                date: true,
-            },
-            orderBy: {
-                date: "desc"
-            }
-        });
+        const [lastMatch, earliestMatch] = await Promise.all([
+            prisma.match.findFirst({
+                select: {
+                    date: true,
+                },
+                orderBy: {
+                    date: "desc"
+                }
+            }),
+            prisma.match.findFirst({
+                select: {
+                    date: true,
+                },
+                orderBy: {
+                    date: "asc"
+                }
+            })
+        ]);
 
-        if (!lastMatch) {
+        if (!lastMatch || !earliestMatch) {
             return NextResponse.json({ error: 'Aucun match trouvé' }, { status: 404 });
         }
 
         const lastDayMatch = lastMatch.date;
+        const oldestMatchDate = earliestMatch.date;
         console.log('Dernier match:', lastDayMatch);
 
         let totalMatch = 0;
@@ -87,6 +98,7 @@ export async function GET() {
             totalMatch += w.match.length;
             maxMatch = Math.max(maxMatch, w.match.length);
             const lastMatch = w.match[0]; // Le premier match est le plus récent grâce au orderBy
+            const isLegacy = w.match.some((m) => m.date.toISOString() === oldestMatchDate.toISOString());
             returnable.push({
                 name: `${w.name}`,
                 gender: w.gender || "male", // Valeur par défaut au cas où le champ est absent
@@ -96,7 +108,8 @@ export async function GET() {
                 isActive: w.match.some((m) => {
                     return m.date.toUTCString() === lastDayMatch.toUTCString()
                 }),
-                lastResult: lastMatch?.win ? "Win" : lastMatch?.loose ? "Loose" : "Draw"
+                lastResult: lastMatch?.win ? "Win" : lastMatch?.loose ? "Loose" : "Draw",
+                isLegacy
             })
         });
 
