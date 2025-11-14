@@ -38,7 +38,8 @@ export default async function Home() {
     const shows = [];
     const ple = [
     { date: "2025-10-11", event: "WWE Crown Jewel 2025 - Perth" },
-    { date: "2025-11-29", event: "Survivor Series 2025 - San Diego, CA" }
+    { date: "2025-11-29", event: "Survivor Series 2025 - San Diego, CA" },
+        { date: "2025-11-25", event: "Halloween Havoc 2025" },
     ];
 
 
