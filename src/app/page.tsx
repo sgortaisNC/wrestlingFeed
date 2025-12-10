@@ -38,7 +38,7 @@ export default async function Home() {
     const shows = [];
     const ple = [
     { date: "2025-12-7", event: "NXT Deadline" },
-    { date: "2025-12-14", event: "Saturday Night main event" }
+    { date: "2025-12-14", event: "Saturday Night main event" },
     ];
 
 
