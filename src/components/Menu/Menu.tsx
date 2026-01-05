@@ -100,6 +100,17 @@ export const Menu = () => {
                         </Link>
                     </li>
                     <li>
+                        <Link href={"/news"} className={isActive('/news') ? css.activeLink : ''}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path>
+                                <path d="M18 14h-8"></path>
+                                <path d="M15 18h-5"></path>
+                                <path d="M10 6h8v4h-8V6z"></path>
+                            </svg>
+                            News WWE
+                        </Link>
+                    </li>
+                    <li>
                         <a href="#" onClick={openModal}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <circle cx="12" cy="12" r="10"></circle>
