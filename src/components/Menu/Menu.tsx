@@ -13,6 +13,9 @@ export const Menu = () => {
     const menuRef = useRef<HTMLUListElement>(null);
     const pathname = usePathname();
 
+    const [nbWrestlers, setNbWrestlers] = useState<number>(0);
+
+
     useEffect(() => {
         const fetchMatchCount = async () => {
             try {
@@ -23,8 +26,18 @@ export const Menu = () => {
                 console.error('Erreur lors de la récupération du nombre de matches:', error);
             }
         };
-
         fetchMatchCount();
+
+        const fetchNbWrestlers = async () => {
+            try {
+                const response = await fetch('/api/wrestlers/count');
+                const data = await response.json();
+                setNbWrestlers(data.count);
+            } catch (error) {
+                console.error('Erreur lors de la récupération du nombre de wrestlers:', error);
+            }
+        };
+        fetchNbWrestlers();
     }, []);
 
     // Vérifier si le menu est scrollable sur les petits écrans
@@ -96,7 +109,7 @@ export const Menu = () => {
                                 <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
                                 <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                             </svg>
-                            Wrestlers
+                            Wrestlers ({nbWrestlers})
                         </Link>
                     </li>
                     <li>
