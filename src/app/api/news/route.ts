@@ -64,15 +64,36 @@ export async function GET() {
     // Combiner les résultats
     const allNews = [...bodyslamNews, ...fightfulNews];
 
-    // Filtrer les nouvelles contenant "defeat" ou "win" pour éviter les spoilers
+    // Filtrer les nouvelles contenant des mots de spoiler pour éviter les spoilers
     const filteredNews = allNews.filter((item) => {
       const title = (item.title || '').toLowerCase();
       const content = (item.content || '').toLowerCase();
+      const text = `${title} ${content}`;
       
-      // Rechercher "defeat" ou "win" comme mots entiers
-      const spoilerRegex = /\b(defeat|win)\b/i;
+      // Liste de mots et expressions de spoiler (formes conjuguées incluses)
+      const spoilerPatterns = [
+        /\bdefeat(s|ed|ing)?\b/i,           // defeat, defeats, defeated, defeating
+        /\bwin(s|ning)?\b/i,                // win, wins, winning
+        /\bwon\b/i,                          // won
+        /\bbeat(s|ing)?\b/i,                // beat, beats, beating
+        /\bbeaten\b/i,                       // beaten
+        /\blose(s|ing)?\b/i,                // lose, loses, losing
+        /\blost\b/i,                         // lost
+        /\bpin(s|ned|ning)?\b/i,            // pin, pins, pinned, pinning
+        /\bsubmit(s|ted|ting)?\b/i,         // submit, submits, submitted, submitting
+        /\bretain(s|ed|ing)?\b/i,           // retain, retains, retained, retaining
+        /\bcrown(s|ed|ing)?\b/i,            // crown, crowns, crowned, crowning
+        /\bchampion\b/i,                     // champion (dans le contexte de devenir champion)
+        /\bbecomes?\s+(the\s+)?champion/i,   // becomes champion, become the champion
+        /\bnew\s+champion/i,                 // new champion
+        /\bwins?\s+the\s+title/i,            // wins the title, win the title
+        /\bwins?\s+championship/i,          // wins championship
+      ];
       
-      return !spoilerRegex.test(title) && !spoilerRegex.test(content);
+      // Vérifier si le texte contient un des patterns de spoiler
+      const hasSpoiler = spoilerPatterns.some(pattern => pattern.test(text));
+      
+      return !hasSpoiler;
     });
 
     // Trier par date de publication (les plus récentes en premier)
