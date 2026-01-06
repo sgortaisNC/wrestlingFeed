@@ -64,16 +64,27 @@ export async function GET() {
     // Combiner les résultats
     const allNews = [...bodyslamNews, ...fightfulNews];
 
+    // Filtrer les nouvelles contenant "defeat" ou "win" pour éviter les spoilers
+    const filteredNews = allNews.filter((item) => {
+      const title = (item.title || '').toLowerCase();
+      const content = (item.content || '').toLowerCase();
+      
+      // Rechercher "defeat" ou "win" comme mots entiers
+      const spoilerRegex = /\b(defeat|win)\b/i;
+      
+      return !spoilerRegex.test(title) && !spoilerRegex.test(content);
+    });
+
     // Trier par date de publication (les plus récentes en premier)
-    allNews.sort((a, b) => {
+    filteredNews.sort((a, b) => {
       const dateA = a.pubDate ? new Date(a.pubDate).getTime() : 0;
       const dateB = b.pubDate ? new Date(b.pubDate).getTime() : 0;
       return dateB - dateA;
     });
 
     return NextResponse.json({
-      news: allNews,
-      total: allNews.length
+      news: filteredNews,
+      total: filteredNews.length
     });
   } catch (error) {
     console.error('Erreur lors de la récupération des nouvelles WWE:', error);
