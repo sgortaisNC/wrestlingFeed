@@ -9,6 +9,7 @@ interface NewsItem {
   pubDate: string;
   content: string;
   categories: string[];
+  source?: string;
 }
 
 export default function NewsPage() {
