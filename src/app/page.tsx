@@ -36,9 +36,15 @@ export default async function Home() {
     let yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 2);
     const shows = [];
-    const ple = [
-    { date: "2025-12-7", event: "NXT Deadline" },
-    { date: "2025-12-14", event: "Saturday Night main event" },
+    const ple = [ 
+        { "date": "2026-1-24", "event": "Saturday Night main event" },
+        { "date": "2026-1-31", "event": "Royal Rumble" },
+        { "date": "2026-2-28", "event": "Elimination Chamber" },
+        { "date": "2026-4-18", "event": "WrestleMania 42 (Night 1)" },
+        { "date": "2026-4-19", "event": "WrestleMania 42 (Night 2)" },
+        { "date": "2026-8-01", "event": "SummerSlam (Night 1)" },
+        { "date": "2026-8-02", "event": "SummerSlam (Night 2)" },
+        { "date": "2026-9-06", "event": "Money in the Bank" }
     ];
 
 
