@@ -11,7 +11,7 @@ interface RankingEntry {
   nbWin: number;
   nbLooses: number;
   nbDraw: number;
-  nbWinsInLast10: number;
+  formPonderee: number;
   baseScore: number;
 }
 
@@ -47,7 +47,7 @@ export function RankingClient() {
     <div className={css.container}>
       <h1 className={css.title}>Classement</h1>
       <p className={css.formula}>
-        Score = (W×5 − L×3 + D) × (1 + 0,1 × victoires dans les 10 derniers matchs)
+        Score = (W×3 − L + D) × (1 + 0,03 × forme pondérée). Forme = moyenne pondérée des 5 derniers matchs (le plus récent pèse 5×).
       </p>
       <div className={css.tableWrapper}>
         <table className={css.table}>
@@ -59,7 +59,7 @@ export function RankingClient() {
               <th>W</th>
               <th>L</th>
               <th>D</th>
-              <th>Forme (10 derniers)</th>
+              <th>Forme</th>
             </tr>
           </thead>
           <tbody>
@@ -78,13 +78,20 @@ export function RankingClient() {
                 </td>
                 <td className={css.name}>{entry.name}</td>
                 <td className={css.score}>
-                  {entry.totalScore.toFixed(2)}
+                  <span className={css.scoreWithTooltip}>
+                    {entry.totalScore.toFixed(2)}
+                    <span className={css.tooltip}>
+                      <strong>{entry.baseScore} × {(1 + entry.formPonderee * 0.03).toFixed(2)} = {entry.totalScore.toFixed(2)}</strong>
+                    </span>
+                  </span>
                 </td>
                 <td>{entry.nbWin}</td>
                 <td>{entry.nbLooses}</td>
                 <td>{entry.nbDraw}</td>
-                <td className={css.form}>
-                  {entry.nbWinsInLast10}/10 victoires
+                <td className={css.form} title="Forme pondérée sur les 5 derniers matchs (max 3 = 5V, min -1 = 5L)">
+                  <span className={entry.formPonderee >= 2 ? css.formHot : entry.formPonderee <= 0 ? css.formCold : css.formNeutral}>
+                    {entry.formPonderee.toFixed(2)}
+                  </span>
                 </td>
               </tr>
             ))}
