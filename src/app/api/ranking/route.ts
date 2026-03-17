@@ -6,8 +6,8 @@ type WrestlerWithMatches = Wrestler & {
   match: Match[];
 };
 
-const WEIGHTS_LAST_5 = [5, 4, 3, 2, 1]; // Le match le plus récent pèse le plus
 const THURSDAY = 4; // getDay(): 0 = dimanche, 4 = jeudi
+const MULTIPLIER_PER_MATCH_SINCE_DEFEAT = 0.1;
 
 /** Retourne les bornes de la semaine contenant la date de référence (jeudi 00:00 → mercredi 23:59:59) */
 function getWeekBounds(referenceDate: Date): { start: Date; end: Date } {
@@ -39,10 +39,14 @@ function matchesBeforeDate(matches: Match[], endDate: Date): Match[] {
   });
 }
 
-function getMatchPoints(match: Match): number {
-  if (match.win) return 3;
-  if (match.loose) return -1;
-  return 1; // draw
+/** Nombre de matchs depuis la dernière défaite (matchs ordonnés du plus récent au plus ancien) */
+function nbMatchsDepuisDerniereDefaite(matches: Match[]): number {
+  let count = 0;
+  for (const match of matches) {
+    if (match.loose) break;
+    count++;
+  }
+  return count;
 }
 
 function calculateRankingScore(matches: Match[]): {
@@ -50,7 +54,7 @@ function calculateRankingScore(matches: Match[]): {
   nbWin: number;
   nbLooses: number;
   nbDraw: number;
-  formPonderee: number;
+  nbMatchsDepuisDefaite: number;
   baseScore: number;
 } {
   const nbWin = matches.filter((m) => m.win).length;
@@ -59,19 +63,8 @@ function calculateRankingScore(matches: Match[]): {
 
   const baseScore = nbWin * 3 - nbLooses + nbDraw;
 
-  // Forme pondérée sur les 5 derniers matchs (les plus récents comptent plus)
-  const last5Matches = matches.slice(0, 5);
-  let weightedSum = 0;
-  let weightSum = 0;
-
-  last5Matches.forEach((match, index) => {
-    const weight = WEIGHTS_LAST_5[index];
-    weightedSum += weight * getMatchPoints(match);
-    weightSum += weight;
-  });
-
-  const formPonderee = weightSum > 0 ? weightedSum / weightSum : 0;
-  const multiplier = 1 + formPonderee * 0.03;
+  const nbDepuisDefaite = nbMatchsDepuisDerniereDefaite(matches);
+  const multiplier = 1 + MULTIPLIER_PER_MATCH_SINCE_DEFEAT * nbDepuisDefaite;
   const totalScore = baseScore * multiplier;
 
   return {
@@ -79,7 +72,7 @@ function calculateRankingScore(matches: Match[]): {
     nbWin,
     nbLooses,
     nbDraw,
-    formPonderee,
+    nbMatchsDepuisDefaite: nbDepuisDefaite,
     baseScore,
   };
 }

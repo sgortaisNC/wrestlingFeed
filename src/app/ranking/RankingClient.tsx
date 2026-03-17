@@ -11,7 +11,7 @@ interface RankingEntry {
   nbWin: number;
   nbLooses: number;
   nbDraw: number;
-  formPonderee: number;
+  nbMatchsDepuisDefaite: number;
   baseScore: number;
   progression: number | null;
   positionSemainePrecedente: number | null;
@@ -75,7 +75,7 @@ export function RankingClient() {
     <div className={css.container}>
       <h1 className={css.title}>Classement</h1>
       <p className={css.formula}>
-        Score = (W×3 − L + D) × (1 + 0,03 × forme pondérée). Forme = moyenne pondérée des 5 derniers matchs (le plus récent pèse 5×).
+        Score = (W×3 − L + D) × (1 + 0,1 × matchs depuis dernière défaite).
         {periods && (
           <span className={css.periodInfo}>
             {' '}Semaines jeudi→jeudi. Actuelle : {periods.actuelle} • Précédente : {periods.precedente}
@@ -94,7 +94,7 @@ export function RankingClient() {
               <th>W</th>
               <th>L</th>
               <th>D</th>
-              <th>Forme</th>
+              <th title="Matchs sans défaite depuis la dernière">Forme</th>
             </tr>
           </thead>
           <tbody>
@@ -116,7 +116,7 @@ export function RankingClient() {
                   <span className={css.scoreWithTooltip}>
                     {entry.totalScore.toFixed(2)}
                     <span className={css.tooltip}>
-                      <strong>{entry.baseScore} × {(1 + entry.formPonderee * 0.03).toFixed(2)} = {entry.totalScore.toFixed(2)}</strong>
+                      <strong>{entry.baseScore} × {(1 + 0.1 * entry.nbMatchsDepuisDefaite).toFixed(2)} = {entry.totalScore.toFixed(2)}</strong>
                     </span>
                   </span>
                 </td>
@@ -142,9 +142,9 @@ export function RankingClient() {
                 <td>{entry.nbWin}</td>
                 <td>{entry.nbLooses}</td>
                 <td>{entry.nbDraw}</td>
-                <td className={css.form} title="Forme pondérée sur les 5 derniers matchs (max 3 = 5V, min -1 = 5L)">
-                  <span className={entry.formPonderee >= 2 ? css.formHot : entry.formPonderee <= 0 ? css.formCold : css.formNeutral}>
-                    {entry.formPonderee.toFixed(2)}
+                <td className={css.form} title={`${entry.nbMatchsDepuisDefaite} match(s) depuis la dernière défaite → ×${(1 + 0.1 * entry.nbMatchsDepuisDefaite).toFixed(2)}`}>
+                  <span className={entry.nbMatchsDepuisDefaite >= 3 ? css.formHot : entry.nbMatchsDepuisDefaite === 0 ? css.formCold : css.formNeutral}>
+                    {entry.nbMatchsDepuisDefaite}
                   </span>
                 </td>
               </tr>
