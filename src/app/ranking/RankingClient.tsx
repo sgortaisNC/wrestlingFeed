@@ -15,6 +15,7 @@ interface RankingEntry {
   baseScore: number;
   progression: number | null;
   positionSemainePrecedente: number | null;
+  periodeMatchs: { debut: string; fin: string } | null;
 }
 
 interface RankingResponse {
@@ -27,6 +28,11 @@ function formatPeriod(start: string, end: string): string {
   const s = new Date(start);
   const e = new Date(end);
   return `${s.getDate()}/${s.getMonth() + 1} - ${e.getDate()}/${e.getMonth() + 1}`;
+}
+
+function formatDateShort(dateStr: string): string {
+  const d = new Date(dateStr);
+  return `${d.getDate()}/${d.getMonth() + 1}`;
 }
 
 export function RankingClient() {
@@ -84,6 +90,7 @@ export function RankingClient() {
               <th>Superstar</th>
               <th>Score</th>
               <th title="Places gagnées (+) ou perdues (-) depuis la semaine passée">Progression</th>
+              <th title="Période entre le match le plus ancien et le plus récent">Période</th>
               <th>W</th>
               <th>L</th>
               <th>D</th>
@@ -126,6 +133,11 @@ export function RankingClient() {
                     : entry.progression > 0
                       ? `+${entry.progression}`
                       : entry.progression}
+                </td>
+                <td className={css.periode} title={entry.periodeMatchs ? `${formatDateShort(entry.periodeMatchs.debut)} → ${formatDateShort(entry.periodeMatchs.fin)}` : ''}>
+                  {entry.periodeMatchs
+                    ? `${formatDateShort(entry.periodeMatchs.debut)} - ${formatDateShort(entry.periodeMatchs.fin)}`
+                    : '—'}
                 </td>
                 <td>{entry.nbWin}</td>
                 <td>{entry.nbLooses}</td>

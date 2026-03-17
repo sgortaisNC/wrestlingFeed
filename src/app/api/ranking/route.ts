@@ -129,11 +129,21 @@ export async function GET() {
 
     const ranking = wrestlers.map((w) => {
       const stats = calculateRankingScore(w.match);
+      const matchPlusRecent = w.match[0];
+      const matchPlusAncien = w.match[w.match.length - 1];
+      const periodeMatchs =
+        matchPlusRecent && matchPlusAncien
+          ? {
+              debut: matchPlusAncien.date,
+              fin: matchPlusRecent.date,
+            }
+          : null;
       return {
         id: w.id,
         name: w.name,
         gender: w.gender || 'male',
         ...stats,
+        periodeMatchs,
       };
     });
 

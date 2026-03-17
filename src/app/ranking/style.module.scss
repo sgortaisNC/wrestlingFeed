@@ -93,6 +93,12 @@
     font-weight: 600;
   }
 
+  .periode {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.9);
+    white-space: nowrap;
+  }
+
   .progression {
     font-weight: 600;
     text-align: center;
@@ -197,10 +203,10 @@
       font-size: 0.85rem;
     }
 
-    th:nth-child(5),
     th:nth-child(6),
-    td:nth-child(5),
-    td:nth-child(6) {
+    th:nth-child(7),
+    td:nth-child(6),
+    td:nth-child(7) {
       display: none;
     }
   }
