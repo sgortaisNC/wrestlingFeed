@@ -47,6 +47,7 @@ export const Show = ({show, className}) => {
 
     const [wrestlers, setWrestlers] = useState(show.wrestlers);
     const [showMarkedAsSeen, setShowMarkedAsSeen] = useState(false);
+    const [showAllWrestlers, setShowAllWrestlers] = useState(false);
     
     if (!wrestlers) return;
 
@@ -54,6 +55,9 @@ export const Show = ({show, className}) => {
         const lastMatch = wrestler.match.find((match) => match.date.toLocaleDateString() === new Date(show.date).toLocaleDateString());
         return lastMatch === undefined;
     });
+
+    const linkedWrestlers = filteredWrestlers.filter((w) => w.showName === show.title);
+    const displayedWrestlers = showAllWrestlers ? filteredWrestlers : linkedWrestlers;
     
     const handleShowSeen = () => {
         showSeen(show.date.substring(0, 10));
@@ -85,6 +89,17 @@ export const Show = ({show, className}) => {
                             <span className={`show-badge ${show.title}`}>{show.title}</span>
                             <span className="date-separator">•</span>
                             <span className="show-date">{formattedDate}</span>
+                            {filteredWrestlers.length > linkedWrestlers.length && (
+                                <button
+                                    type="button"
+                                    onClick={() => setShowAllWrestlers(!showAllWrestlers)}
+                                    className={`show-all-btn ${showAllWrestlers ? 'active' : ''}`}
+                                    title={showAllWrestlers ? "Afficher uniquement les superstars du roster" : "Afficher toutes les superstars (présence inhabituelle)"}
+                                    aria-label={showAllWrestlers ? "Afficher uniquement le roster" : "Afficher toutes les superstars"}
+                                >
+                                    {showAllWrestlers ? "Roster uniquement" : "Toutes"}
+                                </button>
+                            )}
                         </h3>
                         <div className="header-actions">
                             <button 
@@ -107,14 +122,20 @@ export const Show = ({show, className}) => {
                     
                     <div className="modal-content-body">
                         <ul>
-                        {filteredWrestlers && filteredWrestlers.map((wrestler,id) => (
+                        {displayedWrestlers && displayedWrestlers.map((wrestler,id) => (
                                 <li key={id} data-wrestler={wrestler.id}>
                                     <Wrestler wrestler={wrestler} show={show} key={id}/>
                                 </li>
                             ))}
                         </ul>
-                        {filteredWrestlers.length === 0 && (
-                            <p className="no-wrestlers">Aucun wrestler à afficher pour ce show</p>
+                        {displayedWrestlers.length === 0 && (
+                            <p className="no-wrestlers">
+                                {showAllWrestlers
+                                    ? "Aucun wrestler à afficher pour ce show"
+                                    : linkedWrestlers.length === 0 && filteredWrestlers.length > 0
+                                        ? "Aucune superstar du roster. Cliquez sur « Toutes » pour voir les présences inhabituelles."
+                                        : "Aucun wrestler à afficher pour ce show"}
+                            </p>
                         )}
                     </div>
                 </div>
