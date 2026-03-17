@@ -7,7 +7,7 @@ type WrestlerWithMatches = Wrestler & {
 };
 
 const THURSDAY = 4; // getDay(): 0 = dimanche, 4 = jeudi
-const MULTIPLIER_PER_MATCH_SINCE_DEFEAT = 0.1;
+const MULTIPLIER_PER_MATCH_SINCE_DEFEAT = 0.2;
 
 /** Retourne les bornes de la semaine contenant la date de référence (jeudi 00:00 → mercredi 23:59:59) */
 function getWeekBounds(referenceDate: Date): { start: Date; end: Date } {
@@ -61,7 +61,7 @@ function calculateRankingScore(matches: Match[]): {
   const nbLooses = matches.filter((m) => m.loose).length;
   const nbDraw = matches.filter((m) => m.draw).length;
 
-  const baseScore = nbWin * 3 - nbLooses + nbDraw;
+  const baseScore = nbWin * 2 - nbLooses + nbDraw;
 
   const nbDepuisDefaite = nbMatchsDepuisDerniereDefaite(matches);
   const multiplier = 1 + MULTIPLIER_PER_MATCH_SINCE_DEFEAT * nbDepuisDefaite;
