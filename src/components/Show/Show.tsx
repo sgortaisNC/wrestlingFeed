@@ -43,11 +43,23 @@ function showSeen(date){
     })
 }
 
+function lastSeenDelta(date1, date2) {
+    const d1 = new Date(date1);
+    const d2 = new Date(date2);
+    return (d2.getTime() - d1.getTime()) / (1000 * 3600 * 24);
+}
+
+function isInactive(wrestler, showDate) {
+    if (!wrestler.lastSeen) return true;
+    return lastSeenDelta(wrestler.lastSeen, showDate) >= 35;
+}
+
 export const Show = ({show, className}) => {
 
     const [wrestlers, setWrestlers] = useState(show.wrestlers);
     const [showMarkedAsSeen, setShowMarkedAsSeen] = useState(false);
     const [showAllWrestlers, setShowAllWrestlers] = useState(false);
+    const [showInactiveWrestlers, setShowInactiveWrestlers] = useState(false);
     
     if (!wrestlers) return;
 
@@ -57,7 +69,11 @@ export const Show = ({show, className}) => {
     });
 
     const linkedWrestlers = filteredWrestlers.filter((w) => w.showName === show.title);
-    const displayedWrestlers = showAllWrestlers ? filteredWrestlers : linkedWrestlers;
+    const sourceWrestlers = showAllWrestlers ? filteredWrestlers : linkedWrestlers;
+    const inactiveInSource = sourceWrestlers.filter((w) => isInactive(w, show.date));
+    const displayedWrestlers = showInactiveWrestlers
+        ? sourceWrestlers
+        : sourceWrestlers.filter((w) => !isInactive(w, show.date));
     
     const handleShowSeen = () => {
         showSeen(show.date.substring(0, 10));
@@ -100,6 +116,17 @@ export const Show = ({show, className}) => {
                                     {showAllWrestlers ? "Roster uniquement" : "Toutes"}
                                 </button>
                             )}
+                            {inactiveInSource.length > 0 && (
+                                <button
+                                    type="button"
+                                    onClick={() => setShowInactiveWrestlers(!showInactiveWrestlers)}
+                                    className={`show-inactive-btn ${showInactiveWrestlers ? 'active' : ''}`}
+                                    title={showInactiveWrestlers ? "Masquer les superstars inactives (👻)" : "Afficher les superstars inactives (👻)"}
+                                    aria-label={showInactiveWrestlers ? "Masquer les inactives" : "Afficher les inactives"}
+                                >
+                                    👻 {showInactiveWrestlers ? "Masquer" : "Inactifs"}
+                                </button>
+                            )}
                         </h3>
                         <div className="header-actions">
                             <button 
@@ -130,11 +157,15 @@ export const Show = ({show, className}) => {
                         </ul>
                         {displayedWrestlers.length === 0 && (
                             <p className="no-wrestlers">
-                                {showAllWrestlers
+                                {showAllWrestlers && showInactiveWrestlers
                                     ? "Aucun wrestler à afficher pour ce show"
-                                    : linkedWrestlers.length === 0 && filteredWrestlers.length > 0
-                                        ? "Aucune superstar du roster. Cliquez sur « Toutes » pour voir les présences inhabituelles."
-                                        : "Aucun wrestler à afficher pour ce show"}
+                                    : !showInactiveWrestlers && inactiveInSource.length > 0 && sourceWrestlers.length === inactiveInSource.length
+                                        ? "Seules des superstars inactives (👻). Cliquez sur « Inactifs » pour les afficher."
+                                        : showAllWrestlers
+                                            ? "Aucun wrestler à afficher pour ce show"
+                                            : linkedWrestlers.length === 0 && filteredWrestlers.length > 0
+                                                ? "Aucune superstar du roster. Cliquez sur « Toutes » pour voir les présences inhabituelles."
+                                                : "Aucun wrestler à afficher pour ce show"}
                             </p>
                         )}
                     </div>
