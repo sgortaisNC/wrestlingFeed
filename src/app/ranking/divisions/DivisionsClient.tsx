@@ -25,15 +25,15 @@ interface RankingResponse {
   periodePrecedente: { start: string; end: string };
 }
 
-const DIVISIONS = ['Raw', 'SmackDown', 'NXT', 'Autres'] as const;
+const DIVISIONS = ['Raw', 'SmackDown', 'NXT', 'Evolve'] as const;
 
 function normalizeDivision(showName: string | null): (typeof DIVISIONS)[number] {
-  if (!showName) return 'Autres';
+  if (!showName) return 'Evolve';
   const normalized = showName.toLowerCase().trim();
   if (normalized.includes('raw')) return 'Raw';
   if (normalized.includes('smackdown') || normalized.includes('smack down')) return 'SmackDown';
   if (normalized.includes('nxt')) return 'NXT';
-  return 'Autres';
+  return 'Evolve';
 }
 
 export function DivisionsClient() {
@@ -91,6 +91,11 @@ export function DivisionsClient() {
                 <li
                   key={entry.id}
                   className={`${css.item} ${entry.gender === 'female' ? css.female : css.male}`}
+                  title={
+                    entry.positionSemainePrecedente
+                      ? `${entry.positionSemainePrecedente}e la semaine passée → ${entry.progression !== null && entry.progression > 0 ? '+' : ''}${entry.progression} place(s)`
+                      : 'Nouveau dans le classement'
+                  }
                 >
                   <span className={css.rank}>
                     {index === 0 && '🥇'}
@@ -99,6 +104,15 @@ export function DivisionsClient() {
                     {index > 2 && index + 1}
                   </span>
                   <span className={css.name}>{entry.name}</span>
+                  <span
+                    className={`${css.progression} ${entry.progression !== null && entry.progression > 0 ? css.progressionUp : entry.progression !== null && entry.progression < 0 ? css.progressionDown : ''}`}
+                  >
+                    {entry.progression === null
+                      ? '—'
+                      : entry.progression > 0
+                        ? `+${entry.progression}`
+                        : entry.progression}
+                  </span>
                   <span className={css.score}>{entry.totalScore.toFixed(1)}</span>
                 </li>
               ))}
