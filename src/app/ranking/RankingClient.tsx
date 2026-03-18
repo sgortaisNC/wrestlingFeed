@@ -1,16 +1,17 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import css from './style.module.scss';
 
 interface RankingEntry {
   id: number;
   name: string;
   gender: string;
+  showName: string | null;
   totalScore: number;
   nbWin: number;
   nbLooses: number;
-  nbDraw: number;
   nbMatchsDepuisDefaite: number;
   baseScore: number;
   progression: number | null;
@@ -73,9 +74,14 @@ export function RankingClient() {
 
   return (
     <div className={css.container}>
-      <h1 className={css.title}>Classement</h1>
+      <h1 className={css.title}>
+        Classement
+        <Link href="/ranking/divisions" className={css.divisionsLink}>
+          Par divisions
+        </Link>
+      </h1>
       <p className={css.formula}>
-        Score = (W×2 − L + D) × (1 + 0,2 × matchs depuis dernière défaite).
+        Score = (W×2 − L) × (1 + 0,2 × matchs depuis dernière défaite).
         {periods && (
           <span className={css.periodInfo}>
             {' '}Semaines jeudi→jeudi. Actuelle : {periods.actuelle} • Précédente : {periods.precedente}
@@ -93,7 +99,6 @@ export function RankingClient() {
               <th title="Période entre le match le plus ancien et le plus récent">Période</th>
               <th>W</th>
               <th>L</th>
-              <th>D</th>
               <th title="Nombre de matchs depuis la dernière défaite">Matchs depuis dernière défaite</th>
             </tr>
           </thead>
@@ -141,7 +146,6 @@ export function RankingClient() {
                 </td>
                 <td>{entry.nbWin}</td>
                 <td>{entry.nbLooses}</td>
-                <td>{entry.nbDraw}</td>
                 <td className={css.form} title={`${entry.nbMatchsDepuisDefaite} match(s) depuis la dernière défaite → ×${(1 + 0.2 * entry.nbMatchsDepuisDefaite).toFixed(2)}`}>
                   <span className={entry.nbMatchsDepuisDefaite >= 3 ? css.formHot : entry.nbMatchsDepuisDefaite === 0 ? css.formCold : css.formNeutral}>
                     {entry.nbMatchsDepuisDefaite}

@@ -53,15 +53,13 @@ function calculateRankingScore(matches: Match[]): {
   totalScore: number;
   nbWin: number;
   nbLooses: number;
-  nbDraw: number;
   nbMatchsDepuisDefaite: number;
   baseScore: number;
 } {
   const nbWin = matches.filter((m) => m.win).length;
   const nbLooses = matches.filter((m) => m.loose).length;
-  const nbDraw = matches.filter((m) => m.draw).length;
 
-  const baseScore = nbWin * 2 - nbLooses + nbDraw;
+  const baseScore = nbWin * 2 - nbLooses;
 
   const nbDepuisDefaite = nbMatchsDepuisDerniereDefaite(matches);
   const multiplier = 1 + MULTIPLIER_PER_MATCH_SINCE_DEFEAT * nbDepuisDefaite;
@@ -71,7 +69,6 @@ function calculateRankingScore(matches: Match[]): {
     totalScore,
     nbWin,
     nbLooses,
-    nbDraw,
     nbMatchsDepuisDefaite: nbDepuisDefaite,
     baseScore,
   };
@@ -135,6 +132,7 @@ export async function GET() {
         id: w.id,
         name: w.name,
         gender: w.gender || 'male',
+        showName: w.showName || null,
         ...stats,
         periodeMatchs,
       };
