@@ -75,10 +75,10 @@ export function RankingClient() {
   return (
     <div className={css.container}>
       <h1 className={css.title}>
-        Classement
-        <Link href="/ranking/divisions" className={css.divisionsLink}>
-          Par divisions
+        <Link href="/ranking" className={css.backLink}>
+          ← Classement
         </Link>
+        <span>Tableau complet</span>
       </h1>
       <p className={css.formula}>
         Score = (W×2 − L) × (1 + 0,2 × matchs depuis dernière défaite).

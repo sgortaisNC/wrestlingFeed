@@ -77,10 +77,10 @@ export function DivisionsClient() {
   return (
     <div className={css.container}>
       <h1 className={css.title}>
-        <Link href="/ranking" className={css.backLink}>
-          ← Classement
+        <span>Classement</span>
+        <Link href="/ranking/table" className={css.tableLink}>
+          Tableau complet
         </Link>
-        <span>Par divisions</span>
       </h1>
       <div className={css.grid}>
         {DIVISIONS.map((division) => (
