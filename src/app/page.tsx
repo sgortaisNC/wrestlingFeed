@@ -37,9 +37,9 @@ export default async function Home() {
     yesterday.setDate(yesterday.getDate() - 2);
     const shows = [];
     const ple = [ 
-        { "date": "2026-3-7", "event": "NXT Vengeance Day" },
         { "date": "2026-4-18", "event": "WrestleMania 42 (Night 1)" },
         { "date": "2026-4-19", "event": "WrestleMania 42 (Night 2)" },
+        { "date": "2026-5-31", "event": "Clash in Italy" },
         { "date": "2026-8-01", "event": "SummerSlam (Night 1)" },
         { "date": "2026-8-02", "event": "SummerSlam (Night 2)" },
         { "date": "2026-9-06", "event": "Money in the Bank" }
