@@ -1,0 +1,247 @@
+.page {
+  min-height: 100vh;
+  padding: 1rem 1rem 5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.backRow {
+  margin-bottom: 1rem;
+}
+
+.backLink {
+  font-size: 0.9rem;
+  opacity: 0.85;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 1rem 0 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  margin-bottom: 1rem;
+}
+
+.headerTitle {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.headerActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1rem;
+  align-items: stretch;
+  min-height: min(70vh, 800px);
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.leftPane {
+  min-width: 0;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 1rem;
+  overflow-y: auto;
+  max-height: calc(100vh - 200px);
+}
+
+.rightPane {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.rightTitle {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.85;
+}
+
+.dropZone {
+  flex: 1;
+  min-height: 280px;
+  padding: 0.75rem;
+  border-radius: 16px;
+  border: 2px dashed rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.04);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.dropZoneActive {
+  border-color: rgba(16, 185, 129, 0.55);
+  background: rgba(16, 185, 129, 0.08);
+}
+
+.deleteZone {
+  min-height: 88px;
+  padding: 0.75rem;
+  border-radius: 16px;
+  border: 2px dashed rgba(239, 68, 68, 0.45);
+  background: rgba(239, 68, 68, 0.06);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.deleteZoneActive {
+  border-color: rgba(239, 68, 68, 0.85);
+  background: rgba(239, 68, 68, 0.14);
+}
+
+.deleteZoneHint {
+  font-size: 0.78rem;
+  opacity: 0.75;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.dropHint {
+  font-size: 0.8rem;
+  opacity: 0.65;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.lineupList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.lineupItem {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 0.65rem 0.75rem;
+  min-width: 0;
+  text-align: left;
+}
+
+.section {
+  margin-bottom: 1.25rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.sectionTitle {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.75;
+  margin-bottom: 0.5rem;
+}
+
+.dragList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.45rem;
+}
+
+.dragList > li {
+  min-width: 0;
+}
+
+.dragRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.5rem 0.65rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: grab;
+  font-size: 0.9rem;
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+.dragHintSmall {
+  font-size: 0.7rem;
+  opacity: 0.45;
+  flex-shrink: 0;
+}
+
+.details {
+  margin-bottom: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.summary {
+  padding: 0.55rem 0.75rem;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.88rem;
+  list-style: none;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  &::before {
+    content: '▸';
+    display: inline-block;
+    margin-right: 0.4rem;
+    transition: transform 0.2s ease;
+  }
+}
+
+.details[open] .summary::before {
+  transform: rotate(90deg);
+}
+
+.detailsBody {
+  padding: 0.5rem 0.75rem 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.emptyLeft {
+  font-size: 0.9rem;
+  opacity: 0.55;
+  font-style: italic;
+  padding: 0.5rem 0;
+}
+
+.confirmation {
+  width: 100%;
+  margin-bottom: 0.75rem;
+}

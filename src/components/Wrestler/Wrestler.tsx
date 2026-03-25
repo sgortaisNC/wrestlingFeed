@@ -36,7 +36,8 @@ function loose(id: number, date: string){
     })
 }
 
-function lastSeenDelta(date1: string, date2: string) {
+function lastSeenDelta(date1: string | Date | null, date2: string | Date) {
+    if (!date1) return Number.POSITIVE_INFINITY;
     const d1 = new Date(date1);
     const d2 = new Date(date2);
     const diffEnMs = d2.getTime() - d1.getTime();
@@ -77,7 +78,8 @@ const wrestlerStyles = {
         position: 'relative' as const,
         overflow: 'hidden' as const,
         textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)',
-        flex: 1
+        flex: 1,
+        textAlign: 'left' as const,
     },
     btnHover: {
         background: 'rgba(255, 255, 255, 0.15)',
@@ -139,7 +141,21 @@ const wrestlerStyles = {
     }
 };
 
-export const Wrestler = ({wrestler, show}) => {
+type WrestlerProps = {
+  wrestler: {
+    id: number;
+    name: string;
+    lastSeen: string | Date | null;
+    showName: string | null;
+    match: { date: string | Date }[];
+  };
+  show: { date: string; title: string };
+  onAfterMatch?: () => void;
+  /** Clic droit : suppression API (désactivé sur la page show : corbeille par glisser-déposer). */
+  enableContextDelete?: boolean;
+};
+
+export const Wrestler = ({ wrestler, show, onAfterMatch, enableContextDelete = true }: WrestlerProps) => {
 
     const [lastSeen, setLastSeen] = useState(wrestler.lastSeen);
     const [toastMessage, setToastMessage] = useState('');
@@ -207,12 +223,12 @@ export const Wrestler = ({wrestler, show}) => {
                 data-wrestler={wrestler.id} 
                 data-date={showDate}
                 data-roster={wrestler.showName}
-                onContextMenu={(e) => {remove(e)}}
+                onContextMenu={enableContextDelete ? (e) => remove(e) : undefined}
                 onClick={present}
                 onMouseEnter={() => setBtnHovered(true)}
                 onMouseLeave={() => setBtnHovered(false)}
             >
-                {wrestler.name.substring(0, 20)} {icon}
+                {icon} {wrestler.name.substring(0, 20)}
             </button>
             <div style={wrestlerStyles.actionsContainer}>
                 <button 
@@ -224,8 +240,11 @@ export const Wrestler = ({wrestler, show}) => {
                         color: ctaHovered.win ? '#10b981' : 'white'
                     }}
                     onClick={() => {
-                        win(wrestler.id,showDate);
-                        document.querySelector(`.modal.active li[data-wrestler="${wrestler.id}"]`).remove();
+                        win(wrestler.id, showDate);
+                        onAfterMatch?.();
+                        document
+                            .querySelector(`.modal.active li[data-wrestler="${wrestler.id}"]`)
+                            ?.remove();
                     }}
                     onMouseEnter={() => setCtaHovered(prev => ({ ...prev, win: true }))}
                     onMouseLeave={() => setCtaHovered(prev => ({ ...prev, win: false }))}
@@ -241,8 +260,11 @@ export const Wrestler = ({wrestler, show}) => {
                         color: ctaHovered.lose ? '#ef4444' : 'white'
                     }}
                     onClick={() => {
-                        loose(wrestler.id,showDate);
-                        document.querySelector(`.modal.active li[data-wrestler="${wrestler.id}"]`).remove();
+                        loose(wrestler.id, showDate);
+                        onAfterMatch?.();
+                        document
+                            .querySelector(`.modal.active li[data-wrestler="${wrestler.id}"]`)
+                            ?.remove();
                     }}
                     onMouseEnter={() => setCtaHovered(prev => ({ ...prev, lose: true }))}
                     onMouseLeave={() => setCtaHovered(prev => ({ ...prev, lose: false }))}
