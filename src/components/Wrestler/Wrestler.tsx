@@ -149,7 +149,7 @@ type WrestlerProps = {
     showName: string | null;
     match: { date: string | Date }[];
   };
-  show: { date: string; title: string };
+  show: { date: string; title: string; pleLabel?: string };
   onAfterMatch?: () => void;
   /** Clic droit : suppression API (désactivé sur la page show : corbeille par glisser-déposer). */
   enableContextDelete?: boolean;

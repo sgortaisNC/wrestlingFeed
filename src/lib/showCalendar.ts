@@ -16,18 +16,20 @@ export async function getWrestlersForCalendar() {
   });
 }
 
-const PLE_DATES = [
-  { date: '2026-4-18', event: 'WrestleMania 42 (Night 1)' },
-  { date: '2026-4-19', event: 'WrestleMania 42 (Night 2)' },
-  { date: '2026-5-31', event: 'Clash in Italy' },
-  { date: '2026-8-01', event: 'SummerSlam (Night 1)' },
-  { date: '2026-8-02', event: 'SummerSlam (Night 2)' },
-  { date: '2026-9-06', event: 'Money in the Bank' },
-] as const;
+export type PleEventRow = { dateKey: string; label: string };
+
+export async function getPleEventsForCalendar(): Promise<PleEventRow[]> {
+  return prisma.pleEvent.findMany({
+    orderBy: { dateKey: 'asc' },
+    select: { dateKey: true, label: true },
+  });
+}
 
 export type CalendarShow = {
   date: string;
   title: string;
+  /** Libellé affiché pour les PLE (ex. WrestleMania 42). */
+  pleLabel?: string;
   wrestlers: CalendarWrestler[];
 };
 
@@ -39,7 +41,11 @@ export function formatLocalDateKey(d: Date): string {
   return `${y}-${m}-${day}`;
 }
 
-export function buildCalendarShows(fetchDate: string, allWrestlers: CalendarWrestler[]): CalendarShow[] {
+export function buildCalendarShows(
+  fetchDate: string,
+  allWrestlers: CalendarWrestler[],
+  pleEvents: PleEventRow[]
+): CalendarShow[] {
   const date = new Date(fetchDate);
   const yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 2);
@@ -53,13 +59,13 @@ export function buildCalendarShows(fetchDate: string, allWrestlers: CalendarWres
       return w.match.length === 0 || w.match.at(-1)?.date.toISOString() !== date.toISOString();
     });
 
-    const checkPLE = PLE_DATES.filter(
-      (p) => p.date === `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
-    );
-    if (checkPLE.length > 0) {
+    const dayKey = formatLocalDateKey(date);
+    const ple = pleEvents.find((p) => p.dateKey === dayKey);
+    if (ple) {
       shows.push({
         date: date.toISOString(),
         title: 'PLE',
+        pleLabel: ple.label,
         wrestlers: timeWrestler,
       });
     }

@@ -40,6 +40,12 @@
   font-weight: 600;
 }
 
+.pleLabel {
+  font-weight: 500;
+  opacity: 0.92;
+  max-width: min(100%, 28rem);
+}
+
 .headerActions {
   display: flex;
   flex-wrap: wrap;

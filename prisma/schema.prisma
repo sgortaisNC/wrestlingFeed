@@ -13,6 +13,13 @@ model Options {
   value String
 }
 
+/** Premium Live Event — une entrée par date (clé calendrier locale YYYY-MM-DD). */
+model PleEvent {
+  id      Int    @id @default(autoincrement())
+  dateKey String @unique
+  label   String
+}
+
 model Show {
   id        Int        @id @default(autoincrement())
   name      String     @unique

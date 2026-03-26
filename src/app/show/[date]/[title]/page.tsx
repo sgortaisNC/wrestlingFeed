@@ -3,6 +3,7 @@ import {
   buildCalendarShows,
   findCalendarShow,
   getAppCalendarDate,
+  getPleEventsForCalendar,
   getWrestlersForCalendar,
 } from '@/lib/showCalendar';
 import { ShowPageClient } from './ShowPageClient';
@@ -16,9 +17,12 @@ export default async function ShowPage({ params }: PageProps) {
   const { date: dateKey, title: titleParam } = await params;
   const decodedTitle = decodeURIComponent(titleParam);
 
-  const fetchDate = await getAppCalendarDate();
-  const allWrestlers = await getWrestlersForCalendar();
-  const shows = buildCalendarShows(fetchDate, allWrestlers);
+  const [fetchDate, allWrestlers, pleEvents] = await Promise.all([
+    getAppCalendarDate(),
+    getWrestlersForCalendar(),
+    getPleEventsForCalendar(),
+  ]);
+  const shows = buildCalendarShows(fetchDate, allWrestlers, pleEvents);
   const show = findCalendarShow(shows, dateKey, decodedTitle);
 
   if (!show) {

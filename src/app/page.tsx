@@ -3,6 +3,7 @@ import {
   buildCalendarShows,
   formatLocalDateKey,
   getAppCalendarDate,
+  getPleEventsForCalendar,
   getWrestlersForCalendar,
 } from "@/lib/showCalendar";
 
@@ -10,9 +11,12 @@ export const dynamic = "force-dynamic";
 export const revalidate = 60;
 
 export default async function Home() {
-  const fetchDate = await getAppCalendarDate();
-  const allWrestlers = await getWrestlersForCalendar();
-  const shows = buildCalendarShows(fetchDate, allWrestlers);
+  const [fetchDate, allWrestlers, pleEvents] = await Promise.all([
+    getAppCalendarDate(),
+    getWrestlersForCalendar(),
+    getPleEventsForCalendar(),
+  ]);
+  const shows = buildCalendarShows(fetchDate, allWrestlers, pleEvents);
 
   return (
     <div className="grid">

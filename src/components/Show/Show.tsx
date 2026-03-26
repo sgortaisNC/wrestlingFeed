@@ -7,7 +7,7 @@ export const Show = ({
   className,
   dateKey,
 }: {
-  show: { date: string; title: string };
+  show: { date: string; title: string; pleLabel?: string };
   className: string;
   dateKey: string;
 }) => {
@@ -21,7 +21,10 @@ export const Show = ({
 
   return (
     <Link href={href} className={className}>
-      <h2>{show.title}</h2>
+      <h2>
+        {show.title}
+        {show.pleLabel ? <> — {show.pleLabel}</> : null}
+      </h2>
       <p>{formattedDate}</p>
     </Link>
   );

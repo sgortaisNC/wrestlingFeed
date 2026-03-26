@@ -297,6 +297,12 @@ export function ShowPageClient({ show }: ShowPageClientProps) {
       <header className={css.header}>
         <div className={css.headerTitle}>
           <span className={`show-badge ${show.title}`}>{show.title}</span>
+          {show.pleLabel ? (
+            <>
+              <span className="date-separator">•</span>
+              <span className={css.pleLabel}>{show.pleLabel}</span>
+            </>
+          ) : null}
           <span className="date-separator">•</span>
           <span className="show-date">{formattedDate}</span>
         </div>
