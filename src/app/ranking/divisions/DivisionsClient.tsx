@@ -103,7 +103,8 @@ export function DivisionsClient() {
                       ? '—'
                       : entry.progressionDivision > 0
                         ? `+${entry.progressionDivision}`
-                        : entry.progressionDivision}
+                        : "="
+                    }
                   </span>
                   <span className={css.score}>{entry.totalScore.toFixed(1)}</span>
                 </li>
