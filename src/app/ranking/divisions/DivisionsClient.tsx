@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { normalizeDivision, WRESTLING_DIVISIONS } from '@/utils/wrestlingDivision';
 import css from './style.module.scss';
 
 interface RankingEntry {
@@ -16,6 +17,8 @@ interface RankingEntry {
   baseScore: number;
   progression: number | null;
   positionSemainePrecedente: number | null;
+  positionSemainePrecedenteDivision: number | null;
+  progressionDivision: number | null;
   periodeMatchs: { debut: string; fin: string } | null;
 }
 
@@ -23,17 +26,6 @@ interface RankingResponse {
   ranking: RankingEntry[];
   periodeActuelle: { start: string; end: string };
   periodePrecedente: { start: string; end: string };
-}
-
-const DIVISIONS = ['Raw', 'SmackDown', 'NXT', 'Evolve'] as const;
-
-function normalizeDivision(showName: string | null): (typeof DIVISIONS)[number] {
-  if (!showName) return 'Evolve';
-  const normalized = showName.toLowerCase().trim();
-  if (normalized.includes('raw')) return 'Raw';
-  if (normalized.includes('smackdown') || normalized.includes('smack down')) return 'SmackDown';
-  if (normalized.includes('nxt')) return 'NXT';
-  return 'Evolve';
 }
 
 export function DivisionsClient() {
@@ -55,14 +47,14 @@ export function DivisionsClient() {
     fetchRanking();
   }, []);
 
-  const byDivision = DIVISIONS.reduce(
+  const byDivision = WRESTLING_DIVISIONS.reduce(
     (acc, div) => {
       acc[div] = ranking
         .filter((e) => normalizeDivision(e.showName) === div)
         .sort((a, b) => b.totalScore - a.totalScore);
       return acc;
     },
-    {} as Record<(typeof DIVISIONS)[number], RankingEntry[]>
+    {} as Record<(typeof WRESTLING_DIVISIONS)[number], RankingEntry[]>
   );
 
   if (loading) {
@@ -83,7 +75,7 @@ export function DivisionsClient() {
         </Link>
       </h1>
       <div className={css.grid}>
-        {DIVISIONS.map((division) => (
+        {WRESTLING_DIVISIONS.map((division) => (
           <div key={division} className={css.column}>
             <h2 className={css.divisionTitle}>{division}</h2>
             <ul className={css.list}>
@@ -92,8 +84,8 @@ export function DivisionsClient() {
                   key={entry.id}
                   className={`${css.item} ${entry.gender === 'female' ? css.female : css.male}`}
                   title={
-                    entry.positionSemainePrecedente
-                      ? `${entry.positionSemainePrecedente}e la semaine passée → ${entry.progression !== null && entry.progression > 0 ? '+' : ''}${entry.progression} place(s)`
+                    entry.positionSemainePrecedenteDivision != null
+                      ? `${entry.positionSemainePrecedenteDivision}e la semaine passée → ${entry.progressionDivision !== null && entry.progressionDivision > 0 ? '+' : ''}${entry.progressionDivision} place(s)`
                       : 'Nouveau dans le classement'
                   }
                 >
@@ -105,13 +97,13 @@ export function DivisionsClient() {
                   </span>
                   <span className={css.name}>{entry.name}</span>
                   <span
-                    className={`${css.progression} ${entry.progression !== null && entry.progression > 0 ? css.progressionUp : entry.progression !== null && entry.progression < 0 ? css.progressionDown : ''}`}
+                    className={`${css.progression} ${entry.progressionDivision !== null && entry.progressionDivision > 0 ? css.progressionUp : entry.progressionDivision !== null && entry.progressionDivision < 0 ? css.progressionDown : ''}`}
                   >
-                    {entry.progression === null
+                    {entry.progressionDivision === null
                       ? '—'
-                      : entry.progression > 0
-                        ? `+${entry.progression}`
-                        : entry.progression}
+                      : entry.progressionDivision > 0
+                        ? `+${entry.progressionDivision}`
+                        : entry.progressionDivision}
                   </span>
                   <span className={css.score}>{entry.totalScore.toFixed(1)}</span>
                 </li>

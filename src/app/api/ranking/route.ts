@@ -1,4 +1,5 @@
 import { prisma } from '@/utils/prisma';
+import { normalizeDivision, WRESTLING_DIVISIONS } from '@/utils/wrestlingDivision';
 import { Match, Wrestler } from '@prisma/client';
 import { NextResponse } from 'next/server';
 
@@ -105,17 +106,30 @@ export async function GET() {
     const { start: prevStart, end: prevEnd } = getPreviousWeekBounds(currentStart);
 
     // Classement à la fin de la semaine précédente (matchs jusqu'au mercredi inclus)
-    const rankingSemainePrecedente = wrestlers
-      .map((w) => ({
-        id: w.id,
-        score: calculateRankingScore(matchesBeforeDate(w.match, prevEnd)).totalScore,
-      }))
-      .sort((a, b) => b.score - a.score);
+    const scoresSemainePrecedente = wrestlers.map((w) => ({
+      id: w.id,
+      score: calculateRankingScore(matchesBeforeDate(w.match, prevEnd)).totalScore,
+      division: normalizeDivision(w.showName),
+    }));
+
+    const rankingSemainePrecedente = [...scoresSemainePrecedente]
+      .sort((a, b) => b.score - a.score)
+      .map(({ id, score }) => ({ id, score }));
 
     const positionSemainePrecedente = new Map<number, number>();
     rankingSemainePrecedente.forEach((w, index) => {
       positionSemainePrecedente.set(w.id, index + 1);
     });
+
+    const positionSemainePrecedenteDivision = new Map<number, number>();
+    for (const div of WRESTLING_DIVISIONS) {
+      const rows = scoresSemainePrecedente
+        .filter((r) => r.division === div)
+        .sort((a, b) => b.score - a.score);
+      rows.forEach((row, index) => {
+        positionSemainePrecedenteDivision.set(row.id, index + 1);
+      });
+    }
 
     const ranking = wrestlers.map((w) => {
       const stats = calculateRankingScore(w.match);
@@ -140,16 +154,35 @@ export async function GET() {
 
     ranking.sort((a, b) => b.totalScore - a.totalScore);
 
+    const positionActuelleDivision = new Map<number, number>();
+    for (const div of WRESTLING_DIVISIONS) {
+      const inDiv = ranking
+        .filter((r) => normalizeDivision(r.showName) === div)
+        .sort((a, b) => b.totalScore - a.totalScore);
+      inDiv.forEach((r, i) => {
+        positionActuelleDivision.set(r.id, i + 1);
+      });
+    }
+
     // Ajouter la progression (places gagnées ou perdues)
     const rankingWithProgression = ranking.map((entry, index) => {
       const positionActuelle = index + 1;
       const positionPrecedente = positionSemainePrecedente.get(entry.id) ?? null;
       const progression =
         positionPrecedente !== null ? positionPrecedente - positionActuelle : null;
+      const positionPrecedenteDivision =
+        positionSemainePrecedenteDivision.get(entry.id) ?? null;
+      const posActuelleDiv = positionActuelleDivision.get(entry.id) ?? null;
+      const progressionDivision =
+        positionPrecedenteDivision !== null && posActuelleDiv !== null
+          ? positionPrecedenteDivision - posActuelleDiv
+          : null;
       return {
         ...entry,
         progression,
         positionSemainePrecedente: positionPrecedente,
+        positionSemainePrecedenteDivision: positionPrecedenteDivision,
+        progressionDivision,
       };
     });
 
