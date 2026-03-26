@@ -100,11 +100,10 @@ export function DivisionsClient() {
                     className={`${css.progression} ${entry.progressionDivision !== null && entry.progressionDivision > 0 ? css.progressionUp : entry.progressionDivision !== null && entry.progressionDivision < 0 ? css.progressionDown : ''}`}
                   >
                     {entry.progressionDivision === null
-                      ? '—'
+                      ? ""
                       : entry.progressionDivision > 0
                         ? `+${entry.progressionDivision}`
-                        : "="
-                    }
+                        : entry.progressionDivision == 0 ? "=" : `${entry.progressionDivision}`}
                   </span>
                   <span className={css.score}>{entry.totalScore.toFixed(1)}</span>
                 </li>
