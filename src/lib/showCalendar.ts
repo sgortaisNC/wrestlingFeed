@@ -74,8 +74,6 @@ export function buildCalendarShows(
       shows.push({ date: date.toISOString(), title: 'SmackDown', wrestlers: timeWrestler });
     } else if (date.getDay() === 2) {
       shows.push({ date: date.toISOString(), title: 'NXT', wrestlers: timeWrestler });
-    } else if (date.getDay() === 3) {
-      shows.push({ date: date.toISOString(), title: 'Evolve', wrestlers: timeWrestler });
     } else if (date.getDay() === 1) {
       shows.push({ date: date.toISOString(), title: 'Raw', wrestlers: timeWrestler });
     }

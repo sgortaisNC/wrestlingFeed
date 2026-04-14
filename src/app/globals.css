@@ -151,16 +151,6 @@ a {
   }
 }
 
-.Evolve {
-  background: linear-gradient(135deg, rgba(72, 1, 207, 0.2) 0%, rgba(72, 1, 207, 0.3) 100%);
-  border-color: rgba(72, 1, 207, 0.4);
-  
-  &:hover {
-    background: linear-gradient(135deg, rgba(72, 1, 207, 0.3) 0%, rgba(72, 1, 207, 0.4) 100%);
-    border-color: rgba(72, 1, 207, 0.6);
-  }
-}
-
 .PLE{
   background: linear-gradient(135deg, rgba(89, 89, 89, 0.2) 0%, rgba(89, 89, 89, 0.3) 100%);
   border-color: rgba(89, 89, 89, 0.4);
@@ -261,12 +251,6 @@ a {
     background: rgba(203, 180, 73, 0.3);
     color: #fdcb6e;
     border: 1px solid rgba(203, 180, 73, 0.4);
-  }
-  
-  &.Evolve {
-    background: rgba(72, 1, 207, 0.3);
-    color: #a29bfe;
-    border: 1px solid rgba(72, 1, 207, 0.4);
   }
   
   &.PLE {
