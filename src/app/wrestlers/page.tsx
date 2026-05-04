@@ -6,7 +6,7 @@ import css from "./Wrestlers.module.scss";
 interface Wrestler {
     id: number;
     name: string;
-    show: string;
+    show: Show;
 }
 
 interface ApiWrestler {
