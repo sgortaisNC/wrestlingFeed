@@ -28,52 +28,118 @@
   }
 }
 
-.wrestlersList {
+.subtitle {
+  color: rgba(255, 255, 255, 0.88);
+  text-align: center;
+  margin: 0 auto 2rem;
+  max-width: 760px;
+  position: relative;
+  z-index: 1;
+}
+
+.board {
   display: grid;
-  gap: 1.5rem;
-  max-width: 800px;
+  grid-template-columns: repeat(3, minmax(260px, 1fr));
+  gap: 1rem;
+  max-width: 1280px;
   margin: 0 auto;
   position: relative;
   z-index: 1;
 }
 
-.wrestlerForm {
+.column {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 20px;
-  padding: 2rem;
+  border-radius: 16px;
+  padding: 1rem;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    transition: left 0.5s;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+}
+
+.columnDroppable {
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.columnHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #fff;
+  margin-bottom: 0.75rem;
+
+  h2 {
+    font-size: 1.15rem;
+    margin: 0;
+    font-weight: 600;
   }
-  
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-    border-color: rgba(255, 255, 255, 0.3);
-    
-    &::before {
-      left: 100%;
-    }
+
+  span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.18);
+    font-size: 0.8rem;
+    font-weight: 700;
   }
-  
+}
+
+.cards {
   display: grid;
-  grid-template-columns: 1fr 1fr auto;
-  gap: 1.5rem;
-  align-items: end;
+  gap: 0.75rem;
+  overflow: auto;
+  max-height: 72vh;
+  padding-right: 0.2rem;
+}
+
+.card {
+  background: rgba(16, 18, 36, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 14px;
+  padding: 0.85rem;
+  display: grid;
+  gap: 0.75rem;
+  cursor: grab;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    border-color: rgba(255, 255, 255, 0.32);
+  }
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.showBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: white;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.saving {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.75rem;
 }
 
 .formGroup {
@@ -89,7 +155,7 @@
   }
 }
 
-.input, .select {
+.input {
   padding: 0.75rem 1rem;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -115,15 +181,6 @@
   &:hover {
     border-color: rgba(255, 255, 255, 0.3);
     background: rgba(255, 255, 255, 0.12);
-  }
-}
-
-.select {
-  cursor: pointer;
-  
-  option {
-    background: #667eea;
-    color: white;
   }
 }
 
@@ -194,15 +251,18 @@
       margin-bottom: 1.5rem;
     }
   }
-  
-  .wrestlerForm {
+
+  .board {
     grid-template-columns: 1fr;
     gap: 1rem;
-    padding: 1.5rem;
   }
-  
-  .wrestlersList {
-    gap: 1rem;
+
+  .column {
+    min-height: 260px;
+  }
+
+  .cards {
+    max-height: none;
   }
 }
 
@@ -215,20 +275,25 @@
       margin-bottom: 1rem;
     }
   }
-  
-  .wrestlerForm {
-    padding: 1rem;
-    
-    .formGroup {
-      gap: 0.25rem;
-      
-      label {
-        font-size: 0.8rem;
-      }
+
+  .subtitle {
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .column {
+    padding: 0.75rem;
+  }
+
+  .formGroup {
+    gap: 0.25rem;
+
+    label {
+      font-size: 0.8rem;
     }
   }
-  
-  .input, .select {
+
+  .input {
     padding: 0.6rem 0.8rem;
     font-size: 0.9rem;
   }
