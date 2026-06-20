@@ -1,39 +1,33 @@
 import React, {useState} from "react";
 import {Toast} from "@/components/Toast/Toast";
 
-function win(id: number, date: string){
-    fetch('/api/match', {
-        method: 'POST',
-        body: JSON.stringify({
-            wrestlerId: id,
-            win: true,
-            draw: false,
-            loose: false,
-            date: date
-        }),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }).then((data) => {
-        console.log('Success:', data);
-    })
+async function recordMatch(id: number, date: string, result: { win: boolean; loose: boolean }): Promise<boolean> {
+    try {
+        const res = await fetch('/api/match', {
+            method: 'POST',
+            body: JSON.stringify({
+                wrestlerId: id,
+                win: result.win,
+                draw: false,
+                loose: result.loose,
+                date: date
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        return res.ok;
+    } catch (err) {
+        console.error('Erreur enregistrement du match:', err);
+        return false;
+    }
 }
-function loose(id: number, date: string){
-    fetch('/api/match', {
-        method: 'POST',
-        body: JSON.stringify({
-            wrestlerId: id,
-            win: false,
-            draw: false,
-            loose: true,
-            date: date
-        }),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }).then((data) => {
-        console.log('Success:', data);
-    })
+
+function win(id: number, date: string) {
+    return recordMatch(id, date, { win: true, loose: false });
+}
+function loose(id: number, date: string) {
+    return recordMatch(id, date, { win: false, loose: true });
 }
 
 function lastSeenDelta(date1: string | Date | null, date2: string | Date) {
@@ -239,8 +233,9 @@ export const Wrestler = ({ wrestler, show, onAfterMatch, enableContextDelete = t
                         borderColor: ctaHovered.win ? 'rgba(16, 185, 129, 0.3)' : 'rgba(255, 255, 255, 0.2)',
                         color: ctaHovered.win ? '#10b981' : 'white'
                     }}
-                    onClick={() => {
-                        win(wrestler.id, showDate);
+                    onClick={async () => {
+                        const ok = await win(wrestler.id, showDate);
+                        if (!ok) return;
                         onAfterMatch?.();
                         document
                             .querySelector(`.modal.active li[data-wrestler="${wrestler.id}"]`)
@@ -259,8 +254,9 @@ export const Wrestler = ({ wrestler, show, onAfterMatch, enableContextDelete = t
                         borderColor: ctaHovered.lose ? 'rgba(239, 68, 68, 0.3)' : 'rgba(255, 255, 255, 0.2)',
                         color: ctaHovered.lose ? '#ef4444' : 'white'
                     }}
-                    onClick={() => {
-                        loose(wrestler.id, showDate);
+                    onClick={async () => {
+                        const ok = await loose(wrestler.id, showDate);
+                        if (!ok) return;
                         onAfterMatch?.();
                         document
                             .querySelector(`.modal.active li[data-wrestler="${wrestler.id}"]`)

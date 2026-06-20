@@ -63,9 +63,13 @@ export function ShowPageClient({ show }: ShowPageClientProps) {
   const showDate = show.date;
   const dragKindRef = useRef<'pool' | null>(null);
 
+  // Catcheurs dont on vient d'enregistrer un match : masqués des deux colonnes
+  // en attendant que router.refresh() reflète le match côté serveur.
+  const [pendingMatchIds, setPendingMatchIds] = useState<Set<number>>(() => new Set());
+
   const filteredWrestlers = useMemo(
-    () => show.wrestlers.filter((w) => noMatchOnShowDay(w, showDate)),
-    [show.wrestlers, showDate]
+    () => show.wrestlers.filter((w) => noMatchOnShowDay(w, showDate) && !pendingMatchIds.has(w.id)),
+    [show.wrestlers, showDate, pendingMatchIds]
   );
 
   const [showMarkedAsSeen, setShowMarkedAsSeen] = useState(false);
@@ -129,11 +133,35 @@ export function ShowPageClient({ show }: ShowPageClientProps) {
 
   const handleAfterMatch = useCallback(
     (id: number) => {
+      setPendingMatchIds((prev) => {
+        const next = new Set(prev);
+        next.add(id);
+        return next;
+      });
       setLineup((prev) => prev.filter((w) => w.id !== id));
       router.refresh();
     },
     [router]
   );
+
+  // Quand les données serveur reflètent enfin le match (le catcheur n'est plus
+  // « sans match ce jour »), on le retire de la liste d'attente.
+  useEffect(() => {
+    setPendingMatchIds((prev) => {
+      if (prev.size === 0) return prev;
+      let changed = false;
+      const next = new Set<number>();
+      for (const id of prev) {
+        const w = show.wrestlers.find((x) => x.id === id);
+        if (w && noMatchOnShowDay(w, showDate)) {
+          next.add(id);
+        } else {
+          changed = true;
+        }
+      }
+      return changed ? next : prev;
+    });
+  }, [show.wrestlers, showDate]);
 
   const handleShowSeen = () => {
     showSeen(show.date);
