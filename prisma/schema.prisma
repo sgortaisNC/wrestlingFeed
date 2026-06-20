@@ -35,6 +35,9 @@ model Wrestler {
   showName     String?
   lastSeen     DateTime?
   personalRank Int?
+  // Classement personnel par duels : note ELO (null = jamais comparé) et nombre de duels joués.
+  personalScore Int?
+  personalVotes Int      @default(0)
   match        Match[]
 }
 
