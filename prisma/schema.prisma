@@ -27,14 +27,15 @@ model Show {
 }
 
 model Wrestler {
-  id       Int       @id @default(autoincrement())
-  name     String    @unique
-  active   Boolean   @default(false)
-  gender   String    @default("male")
-  show     Show?     @relation(fields: [showName], references: [name])
-  showName String?
-  lastSeen DateTime?
-  match    Match[]
+  id           Int       @id @default(autoincrement())
+  name         String    @unique
+  active       Boolean   @default(false)
+  gender       String    @default("male")
+  show         Show?     @relation(fields: [showName], references: [name])
+  showName     String?
+  lastSeen     DateTime?
+  personalRank Int?
+  match        Match[]
 }
 
 model Match {
