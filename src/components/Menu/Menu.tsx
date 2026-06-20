@@ -124,14 +124,11 @@ export const Menu = () => {
                         </Link>
                     </li>
                     <li>
-                        <Link href={"/news"} className={isActive('/news') ? css.activeLink : ''}>
+                        <Link href={"/personal-ranking"} className={isActive('/personal-ranking') ? css.activeLink : ''}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path>
-                                <path d="M18 14h-8"></path>
-                                <path d="M15 18h-5"></path>
-                                <path d="M10 6h8v4h-8V6z"></path>
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
                             </svg>
-                            News WWE
+                            Mon Classement
                         </Link>
                     </li>
                     <li>
