@@ -23,6 +23,7 @@ export default function PersonalRankingPage() {
     const [wrestlers, setWrestlers] = useState<Wrestler[]>([]);
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
+    const [saveError, setSaveError] = useState(false);
     const [dragIndex, setDragIndex] = useState<number | null>(null);
     const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
     const saveTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -33,7 +34,7 @@ export default function PersonalRankingPage() {
 
     const fetchRanking = async () => {
         try {
-            const res = await fetch("/api/personal-ranking");
+            const res = await fetch("/api/personal-ranking", { cache: "no-store" });
             const data: Wrestler[] = await res.json();
             setWrestlers(data);
         } catch (err) {
@@ -47,15 +48,20 @@ export default function PersonalRankingPage() {
         if (saveTimeout.current) clearTimeout(saveTimeout.current);
         saveTimeout.current = setTimeout(async () => {
             setSaving(true);
+            setSaveError(false);
             try {
                 const rankings = ordered.map((w, i) => ({ id: w.id, rank: i + 1 }));
-                await fetch("/api/personal-ranking", {
+                const res = await fetch("/api/personal-ranking", {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ rankings }),
                 });
+                if (!res.ok) {
+                    throw new Error(`Sauvegarde échouée (${res.status})`);
+                }
             } catch (err) {
                 console.error("Erreur sauvegarde:", err);
+                setSaveError(true);
             } finally {
                 setSaving(false);
             }
@@ -109,6 +115,11 @@ export default function PersonalRankingPage() {
                     Glisse-dépose les catcheurs pour les ordonner selon ton plaisir de les regarder.
                 </p>
                 {saving && <span className={css.savingBadge}>Sauvegarde...</span>}
+                {!saving && saveError && (
+                    <span className={css.savingBadge} style={{ background: "#e5393533", borderColor: "#e53935", color: "#e53935" }}>
+                        Échec de la sauvegarde
+                    </span>
+                )}
             </header>
 
             <ol className={css.list}>

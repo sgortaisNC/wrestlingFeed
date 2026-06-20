@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/utils/prisma';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
     try {
         const wrestlers = await prisma.wrestler.findMany({
@@ -16,7 +18,9 @@ export async function GET() {
                 { name: 'asc' },
             ],
         });
-        return NextResponse.json(wrestlers);
+        return NextResponse.json(wrestlers, {
+            headers: { 'Cache-Control': 'no-store' },
+        });
     } catch (error) {
         console.error('Erreur lors de la récupération du classement personnel:', error);
         return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 });
